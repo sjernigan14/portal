@@ -1,30 +1,102 @@
 {
-  "generated": "2026-04-06T17:45:00Z",
+  "generated": "2026-04-06T09:00:00-04:00",
   "alerts": [
     {
-      "id": "trc-dates-resolved-2026-04-06",
-      "level": "FYI",
+      "id": "briefing-drafts-send-2026-04-06",
+      "level": "ACTION_NEEDED",
+      "unit": "nsh",
+      "title": "4 email drafts ready to send today",
+      "detail": "Re: Sean McKelvey (Augusta logistics) | Re: NSH/Bobby formation docs | Re: OpenTable/Zachary | Re: Prime STQ/Prieto. All drafts ready in Gmail.",
+      "source": "daily-briefing",
+      "timestamp": "2026-04-06T09:00:00-04:00"
+    },
+    {
+      "id": "buccan-reservation-2026-04-06",
+      "level": "ACTION_NEEDED",
       "unit": "personal",
-      "title": "TRC climbing dates confirmed: April 23 + April 30",
-      "detail": "April 16 not available (Lauren unavailable). Kelly confirmed April 23 4-5pm and Lauren offered April 30 4:30-5:30pm. Both at TRC Salvage Yard.",
-      "source": "girls-activities",
-      "timestamp": "2026-04-06T13:34:00Z"
+      "title": "URGENT: Book Buccan April 8 — window opens in 2 days",
+      "detail": "30-day window for May 8 Palm Beach dinner opens April 8. Fills within hours. Decide hotel first. OpenTable or 561-833-3450.",
+      "source": "daily-briefing",
+      "timestamp": "2026-04-06T09:00:00-04:00"
+    },
+    {
+      "id": "hasan-financials-due-2026-04-06",
+      "level": "ACTION_NEEDED",
+      "unit": "mega",
+      "title": "Hasan MEGA financials due TOMORROW 4/7",
+      "detail": "Follow up today if not received by EOD.",
+      "source": "daily-briefing",
+      "timestamp": "2026-04-06T09:00:00-04:00"
+    },
+    {
+      "id": "dmv-renewal-2026-04-06",
+      "level": "ACTION_NEEDED",
+      "unit": "personal",
+      "title": "DMV vehicle registration — renew before Saturday",
+      "detail": "NC DMV notice 4/3. Renew online before Augusta return on 4/11.",
+      "source": "daily-briefing",
+      "timestamp": "2026-04-06T09:00:00-04:00"
+    },
+    {
+      "id": "toast-api-escalated-2026-04-06",
+      "level": "WAITING_ON",
+      "unit": "crawford",
+      "title": "Toast API — escalated to backend team this morning",
+      "detail": "Camerlengo escalated Create button issue at 9:41 AM. Waiting on backend fix.",
+      "source": "daily-briefing",
+      "timestamp": "2026-04-06T09:41:00-04:00"
+    },
+    {
+      "id": "breakers-hotel-2026-04-06",
+      "level": "WAITING_ON",
+      "unit": "personal",
+      "title": "The Breakers — connecting room inquiry sent 9:51 AM",
+      "detail": "Alicia hesitant on Four Seasons. Breakers as alternative. Decide by Wed 4/8.",
+      "source": "daily-briefing",
+      "timestamp": "2026-04-06T09:51:00-04:00"
+    },
+    {
+      "id": "mariana-tek-overdue-2026-04-06",
+      "level": "WAITING_ON",
+      "unit": "mega",
+      "title": "Mariana Tek API — OVERDUE (4 days)",
+      "detail": "Request sent via Alicia 4/2. No reply. Blocks M1-M10 MEGA agents.",
+      "source": "daily-briefing",
+      "timestamp": "2026-04-06T09:00:00-04:00"
     },
     {
       "id": "trc-payment-2026-04-06",
       "level": "WAITING_ON",
       "unit": "personal",
       "title": "TRC payment status unclear",
-      "detail": "Kelly said payment collected once signed up. No payment confirmation found. Verify with Kelly or check for charge.",
+      "detail": "Kelly said payment collected once signed up. No confirmation found.",
       "source": "girls-activities",
       "timestamp": "2026-04-06T05:00:00Z"
+    },
+    {
+      "id": "trc-april30-confirmed-2026-04-06",
+      "level": "FYI",
+      "unit": "personal",
+      "title": "TRC climbing: April 30 4:30–5:30 PM confirmed",
+      "detail": "April 16 cancelled (Lauren unavailable). New date April 30 arranged this morning.",
+      "source": "girls-activities",
+      "timestamp": "2026-04-06T09:31:00-04:00"
+    },
+    {
+      "id": "pnc-emoney-expired-2026-04-06",
+      "level": "FYI",
+      "unit": "personal",
+      "title": "PNC eMoney link expired — account ***428",
+      "detail": "Unlinked from eMoney Advisors on 4/6. May affect Cresset view. Check with Ryan if needed.",
+      "source": "daily-briefing",
+      "timestamp": "2026-04-06T08:15:00-04:00"
     },
     {
       "id": "mega-intel-v2-2026-04-05",
       "level": "FYI",
       "unit": "mega",
-      "title": "Weekly competitive intel report updated",
-      "detail": "The Daily Pilates opening Raleigh Winter 2026. Elite Core won MAGGY Award. FlowCorps expanding with 2 locations.",
+      "title": "Weekly competitive intel updated",
+      "detail": "The Daily Pilates opening Raleigh Winter 2026. Elite Core won MAGGY Award.",
       "source": "mega/competitive-intel",
       "timestamp": "2026-04-05T21:00:00Z"
     },
@@ -32,32 +104,32 @@
       "id": "mega-content-2026-04-05",
       "level": "FYI",
       "unit": "mega",
-      "title": "Content package ready for review",
-      "detail": "5 Instagram captions, 1 email newsletter, 1 blog post. Forward to Lauren for review.",
+      "title": "Content package ready for Lauren's review",
+      "detail": "5 Instagram captions, 1 newsletter, 1 blog post.",
       "source": "mega/content-package",
       "timestamp": "2026-04-05T20:00:00Z"
     }
   ],
   "units": {
     "crawford": {
-      "status": "All 4 sites live. Crawford Brothers migrating to WordPress.",
-      "updatedAt": "2026-04-05T23:59:00Z"
+      "status": "Ashlyn starts today. Toast API escalated to backend. Crawford Brothers Option 2 nav confirmed.",
+      "updatedAt": "2026-04-06T09:00:00-04:00"
     },
     "mega": {
-      "status": "Intel + content packages auto-refreshing weekly. The Daily Pilates entering Raleigh.",
-      "updatedAt": "2026-04-05T21:00:00Z"
+      "status": "Xplor + OpenPhone requested today. Mariana Tek overdue (4 days). Hasan financials due tomorrow.",
+      "updatedAt": "2026-04-06T09:00:00-04:00"
     },
     "patron": {
-      "status": "Prototype complete, 5 screens. No active development.",
-      "updatedAt": "2026-03-15T12:00:00Z"
+      "status": "APA in redline. April close target. Chris Bobby handling docs.",
+      "updatedAt": "2026-04-06T09:00:00-04:00"
     },
     "nsh": {
-      "status": "Masters monitor active. Sunday Final $1,150. 43 of 47 badges delivered.",
-      "updatedAt": "2026-04-05T15:07:00Z"
+      "status": "Scott in Augusta — Day 2. DraftKings Wed 4/8. Corbel dinner Fri 4/10. Return Sat 4/11 6:15 AM.",
+      "updatedAt": "2026-04-06T09:00:00-04:00"
     },
     "personal": {
-      "status": "TRC climbing Apr 23 + Apr 30 confirmed. Palm Beach May 8-11 booked.",
-      "updatedAt": "2026-04-06T13:34:00Z"
+      "status": "TRC Apr 23 + Apr 30 confirmed. Hotel deciding (FS vs. Breakers). Buccan window opens April 8.",
+      "updatedAt": "2026-04-06T09:00:00-04:00"
     }
   },
   "artifacts": {
@@ -78,21 +150,22 @@
     }
   },
   "ntfy": {
-    "pendingCount": 0,
-    "lastSent": "2026-04-06T05:01:00Z"
+    "pendingCount": 4,
+    "lastSent": "2026-04-06T09:00:00-04:00"
   },
   "activity": [
-    {"timestamp": "2026-04-06T13:34:00Z", "thread": "Girls Activities", "action": "TRC April 16 resolved: Lauren unavailable. Dates confirmed: April 23 4-5pm + April 30 4:30-5:30pm.", "unit": "personal"},
+    {"timestamp": "2026-04-06T09:00:00-04:00", "thread": "Daily Briefing", "action": "Briefing generated. 4 actions, 4 waiting, 4 FYI. PDF emailed + printed. Portal updated.", "unit": "nsh"},
+    {"timestamp": "2026-04-06T09:31:00-04:00", "thread": "Girls Activities", "action": "TRC April 30 4:30 PM confirmed. April 16 cancelled (Lauren unavailable).", "unit": "personal"},
+    {"timestamp": "2026-04-06T13:34:00Z", "thread": "Girls Activities", "action": "TRC dates confirmed: April 23 4-5pm + April 30 4:30-5:30pm.", "unit": "personal"},
     {"timestamp": "2026-04-06T12:00:00Z", "thread": "Portal Builder", "action": "Live data pipeline deployed. Alert bar, unit statuses, ntfy integration active.", "unit": "nsh"},
     {"timestamp": "2026-04-06T10:30:00Z", "thread": "Portal Builder", "action": "Password set across all 10 pages. Bar Sous Terre spelling fixed.", "unit": "nsh"},
-    {"timestamp": "2026-04-06T05:00:00Z", "thread": "Girls Activities", "action": "TRC April 16 session unconfirmed. April 23 confirmed with Lauren Hallihan.", "unit": "personal"},
     {"timestamp": "2026-04-05T23:59:00Z", "thread": "Portal Hardening", "action": "Auth gates on all 9 artifact pages. 404 page, Crawford overview, favicon shipped.", "unit": "nsh"},
-    {"timestamp": "2026-04-05T23:59:00Z", "thread": "AI Playbook", "action": "7 artifact HTML pages built and deployed: MEGA intel, content, Pioneer DD, Masters, Patron, activities, Palm Beach.", "unit": "nsh"},
-    {"timestamp": "2026-04-05T21:00:00Z", "thread": "MEGA Intel", "action": "Weekly competitive scan complete. The Daily Pilates entering Raleigh Winter 2026. FlowCorps expanding.", "unit": "mega"},
-    {"timestamp": "2026-04-05T20:00:00Z", "thread": "MEGA Content", "action": "Weekly content package generated. 5 Instagram captions, 1 newsletter, 1 blog post.", "unit": "mega"},
-    {"timestamp": "2026-04-05T19:30:00Z", "thread": "Chief of Staff", "action": "Voice profile uploaded to Box. Brodeto audit complete. Johnny Belflower email drafted.", "unit": "crawford"},
-    {"timestamp": "2026-04-05T18:00:00Z", "thread": "System Health", "action": "Weekly audit complete. Status YELLOW. 4 issues flagged, 17 new contacts pending.", "unit": "nsh"},
-    {"timestamp": "2026-04-05T15:07:00Z", "thread": "Masters Monitor", "action": "Daily scan: Sunday Final $1,150 (+2%). 43 of 47 badges delivered. 3 in transit.", "unit": "nsh"},
-    {"timestamp": "2026-04-05T11:00:00Z", "thread": "Chief of Staff", "action": "Portal repo created. System architecture map built. Memory files modularized to Box.", "unit": "nsh"}
+    {"timestamp": "2026-04-05T23:59:00Z", "thread": "AI Playbook", "action": "7 artifact HTML pages built: MEGA intel, content, Pioneer DD, Masters, Patron, activities, Palm Beach.", "unit": "nsh"},
+    {"timestamp": "2026-04-05T21:00:00Z", "thread": "MEGA Intel", "action": "Weekly scan: The Daily Pilates entering Raleigh. FlowCorps expanding.", "unit": "mega"},
+    {"timestamp": "2026-04-05T20:00:00Z", "thread": "MEGA Content", "action": "Weekly content package: 5 Instagram captions, 1 newsletter, 1 blog post.", "unit": "mega"},
+    {"timestamp": "2026-04-05T19:30:00Z", "thread": "Chief of Staff", "action": "Voice profile uploaded. Brodeto audit complete. Briefing format confirmed.", "unit": "crawford"},
+    {"timestamp": "2026-04-05T18:00:00Z", "thread": "System Health", "action": "Weekly audit: YELLOW. 4 issues, 17 new contacts pending.", "unit": "nsh"},
+    {"timestamp": "2026-04-05T15:07:00Z", "thread": "Masters Monitor", "action": "Sunday Final $1,150 (+2%). 43 of 47 badges delivered.", "unit": "nsh"},
+    {"timestamp": "2026-04-05T11:00:00Z", "thread": "Chief of Staff", "action": "Portal repo created. System architecture map built. Memory files modularized.", "unit": "nsh"}
   ]
 }
