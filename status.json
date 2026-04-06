@@ -124,8 +124,8 @@
       "updatedAt": "2026-04-06T09:00:00-04:00"
     },
     "nsh": {
-      "status": "Scott in Augusta — Day 2. DraftKings Wed 4/8. Corbel dinner Fri 4/10. Return Sat 4/11 6:15 AM.",
-      "updatedAt": "2026-04-06T09:00:00-04:00"
+      "status": "Scott in Augusta — Day 2. No new badge/ticket emails. 4 badges unaccounted (last check 4/5). Tournament Thu 4/9. DraftKings Wed 4/8. Corbel dinner Fri 4/10. Return Sat 4/11 6:15 AM.",
+      "updatedAt": "2026-04-06T19:07:00Z"
     },
     "personal": {
       "status": "TRC Apr 23 + Apr 30 confirmed. Hotel deciding (FS vs. Breakers). Buccan window opens April 8.",
@@ -144,8 +144,8 @@
       "status": "ok"
     },
     "dashboards/masters-price-monitor": {
-      "lastRun": "2026-04-05T15:07:00Z",
-      "nextRun": "2026-04-06T15:07:00Z",
+      "lastRun": "2026-04-06T19:07:00Z",
+      "nextRun": "2026-04-07T19:07:00Z",
       "status": "ok"
     }
   },
@@ -165,6 +165,7 @@
     {"timestamp": "2026-04-05T20:00:00Z", "thread": "MEGA Content", "action": "Weekly content package: 5 Instagram captions, 1 newsletter, 1 blog post.", "unit": "mega"},
     {"timestamp": "2026-04-05T19:30:00Z", "thread": "Chief of Staff", "action": "Voice profile uploaded. Brodeto audit complete. Briefing format confirmed.", "unit": "crawford"},
     {"timestamp": "2026-04-05T18:00:00Z", "thread": "System Health", "action": "Weekly audit: YELLOW. 4 issues, 17 new contacts pending.", "unit": "nsh"},
+    {"timestamp": "2026-04-06T19:07:00Z", "thread": "Masters Monitor", "action": "No new activity. Scott in Augusta Day 2. No badge/ticket emails. 4 badges unaccounted — tournament starts Apr 9.", "unit": "nsh"},
     {"timestamp": "2026-04-05T15:07:00Z", "thread": "Masters Monitor", "action": "Sunday Final $1,150 (+2%). 43 of 47 badges delivered.", "unit": "nsh"},
     {"timestamp": "2026-04-05T11:00:00Z", "thread": "Chief of Staff", "action": "Portal repo created. System architecture map built. Memory files modularized.", "unit": "nsh"}
   ]
