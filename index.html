@@ -134,6 +134,70 @@
   .search-btn { position: fixed; top: 44px; right: 32px; z-index: 100; background: #141414; border: 1px solid #222; color: #888; width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; transition: all 0.2s; }
   .search-btn:hover { border-color: #c8a55a; color: #fff; }
 
+  /* Briefing sections */
+  .briefing-section { margin-bottom: 20px; }
+  .briefing-label { font-size: 11px; font-weight: 700; color: #555; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+  .briefing-label.red { color: #f87171; }
+  .briefing-label.amber { color: #fbbf24; }
+  .briefing-label.blue { color: #60a5fa; }
+  .briefing-label.green { color: #27AE60; }
+
+  /* Calendar strip */
+  .cal-strip { background: #141414; border: 1px solid #222; border-radius: 10px; padding: 14px 18px; margin-bottom: 8px; }
+  .cal-event { display: flex; gap: 12px; padding: 6px 0; border-bottom: 1px solid #1a1a1a; align-items: baseline; }
+  .cal-event:last-child { border-bottom: none; }
+  .cal-time { font-size: 12px; color: #c8a55a; font-weight: 600; min-width: 64px; flex-shrink: 0; }
+  .cal-title { font-size: 13px; color: #fff; flex: 1; }
+  .cal-notes { font-size: 11px; color: #666; margin-top: 2px; }
+  .cal-declined { opacity: 0.45; }
+  .cal-week { font-size: 12px; color: #888; line-height: 1.6; }
+  .cal-week strong { color: #ccc; font-weight: 600; }
+
+  /* Priority list */
+  .priority-list { list-style: none; }
+  .priority-item { display: flex; gap: 10px; padding: 10px 14px; background: #141414; border: 1px solid #1e1e1e; border-radius: 8px; margin-bottom: 6px; cursor: pointer; transition: border-color 0.2s; text-decoration: none; }
+  .priority-item:hover { border-color: #c8a55a; }
+  .priority-num { font-size: 13px; font-weight: 700; color: #c8a55a; min-width: 18px; flex-shrink: 0; }
+  .priority-body { flex: 1; min-width: 0; }
+  .priority-title { font-size: 13px; font-weight: 600; color: #fff; }
+  .priority-detail { font-size: 12px; color: #888; margin-top: 2px; line-height: 1.4; }
+  .priority-tag { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-left: 6px; vertical-align: middle; }
+  .priority-tag.send { background: #27AE60; color: #fff; }
+  .priority-tag.deadline { background: #f87171; color: #fff; }
+  .priority-link { color: #555; font-size: 14px; flex-shrink: 0; align-self: center; }
+
+  /* Email table */
+  .email-row { display: flex; gap: 10px; padding: 10px 14px; background: #141414; border: 1px solid #1e1e1e; border-radius: 8px; margin-bottom: 6px; cursor: pointer; transition: border-color 0.2s; text-decoration: none; }
+  .email-row:hover { border-color: #c8a55a; }
+  .email-from { font-size: 12px; color: #c8a55a; font-weight: 600; min-width: 100px; flex-shrink: 0; }
+  .email-body { flex: 1; min-width: 0; }
+  .email-subject { font-size: 13px; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .email-action { font-size: 12px; color: #888; margin-top: 2px; }
+  .email-arrow { color: #555; font-size: 14px; flex-shrink: 0; align-self: center; }
+
+  /* Deal rows */
+  .deal-row { padding: 10px 14px; background: #141414; border: 1px solid #1e1e1e; border-radius: 8px; margin-bottom: 6px; }
+  .deal-name { font-size: 13px; font-weight: 600; color: #fff; }
+  .deal-status { font-size: 12px; color: #888; margin-top: 2px; }
+  .deal-waiting { font-size: 11px; color: #fbbf24; margin-top: 4px; }
+
+  /* Waiting-on rows */
+  .waiting-row { display: flex; gap: 10px; padding: 10px 14px; background: #141414; border: 1px solid #1e1e1e; border-radius: 8px; margin-bottom: 6px; align-items: baseline; }
+  .waiting-person { font-size: 13px; font-weight: 600; color: #fff; min-width: 100px; flex-shrink: 0; }
+  .waiting-item { font-size: 12px; color: #888; flex: 1; }
+  .waiting-flag { font-size: 10px; font-weight: 700; color: #f87171; flex-shrink: 0; }
+  .waiting-flag.stale { color: #fbbf24; }
+
+  /* Draft pills */
+  .draft-row { display: flex; gap: 10px; padding: 10px 14px; background: #141414; border: 1px solid #1e1e1e; border-radius: 8px; margin-bottom: 6px; align-items: center; cursor: pointer; transition: border-color 0.2s; }
+  .draft-row:hover { border-color: #c8a55a; }
+  .draft-title { font-size: 13px; font-weight: 600; color: #fff; flex: 1; }
+  .draft-notes { font-size: 12px; color: #888; }
+  .draft-send-tag { font-size: 10px; font-weight: 700; background: #27AE60; color: #fff; padding: 2px 8px; border-radius: 3px; }
+
+  /* Briefing timestamp */
+  .briefing-timestamp { font-size: 11px; color: #444; margin-bottom: 20px; }
+
   /* Pull to refresh indicator */
   .ptr-indicator { text-align: center; padding: 8px; font-size: 12px; color: #555; display: none; max-width: 1200px; margin: 0 auto; }
   .ptr-indicator.visible { display: block; }
@@ -201,39 +265,80 @@
 </div>
 
 <main>
-  <!-- HOME -->
+  <!-- HOME — LIVE BRIEFING -->
   <div class="section active" id="home">
-    <div class="units">
-      <a class="unit-card" data-unit="crawford" onclick="showSection('crawford')">
-        <h3>Crawford Hospitality</h3>
-        <div class="desc">Restaurant group — Crawford & Son, Jolie, Brodeto, Bar Sous Terre, Crawford Brothers. Websites, marketing dashboards, SEO audits.</div>
-        <div class="unit-status"></div>
-        <div class="meta"><span class="count">6 artifacts</span><span data-date="2026-04-05">Apr 5, 2026</span></div>
-      </a>
-      <a class="unit-card" data-unit="mega" onclick="showSection('mega')">
-        <h3>MEGA</h3>
-        <div class="desc">The MEGA Workout — Pilates & fitness. Competitive intel, content engine, marketing dashboards, operational reports.</div>
-        <div class="unit-status"></div>
-        <div class="meta"><span class="count">2 artifacts</span><span data-date="2026-04-05">Apr 5, 2026</span></div>
-      </a>
-      <a class="unit-card" data-unit="patron" onclick="showSection('patron')">
-        <h3>Patron Properties</h3>
-        <div class="desc">Augusta short-term rental platform. Prototype screens, property prospecting tools, guest lifecycle flows.</div>
-        <div class="unit-status"></div>
-        <div class="meta"><span class="count">1 artifact</span><span data-date="2026-03-15">Mar 2026</span></div>
-      </a>
-      <a class="unit-card" data-unit="nsh" onclick="showSection('nsh')">
-        <h3>NSH / SAJ Consulting</h3>
-        <div class="desc">Norwood Street Holdings + SAJ. Masters badge tracking, price monitor, deal analysis, system architecture.</div>
-        <div class="unit-status"></div>
-        <div class="meta"><span class="count">3 artifacts</span><span data-date="2026-04-05">Apr 5, 2026</span></div>
-      </a>
-      <a class="unit-card" data-unit="personal" onclick="showSection('personal')">
-        <h3>Personal</h3>
-        <div class="desc">Girls activities tracker, home management, travel briefs, daily briefings, grocery automation.</div>
-        <div class="unit-status"></div>
-        <div class="meta"><span class="count">2 artifacts</span><span data-date="2026-04-05">Apr 5, 2026</span></div>
-      </a>
+    <div class="briefing-timestamp" id="briefingTimestamp"></div>
+
+    <!-- Today's Calendar -->
+    <div class="briefing-section" id="calSection">
+      <div class="briefing-label">Today's Schedule</div>
+      <div class="cal-strip" id="calToday"></div>
+      <div class="briefing-label" style="margin-top:12px;">This Week</div>
+      <div class="cal-strip">
+        <div class="cal-week" id="calWeek"></div>
+      </div>
+    </div>
+
+    <!-- Priorities -->
+    <div class="briefing-section" id="prioritySection">
+      <div class="briefing-label red">Today</div>
+      <div class="priority-list" id="priorityList"></div>
+    </div>
+
+    <!-- Emails Needing Response -->
+    <div class="briefing-section" id="emailSection">
+      <div class="briefing-label">Emails Needing Response</div>
+      <div id="emailList"></div>
+    </div>
+
+    <!-- Drafts Ready to Send -->
+    <div class="briefing-section" id="draftSection">
+      <div class="briefing-label green">Drafts — Hit Send</div>
+      <div id="draftList"></div>
+    </div>
+
+    <!-- Active Deals -->
+    <div class="briefing-section" id="dealSection">
+      <div class="briefing-label">Active Deals / Projects</div>
+      <div id="dealList"></div>
+    </div>
+
+    <!-- Waiting On -->
+    <div class="briefing-section" id="waitingSection">
+      <div class="briefing-label amber">Waiting On</div>
+      <div id="waitingList"></div>
+    </div>
+
+    <!-- Business Units (collapsed view) -->
+    <div class="briefing-section">
+      <div class="briefing-label">Business Units</div>
+      <div class="units">
+        <a class="unit-card" data-unit="crawford" onclick="showSection('crawford')">
+          <h3>Crawford Hospitality</h3>
+          <div class="unit-status"></div>
+          <div class="meta"><span class="count">6 artifacts</span><span></span></div>
+        </a>
+        <a class="unit-card" data-unit="mega" onclick="showSection('mega')">
+          <h3>MEGA</h3>
+          <div class="unit-status"></div>
+          <div class="meta"><span class="count">2 artifacts</span><span></span></div>
+        </a>
+        <a class="unit-card" data-unit="patron" onclick="showSection('patron')">
+          <h3>Patron Properties</h3>
+          <div class="unit-status"></div>
+          <div class="meta"><span class="count">1 artifact</span><span></span></div>
+        </a>
+        <a class="unit-card" data-unit="nsh" onclick="showSection('nsh')">
+          <h3>NSH / SAJ Consulting</h3>
+          <div class="unit-status"></div>
+          <div class="meta"><span class="count">3 artifacts</span><span></span></div>
+        </a>
+        <a class="unit-card" data-unit="personal" onclick="showSection('personal')">
+          <h3>Personal</h3>
+          <div class="unit-status"></div>
+          <div class="meta"><span class="count">2 artifacts</span><span></span></div>
+        </a>
+      </div>
     </div>
   </div>
 
@@ -515,6 +620,8 @@ document.querySelectorAll('nav a').forEach(function(a) {
       renderAlerts(data.alerts || []);
       renderUnitStatuses(data.units || {});
       renderNtfyBadge(data.ntfy || {});
+      renderBriefing(data.briefing || {});
+      renderActivity(data.activity || []);
     })
     .catch(function() {});
   setTimeout(loadStatus, 5 * 60 * 1000);
@@ -538,11 +645,14 @@ function renderAlerts(alerts) {
   var list = '';
   alerts.forEach(function(a) {
     var ago = timeAgo(a.timestamp);
-    list += '<div class="alert-item" data-level="' + esc(a.level) + '">'
-      + '<div class="alert-title">' + esc(a.title) + '</div>'
+    var hasLink = a.link && a.link.length > 0;
+    var openTag = hasLink ? '<a href="' + esc(a.link) + '" target="_blank" style="text-decoration:none;display:block;">' : '';
+    var closeTag = hasLink ? '</a>' : '';
+    list += openTag + '<div class="alert-item" data-level="' + esc(a.level) + '"' + (hasLink ? ' style="cursor:pointer;"' : '') + '>'
+      + '<div class="alert-title">' + esc(a.title) + (hasLink ? ' <span style="color:#c8a55a;font-size:11px;">&#8599;</span>' : '') + '</div>'
       + '<div class="alert-detail">' + esc(a.detail) + '</div>'
       + '<div class="alert-meta">' + esc(a.unit.toUpperCase()) + ' &middot; ' + ago + '</div>'
-      + '</div>';
+      + '</div>' + closeTag;
   });
   document.getElementById('alertList').innerHTML = list;
 }
@@ -614,6 +724,121 @@ function renderActivity(activity) {
       + '</div></div>';
   });
   feed.innerHTML = html;
+}
+
+// === BRIEFING RENDERER ===
+function renderBriefing(b) {
+  if (!b || !b.date) return;
+
+  // Timestamp
+  var ts = document.getElementById('briefingTimestamp');
+  if (ts && b.title) ts.textContent = b.title;
+
+  // Calendar — Today
+  if (b.calendar && b.calendar.today) {
+    var calHtml = '';
+    b.calendar.today.forEach(function(ev) {
+      var cls = ev.status === 'declined' ? ' cal-declined' : '';
+      calHtml += '<div class="cal-event' + cls + '">'
+        + '<div class="cal-time">' + esc(ev.time) + '</div>'
+        + '<div style="flex:1"><div class="cal-title">' + esc(ev.title) + '</div>'
+        + (ev.notes ? '<div class="cal-notes">' + esc(ev.notes) + '</div>' : '')
+        + '</div></div>';
+    });
+    document.getElementById('calToday').innerHTML = calHtml;
+  }
+
+  // Calendar — Week
+  if (b.calendar && b.calendar.week) {
+    var weekHtml = '';
+    b.calendar.week.forEach(function(w) {
+      weekHtml += '<strong>' + esc(w.day) + '</strong> — ' + esc(w.events) + '<br>';
+    });
+    document.getElementById('calWeek').innerHTML = weekHtml;
+  }
+
+  // Priorities
+  if (b.priorities && b.priorities.length) {
+    var pHtml = '';
+    b.priorities.forEach(function(p) {
+      var hasLink = p.link && p.link.length > 0;
+      var tags = '';
+      (p.tags || []).forEach(function(t) {
+        if (t === 'SEND') tags += '<span class="priority-tag send">HIT SEND</span>';
+        if (t === 'DEADLINE') tags += '<span class="priority-tag deadline">DEADLINE</span>';
+      });
+      var openTag = hasLink ? '<a href="' + esc(p.link) + '" target="_blank" class="priority-item">' : '<div class="priority-item">';
+      var closeTag = hasLink ? '</a>' : '</div>';
+      pHtml += openTag
+        + '<div class="priority-num">' + p.num + '</div>'
+        + '<div class="priority-body">'
+        + '<div class="priority-title">' + esc(p.title) + tags + '</div>'
+        + '<div class="priority-detail">' + esc(p.detail) + '</div>'
+        + '</div>'
+        + (hasLink ? '<div class="priority-link">&#8599;</div>' : '')
+        + closeTag;
+    });
+    document.getElementById('priorityList').innerHTML = pHtml;
+  }
+
+  // Emails
+  if (b.emails && b.emails.length) {
+    var eHtml = '';
+    b.emails.forEach(function(e) {
+      var hasLink = e.link && e.link.length > 0;
+      var openTag = hasLink ? '<a href="' + esc(e.link) + '" target="_blank" class="email-row">' : '<div class="email-row">';
+      var closeTag = hasLink ? '</a>' : '</div>';
+      eHtml += openTag
+        + '<div class="email-from">' + esc(e.from) + '</div>'
+        + '<div class="email-body">'
+        + '<div class="email-subject">' + esc(e.subject) + '</div>'
+        + '<div class="email-action">' + esc(e.action) + '</div>'
+        + '</div>'
+        + (hasLink ? '<div class="email-arrow">&#8599;</div>' : '')
+        + closeTag;
+    });
+    document.getElementById('emailList').innerHTML = eHtml;
+  }
+
+  // Drafts
+  if (b.drafts && b.drafts.length) {
+    var dHtml = '';
+    b.drafts.forEach(function(d) {
+      dHtml += '<a href="https://mail.google.com/mail/u/0/#drafts" target="_blank" class="draft-row">'
+        + '<div class="draft-title">' + esc(d.title) + '</div>'
+        + '<div class="draft-notes">' + esc(d.notes) + '</div>'
+        + '<div class="draft-send-tag">SEND</div>'
+        + '</a>';
+    });
+    document.getElementById('draftList').innerHTML = dHtml;
+  }
+
+  // Deals
+  if (b.deals && b.deals.length) {
+    var dlHtml = '';
+    b.deals.forEach(function(d) {
+      dlHtml += '<div class="deal-row">'
+        + '<div class="deal-name">' + esc(d.name) + '</div>'
+        + '<div class="deal-status">' + esc(d.status) + '</div>'
+        + (d.waiting ? '<div class="deal-waiting">⏳ ' + esc(d.waiting) + '</div>' : '')
+        + '</div>';
+    });
+    document.getElementById('dealList').innerHTML = dlHtml;
+  }
+
+  // Waiting On
+  if (b.waitingOn && b.waitingOn.length) {
+    var wHtml = '';
+    b.waitingOn.forEach(function(w) {
+      var flagClass = (w.flag || '').indexOf('STALE') !== -1 ? ' stale' : '';
+      wHtml += '<div class="waiting-row">'
+        + '<div class="waiting-person">' + esc(w.person) + '</div>'
+        + '<div class="waiting-item">' + esc(w.item) + (w.due ? ' — due ' + esc(w.due) : '') + '</div>'
+        + (w.flag ? '<div class="waiting-flag' + flagClass + '">' + esc(w.flag) + '</div>' : '')
+        + '</div>';
+    });
+    document.getElementById('waitingList').innerHTML = wHtml;
+  }
 }
 
 // === SEARCH ===
@@ -694,6 +919,7 @@ document.addEventListener('keydown', function(e) {
           renderAlerts(data.alerts || []);
           renderUnitStatuses(data.units || {});
           renderNtfyBadge(data.ntfy || {});
+          renderBriefing(data.briefing || {});
           renderActivity(data.activity || []);
           ind.textContent = 'Updated';
           setTimeout(function() { ind.classList.remove('visible'); ind.textContent = 'Refreshing...'; }, 1500);
@@ -714,15 +940,7 @@ showSection = function(id) {
   if (tab) tab.classList.add('active');
 };
 
-// Hook into loadStatus to also render activity
-var _origLoadStatus = null;
-(function patchStatus() {
-  // Re-fetch and render activity on initial load
-  fetch('./status.json?t=' + Date.now())
-    .then(function(r) { if (!r.ok) throw new Error(r.status); return r.json(); })
-    .then(function(data) { renderActivity(data.activity || []); })
-    .catch(function() {});
-})();
+// Initial loadStatus now handles activity + briefing rendering
 </script>
 
 </body>

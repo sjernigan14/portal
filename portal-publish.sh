@@ -131,6 +131,50 @@ while [[ $# -gt 0 ]]; do
       echo "Cleared all alerts"
       ;;
 
+    --briefing)
+      BRIEFING_FILE="$2"; shift 2
+      if [ ! -f "$BRIEFING_FILE" ]; then
+        echo "ERROR: Briefing JSON file not found: $BRIEFING_FILE" >&2
+        exit 1
+      fi
+      jq --slurpfile b "$BRIEFING_FILE" '.briefing = $b[0]' "$STATUS_FILE" > tmp.$$.json && mv tmp.$$.json "$STATUS_FILE"
+      CHANGED=true
+      echo "Updated briefing data"
+      ;;
+
+    --calendar-today)
+      CAL_FILE="$2"; shift 2
+      if [ ! -f "$CAL_FILE" ]; then
+        echo "ERROR: Calendar JSON file not found: $CAL_FILE" >&2
+        exit 1
+      fi
+      jq --slurpfile c "$CAL_FILE" '.briefing.calendar.today = $c[0]' "$STATUS_FILE" > tmp.$$.json && mv tmp.$$.json "$STATUS_FILE"
+      CHANGED=true
+      echo "Updated today's calendar"
+      ;;
+
+    --priority)
+      PRIORITY_FILE="$2"; shift 2
+      if [ ! -f "$PRIORITY_FILE" ]; then
+        echo "ERROR: Priority JSON file not found: $PRIORITY_FILE" >&2
+        exit 1
+      fi
+      jq --slurpfile p "$PRIORITY_FILE" '.briefing.priorities = $p[0]' "$STATUS_FILE" > tmp.$$.json && mv tmp.$$.json "$STATUS_FILE"
+      CHANGED=true
+      echo "Updated priorities"
+      ;;
+
+    --waiting-on)
+      WAITING_FILE="$2"; shift 2
+      if [ ! -f "$WAITING_FILE" ]; then
+        echo "ERROR: Waiting-on JSON file not found: $WAITING_FILE" >&2
+        exit 1
+      fi
+      jq --slurpfile w "$WAITING_FILE" '.briefing.waitingOn = $w[0]' "$STATUS_FILE" > tmp.$$.json && mv tmp.$$.json "$STATUS_FILE"
+      CHANGED=true
+      echo "Updated waiting-on list"
+      ;;
+
     *)
       echo "Unknown flag: $1" >&2
       exit 1
