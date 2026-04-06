@@ -1,0 +1,356 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Masters Price Monitor</title><style>
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+body {
+background-color: #0a0a0a;
+color: #e0e0e0;
+font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+line-height: 1.6;
+padding: 20px;
+}
+.container {
+max-width: 1400px;
+margin: 0 auto;
+}
+/* Back Link */
+.back-link {
+display: inline-block;
+margin-bottom: 24px;
+padding: 8px 12px;
+color: #16a34a;
+text-decoration: none;
+border: 1px solid #222;
+border-radius: 4px;
+transition: all 0.3s ease;
+font-size: 13px;
+font-weight: 500;
+}
+.back-link:hover {
+background-color: rgba(22, 163, 74, 0.1);
+border-color: #16a34a;
+}
+/* Header */
+header {
+margin-bottom: 32px;
+}
+h1 {
+font-size: 32px;
+font-weight: 700;
+margin-bottom: 8px;
+color: #fff;
+}
+.header-meta {
+display: flex;
+gap: 24px;
+margin-top: 12px;
+font-size: 13px;
+color: #999;
+}
+.subtitle {
+font-size: 16px;
+color: #999;
+margin-bottom: 4px;
+}
+.updated {
+font-size: 12px;
+color: #666;
+}
+/* Cards & Sections */
+.section {
+margin-bottom: 32px;
+}
+.section-title {
+font-size: 14px;
+font-weight: 600;
+color: #16a34a;
+text-transform: uppercase;
+letter-spacing: 0.5px;
+margin-bottom: 16px;
+padding-bottom: 8px;
+border-bottom: 1px solid #222;
+}
+/* KPI Cards */
+.kpi-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+gap: 16px;
+margin-bottom: 24px;
+}
+.kpi-card {
+background-color: #141414;
+border: 1px solid #222;
+border-radius: 6px;
+padding: 16px;
+transition: all 0.3s ease;
+}
+.kpi-card:hover {
+border-color: #16a34a;
+background-color: rgba(22, 163, 74, 0.05);
+}
+.kpi-label {
+font-size: 12px;
+color: #999;
+text-transform: uppercase;
+letter-spacing: 0.5px;
+margin-bottom: 8px;
+font-weight: 500;
+}
+.kpi-value {
+font-size: 24px;
+font-weight: 700;
+color: #16a34a;
+margin-bottom: 8px;
+}
+.kpi-change {
+font-size: 12px;
+font-weight: 500;
+}
+.change-down {
+color: #22c55e;
+}
+.change-up {
+color: #ef4444;
+}
+.change-stable {
+color: #999;
+}
+/* Table */
+.table-wrapper {
+background-color: #141414;
+border: 1px solid #222;
+border-radius: 6px;
+overflow: hidden;
+}
+table {
+width: 100%;
+border-collapse: collapse;
+font-size: 13px;
+}
+thead {
+background-color: rgba(22, 163, 74, 0.05);
+border-bottom: 1px solid #222;
+}
+th {
+padding: 12px 16px;
+text-align: left;
+font-weight: 600;
+color: #16a34a;
+text-transform: uppercase;
+font-size: 11px;
+letter-spacing: 0.5px;
+}
+td {
+padding: 12px 16px;
+border-bottom: 1px solid #222;
+}
+tr:last-child td {
+border-bottom: none;
+}
+tr:hover {
+background-color: rgba(22, 163, 74, 0.03);
+}
+/* Two-Column Layout */
+.grid-2 {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+gap: 20px;
+margin-bottom: 24px;
+}
+/* Chart */
+.chart-container {
+background-color: #141414;
+border: 1px solid #222;
+border-radius: 6px;
+padding: 20px;
+margin-bottom: 24px;
+}
+.chart-title {
+font-size: 13px;
+font-weight: 600;
+color: #16a34a;
+margin-bottom: 16px;
+text-transform: uppercase;
+letter-spacing: 0.5px;
+}
+.chart-grid {
+display: flex;
+align-items: flex-end;
+gap: 8px;
+height: 200px;
+padding: 20px 0;
+}
+.bar {
+flex: 1;
+background: linear-gradient(to top, #16a34a, #22c55e);
+border-radius: 2px 2px 0 0;
+position: relative;
+min-height: 20px;
+transition: all 0.3s ease;
+}
+.bar:hover {
+opacity: 0.8;
+}
+.bar-label {
+position: absolute;
+bottom: -24px;
+left: 50%;
+transform: translateX(-50%);
+font-size: 10px;
+color: #999;
+white-space: nowrap;
+}
+.bar-value {
+position: absolute;
+top: -20px;
+left: 50%;
+transform: translateX(-50%);
+font-size: 11px;
+color: #16a34a;
+font-weight: 600;
+white-space: nowrap;
+}
+/* Intelligence Cards */
+.intel-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+gap: 16px;
+margin-bottom: 24px;
+}
+.intel-card {
+background-color: #141414;
+border: 1px solid #222;
+border-radius: 6px;
+padding: 16px;
+border-left: 3px solid #16a34a;
+}
+.intel-card-title {
+font-size: 13px;
+font-weight: 600;
+color: #fff;
+margin-bottom: 8px;
+}
+.intel-card-text {
+font-size: 13px;
+color: #999;
+line-height: 1.5;
+}
+/* Progress Bar */
+.progress-container {
+background-color: #141414;
+border: 1px solid #222;
+border-radius: 6px;
+padding: 20px;
+margin-bottom: 24px;
+}
+.progress-header {
+display: flex;
+justify-content: space-between;
+margin-bottom: 12px;
+}
+.progress-label {
+font-size: 13px;
+font-weight: 600;
+color: #fff;
+}
+.progress-text {
+font-size: 12px;
+color: #999;
+}
+.progress-bar {
+height: 8px;
+background-color: #222;
+border-radius: 4px;
+overflow: hidden;
+margin-bottom: 12px;
+}
+.progress-fill {
+height: 100%;
+background: linear-gradient(to right, #16a34a, #22c55e);
+width: 91%;
+border-radius: 4px;
+transition: width 0.3s ease;
+}
+.progress-stats {
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+gap: 12px;
+font-size: 12px;
+}
+.stat-item {
+background-color: rgba(22, 163, 74, 0.05);
+border: 1px solid #222;
+border-radius: 4px;
+padding: 8px;
+text-align: center;
+}
+.stat-value {
+font-size: 14px;
+font-weight: 600;
+color: #16a34a;
+margin-bottom: 4px;
+}
+.stat-label {
+font-size: 10px;
+color: #999;
+text-transform: uppercase;
+letter-spacing: 0.5px;
+}
+/* Rental Property Card */
+.property-card {
+background-color: #141414;
+border: 1px solid #222;
+border-radius: 6px;
+padding: 20px;
+}
+.property-stat {
+display: flex;
+justify-content: space-between;
+padding: 12px 0;
+border-bottom: 1px solid #222;
+}
+.property-stat:last-child {
+border-bottom: none;
+}
+.property-stat-label {
+font-size: 13px;
+color: #999;
+}
+.property-stat-value {
+font-size: 14px;
+font-weight: 600;
+color: #16a34a;
+}
+.yoy-positive {
+color: #22c55e;
+}
+/* Footer */
+footer {
+border-top: 1px solid #222;
+padding-top: 20px;
+margin-top: 40px;
+text-align: center;
+font-size: 12px;
+color: #666;
+}
+/* Responsive */
+@media (max-width: 768px) {
+.kpi-grid {
+grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+}
+h1 {
+font-size: 24px;
+}
+.progress-stats {
+grid-template-columns: repeat(2, 1fr);
+}
+table {
+font-size: 12px;
+}
+th, td {
+padding: 10px 12px;
+}
+}
+</style></head><body><div class="container"><a href="../index.html" class="back-link">← Back to Portal</a><header><h1>Masters Price Monitor</h1><p class="subtitle">StubHub + Vivid Seats · Daily 3 PM Scan</p><div class="header-meta"><span class="updated">Updated: April 5, 2026</span></div></header><section class="section"><h2 class="section-title">Ticket Price Summary</h2><div class="kpi-grid"><div class="kpi-card"><div class="kpi-label">Monday Practice</div><div class="kpi-value">$185</div><div class="kpi-change change-down">↓12% from yesterday</div></div><div class="kpi-card"><div class="kpi-label">Tuesday Practice</div><div class="kpi-value">$210</div><div class="kpi-change change-down">↓8%</div></div><div class="kpi-card"><div class="kpi-label">Wednesday Par 3</div><div class="kpi-value">$425</div><div class="kpi-change change-up">↑3%</div></div><div class="kpi-card"><div class="kpi-label">Thursday R1</div><div class="kpi-value">$680</div><div class="kpi-change change-down">↓5%</div></div><div class="kpi-card"><div class="kpi-label">Friday R2</div><div class="kpi-value">$590</div><div class="kpi-change change-down">↓7%</div></div><div class="kpi-card"><div class="kpi-label">Saturday R3</div><div class="kpi-value">$720</div><div class="kpi-change change-stable">Stable</div></div><div class="kpi-card"><div class="kpi-label">Sunday Final</div><div class="kpi-value">$1,150</div><div class="kpi-change change-up">↑2%</div></div></div></section><section class="section"><h2 class="section-title">Inventory Tracker</h2><div class="table-wrapper"><table><thead><tr><th>Day</th><th>StubHub Listings</th><th>Vivid Seats Listings</th><th>Avg Price</th><th>Low Price</th><th>High Price</th><th>7-Day Trend</th></tr></thead><tbody><tr><td><strong>Monday Practice</strong></td><td>324</td><td>287</td><td>$185</td><td>$145</td><td>$320</td><td><span style="color: #22c55e;">↓12%</span></td></tr><tr><td><strong>Tuesday Practice</strong></td><td>456</td><td>389</td><td>$210</td><td>$168</td><td>$445</td><td><span style="color: #22c55e;">↓8%</span></td></tr><tr><td><strong>Wednesday Par 3</strong></td><td>218</td><td>194</td><td>$425</td><td>$380</td><td>$650</td><td><span style="color: #ef4444;">↑3%</span></td></tr><tr><td><strong>Thursday R1</strong></td><td>142</td><td>128</td><td>$680</td><td>$520</td><td>$980</td><td><span style="color: #22c55e;">↓5%</span></td></tr><tr><td><strong>Friday R2</strong></td><td>156</td><td>139</td><td>$590</td><td>$450</td><td>$850</td><td><span style="color: #22c55e;">↓7%</span></td></tr><tr><td><strong>Saturday R3</strong></td><td>89</td><td>76</td><td>$720</td><td>$620</td><td>$1,050</td><td><span style="color: #999;">Stable</span></td></tr><tr><td><strong>Sunday Final</strong></td><td>64</td><td>53</td><td>$1,150</td><td>$880</td><td>$1,680</td><td><span style="color: #ef4444;">↑2%</span></td></tr></tbody></table></div></section><section class="section"><div class="chart-container"><div class="chart-title">Sunday Final Round — 14-Day Price History</div><div class="chart-grid"><div class="bar" style="height: 65%;"><div class="bar-value">$980</div><div class="bar-label">Mar 22</div></div><div class="bar" style="height: 68%;"><div class="bar-value">$995</div><div class="bar-label">Mar 23</div></div><div class="bar" style="height: 70%;"><div class="bar-value">$1,020</div><div class="bar-label">Mar 24</div></div><div class="bar" style="height: 72%;"><div class="bar-value">$1,045</div><div class="bar-label">Mar 25</div></div><div class="bar" style="height: 75%;"><div class="bar-value">$1,080</div><div class="bar-label">Mar 26</div></div><div class="bar" style="height: 76%;"><div class="bar-value">$1,095</div><div class="bar-label">Mar 27</div></div><div class="bar" style="height: 78%;"><div class="bar-value">$1,120</div><div class="bar-label">Mar 28</div></div><div class="bar" style="height: 79%;"><div class="bar-value">$1,130</div><div class="bar-label">Mar 29</div></div><div class="bar" style="height: 80%;"><div class="bar-value">$1,140</div><div class="bar-label">Mar 30</div></div><div class="bar" style="height: 81%;"><div class="bar-value">$1,145</div><div class="bar-label">Apr 1</div></div><div class="bar" style="height: 82%;"><div class="bar-value">$1,148</div><div class="bar-label">Apr 2</div></div><div class="bar" style="height: 82%;"><div class="bar-value">$1,150</div><div class="bar-label">Apr 3</div></div><div class="bar" style="height: 82%;"><div class="bar-value">$1,150</div><div class="bar-label">Apr 4</div></div><div class="bar" style="height: 82%;"><div class="bar-value">$1,150</div><div class="bar-label">Apr 5</div></div></div></div></section><section class="section"><h2 class="section-title">Market Intelligence</h2><div class="intel-grid"><div class="intel-card"><div class="intel-card-title">Inventory Decline</div><div class="intel-card-text">Inventory dropping fast: 34% fewer listings than same time 2025. Market tightening as Masters week approaches.</div></div><div class="intel-card"><div class="intel-card-title">Wednesday Premium</div><div class="intel-card-text">Wednesday Par 3 premium holding — family demand driving prices up 3% despite softer practice round market.</div></div><div class="intel-card"><div class="intel-card-title">Peak Trajectory</div><div class="intel-card-text">Sunday Final approaching 2024 peak of $1,280. Current $1,150 leaves 11% upside if demand sustains through Saturday.</div></div><div class="intel-card"><div class="intel-card-title">Practice Pattern</div><div class="intel-card-text">Practice round prices softening — typical pre-tournament pattern. Monday and Tuesday down 8-12% week-over-week.</div></div></div></section><section class="section"><h2 class="section-title">Badge Delivery Status</h2><div class="progress-container"><div class="progress-header"><span class="progress-label">Delivery Progress: 43 of 47 Badges</span><span class="progress-text">91% Complete</span></div><div class="progress-bar"><div class="progress-fill"></div></div><div class="progress-stats"><div class="stat-item"><div class="stat-value">47</div><div class="stat-label">Total Badges</div></div><div class="stat-item"><div class="stat-value">43</div><div class="stat-label">Delivered</div></div><div class="stat-item"><div class="stat-value">3</div><div class="stat-label">In Transit</div></div><div class="stat-item"><div class="stat-value">1</div><div class="stat-label">Pending</div></div></div></div></section><section class="section"><h2 class="section-title">Rental Property Impact (NSH)</h2><div class="property-card"><div class="property-stat"><span class="property-stat-label">Properties within 1 mile of ANGC</span><span class="property-stat-value">4 Houses</span></div><div class="property-stat"><span class="property-stat-label">Masters Week Occupancy</span><span class="property-stat-value">4/4 (100%)</span></div><div class="property-stat"><span class="property-stat-label">Masters Week Revenue</span><span class="property-stat-value" style="color: #22c55e;">$28,400</span></div><div class="property-stat"><span class="property-stat-label">Year-over-Year Growth</span><span class="property-stat-value yoy-positive">+14%</span></div></div></section><footer><p>Masters Price Monitor · Auto-scan daily 3:07 PM · Sources: StubHub API, Vivid Seats · NSH / SAJ Consulting</p></footer></div></body></html>
