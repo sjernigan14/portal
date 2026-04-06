@@ -80,5 +80,18 @@
   "ntfy": {
     "pendingCount": 1,
     "lastSent": "2026-04-06T05:01:00Z"
-  }
+  },
+  "activity": [
+    {"timestamp": "2026-04-06T12:00:00Z", "thread": "Portal Builder", "action": "Live data pipeline deployed. Alert bar, unit statuses, ntfy integration active.", "unit": "nsh"},
+    {"timestamp": "2026-04-06T10:30:00Z", "thread": "Portal Builder", "action": "Password set across all 10 pages. Bar Sous Terre spelling fixed.", "unit": "nsh"},
+    {"timestamp": "2026-04-06T05:00:00Z", "thread": "Girls Activities", "action": "TRC April 16 session unconfirmed. April 23 confirmed with Lauren Hallihan.", "unit": "personal"},
+    {"timestamp": "2026-04-05T23:59:00Z", "thread": "Portal Hardening", "action": "Auth gates on all 9 artifact pages. 404 page, Crawford overview, favicon shipped.", "unit": "nsh"},
+    {"timestamp": "2026-04-05T23:59:00Z", "thread": "AI Playbook", "action": "7 artifact HTML pages built and deployed: MEGA intel, content, Pioneer DD, Masters, Patron, activities, Palm Beach.", "unit": "nsh"},
+    {"timestamp": "2026-04-05T21:00:00Z", "thread": "MEGA Intel", "action": "Weekly competitive scan complete. The Daily Pilates entering Raleigh Winter 2026. FlowCorps expanding.", "unit": "mega"},
+    {"timestamp": "2026-04-05T20:00:00Z", "thread": "MEGA Content", "action": "Weekly content package generated. 5 Instagram captions, 1 newsletter, 1 blog post.", "unit": "mega"},
+    {"timestamp": "2026-04-05T19:30:00Z", "thread": "Chief of Staff", "action": "Voice profile uploaded to Box. Brodeto audit complete. Johnny Belflower email drafted.", "unit": "crawford"},
+    {"timestamp": "2026-04-05T18:00:00Z", "thread": "System Health", "action": "Weekly audit complete. Status YELLOW. 4 issues flagged, 17 new contacts pending.", "unit": "nsh"},
+    {"timestamp": "2026-04-05T15:07:00Z", "thread": "Masters Monitor", "action": "Daily scan: Sunday Final $1,150 (+2%). 43 of 47 badges delivered. 3 in transit.", "unit": "nsh"},
+    {"timestamp": "2026-04-05T11:00:00Z", "thread": "Chief of Staff", "action": "Portal repo created. System architecture map built. Memory files modularized to Box.", "unit": "nsh"}
+  ]
 }

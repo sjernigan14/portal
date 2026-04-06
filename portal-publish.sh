@@ -113,6 +113,17 @@ while [[ $# -gt 0 ]]; do
       echo "Sent ntfy notification: $NTFY_TITLE"
       ;;
 
+    --activity)
+      THREAD="$2"; ACTION="$3"; UNIT="$4"; shift 4
+      NOW=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+      jq --arg th "$THREAD" --arg a "$ACTION" --arg u "$UNIT" --arg ts "$NOW" \
+        '(.activity // []) as $existing |
+         .activity = ([{"timestamp":$ts,"thread":$th,"action":$a,"unit":$u}] + $existing) |
+         .activity = .activity[:50]' "$STATUS_FILE" > tmp.$$.json && mv tmp.$$.json "$STATUS_FILE"
+      CHANGED=true
+      echo "Added activity: [$THREAD] $ACTION"
+      ;;
+
     --clear-alerts)
       shift
       jq '.alerts = [] | .ntfy.pendingCount = 0' "$STATUS_FILE" > tmp.$$.json && mv tmp.$$.json "$STATUS_FILE"

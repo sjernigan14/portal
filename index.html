@@ -100,15 +100,63 @@
   /* Ntfy badge */
   .ntfy-badge { display: inline-flex; align-items: center; justify-content: center; background: #f87171; color: #fff; font-size: 11px; font-weight: 700; min-width: 18px; height: 18px; border-radius: 9px; padding: 0 5px; margin-left: 8px; vertical-align: middle; }
 
+  /* Activity Feed */
+  .activity-feed { max-width: 800px; }
+  .activity-item { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid #1a1a1a; }
+  .activity-item:last-child { border-bottom: none; }
+  .activity-time { font-size: 11px; color: #555; min-width: 56px; padding-top: 2px; flex-shrink: 0; }
+  .activity-dot { width: 8px; height: 8px; border-radius: 50%; background: #333; margin-top: 5px; flex-shrink: 0; }
+  .activity-dot[data-unit="crawford"] { background: #c8a55a; }
+  .activity-dot[data-unit="mega"] { background: #818cf8; }
+  .activity-dot[data-unit="patron"] { background: #34d399; }
+  .activity-dot[data-unit="nsh"] { background: #60a5fa; }
+  .activity-dot[data-unit="personal"] { background: #f472b6; }
+  .activity-body { flex: 1; min-width: 0; }
+  .activity-thread { font-size: 11px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 2px; }
+  .activity-text { font-size: 13px; color: #ccc; line-height: 1.4; }
+  .activity-date-group { font-size: 12px; font-weight: 700; color: #555; padding: 16px 0 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* Search Overlay */
+  .search-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 8000; display: none; align-items: flex-start; justify-content: center; padding-top: 80px; }
+  .search-overlay.visible { display: flex; }
+  .search-box { width: 90%; max-width: 560px; }
+  .search-input { width: 100%; background: #1a1a1a; border: 1px solid #333; color: #fff; padding: 14px 20px; border-radius: 10px; font-size: 16px; font-family: inherit; outline: none; }
+  .search-input:focus { border-color: #c8a55a; }
+  .search-input::placeholder { color: #555; }
+  .search-results { margin-top: 8px; max-height: 400px; overflow-y: auto; }
+  .search-result { background: #141414; border: 1px solid #1e1e1e; border-radius: 8px; padding: 12px 16px; margin-bottom: 6px; cursor: pointer; transition: border-color 0.2s; }
+  .search-result:hover { border-color: #c8a55a; }
+  .search-result-title { font-size: 14px; font-weight: 600; color: #fff; }
+  .search-result-meta { font-size: 11px; color: #666; margin-top: 2px; }
+  .search-hint { font-size: 11px; color: #444; text-align: center; margin-top: 12px; }
+
+  /* Search trigger button */
+  .search-btn { position: fixed; top: 44px; right: 32px; z-index: 100; background: #141414; border: 1px solid #222; color: #888; width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; transition: all 0.2s; }
+  .search-btn:hover { border-color: #c8a55a; color: #fff; }
+
+  /* Pull to refresh indicator */
+  .ptr-indicator { text-align: center; padding: 8px; font-size: 12px; color: #555; display: none; max-width: 1200px; margin: 0 auto; }
+  .ptr-indicator.visible { display: block; }
+
+  /* Bottom tab bar (mobile only) */
+  .tab-bar { display: none; }
+
   /* Mobile */
   @media (max-width: 640px) {
     header { padding: 24px 16px 16px; }
-    nav { padding: 0 16px; }
-    main { padding: 0 16px 40px; }
-    footer { padding: 24px 16px; }
+    nav { display: none; }
+    main { padding: 0 16px 100px; }
+    footer { padding: 24px 16px 100px; }
     .units { grid-template-columns: 1fr; }
     .artifacts { grid-template-columns: 1fr; }
     .alert-bar { padding: 0 16px; }
+    .search-btn { top: 28px; right: 16px; }
+
+    /* Bottom tab bar */
+    .tab-bar { display: flex; position: fixed; bottom: 0; left: 0; right: 0; background: #0a0a0a; border-top: 1px solid #1a1a1a; z-index: 7000; padding: 6px 0 env(safe-area-inset-bottom, 8px); }
+    .tab-bar a { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 6px 0; text-decoration: none; color: #555; font-size: 10px; font-weight: 600; transition: color 0.2s; }
+    .tab-bar a.active { color: #c8a55a; }
+    .tab-bar a .tab-icon { font-size: 20px; line-height: 1; }
   }
 </style>
 </head>
@@ -134,7 +182,11 @@
   <a href="#" data-view="patron">Patron Properties</a>
   <a href="#" data-view="nsh">NSH / SAJ</a>
   <a href="#" data-view="personal">Personal</a>
+  <a href="#" data-view="activity">Activity</a>
 </nav>
+
+<!-- Search Button -->
+<div class="search-btn" onclick="openSearch()" title="Search (Ctrl+K)">&#8981;</div>
 
 <!-- Alert Bar -->
 <div class="alert-bar" id="alertBar">
@@ -322,6 +374,16 @@
       </div>
     </div>
   </div>
+
+  <!-- ACTIVITY -->
+  <div class="section" id="activity">
+    <a class="back" onclick="showSection('home')">&larr; Back to Home</a>
+    <div class="section-header">
+      <h2>Activity</h2>
+      <p>Everything your AI system has done across all sessions and scheduled tasks</p>
+    </div>
+    <div class="activity-feed" id="activityFeed"></div>
+  </div>
 </main>
 
 <footer>
@@ -333,6 +395,27 @@
   </div>
   <div class="footer-credit">Built by SAJ Consulting &middot; Powered by Claude</div>
 </footer>
+
+<!-- Search Overlay -->
+<div class="search-overlay" id="searchOverlay" onclick="if(event.target===this)closeSearch()">
+  <div class="search-box">
+    <input type="text" class="search-input" id="searchInput" placeholder="Search artifacts, units, activity..." oninput="handleSearch(this.value)">
+    <div class="search-results" id="searchResults"></div>
+    <div class="search-hint">ESC to close</div>
+  </div>
+</div>
+
+<!-- Pull to refresh indicator -->
+<div class="ptr-indicator" id="ptrIndicator">Refreshing...</div>
+
+<!-- Bottom Tab Bar (mobile) -->
+<div class="tab-bar" id="tabBar">
+  <a href="#" data-view="home" class="active" onclick="event.preventDefault();showSection('home')"><span class="tab-icon">&#9679;</span>Home</a>
+  <a href="#" data-view="crawford" onclick="event.preventDefault();showSection('crawford')"><span class="tab-icon">&#9733;</span>Crawford</a>
+  <a href="#" data-view="mega" onclick="event.preventDefault();showSection('mega')"><span class="tab-icon">&#9883;</span>MEGA</a>
+  <a href="#" data-view="nsh" onclick="event.preventDefault();showSection('nsh')"><span class="tab-icon">&#9878;</span>NSH</a>
+  <a href="#" data-view="activity" onclick="event.preventDefault();showSection('activity')"><span class="tab-icon">&#9776;</span>Activity</a>
+</div>
 
 <script>
 // Password gate — hash-based, no plaintext in source
@@ -506,6 +589,140 @@ function esc(s) {
   d.textContent = s || '';
   return d.innerHTML;
 }
+
+// === ACTIVITY FEED ===
+function renderActivity(activity) {
+  if (!activity || !activity.length) return;
+  var feed = document.getElementById('activityFeed');
+  if (!feed) return;
+  var html = '';
+  var lastDate = '';
+  activity.forEach(function(item) {
+    var d = new Date(item.timestamp);
+    var dateStr = d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+    if (dateStr !== lastDate) {
+      html += '<div class="activity-date-group">' + esc(dateStr) + '</div>';
+      lastDate = dateStr;
+    }
+    var time = d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+    html += '<div class="activity-item">'
+      + '<div class="activity-time">' + time + '</div>'
+      + '<div class="activity-dot" data-unit="' + esc(item.unit || '') + '"></div>'
+      + '<div class="activity-body">'
+      + '<div class="activity-thread">' + esc(item.thread) + '</div>'
+      + '<div class="activity-text">' + esc(item.action) + '</div>'
+      + '</div></div>';
+  });
+  feed.innerHTML = html;
+}
+
+// === SEARCH ===
+var searchIndex = [];
+function buildSearchIndex() {
+  searchIndex = [];
+  document.querySelectorAll('.artifact').forEach(function(el) {
+    var title = (el.querySelector('h4') || {}).textContent || '';
+    var desc = (el.querySelector('.artifact-desc') || {}).textContent || '';
+    var link = el.querySelector('a[href]');
+    var section = el.closest('.section');
+    var sectionId = section ? section.id : 'home';
+    searchIndex.push({ title: title, desc: desc, section: sectionId, href: link ? link.getAttribute('href') : null, type: 'artifact' });
+  });
+  document.querySelectorAll('.unit-card').forEach(function(el) {
+    var title = (el.querySelector('h3') || {}).textContent || '';
+    var view = el.getAttribute('data-unit') || '';
+    searchIndex.push({ title: title, desc: '', section: view, href: null, type: 'unit' });
+  });
+}
+buildSearchIndex();
+
+function openSearch() {
+  document.getElementById('searchOverlay').classList.add('visible');
+  var input = document.getElementById('searchInput');
+  input.value = '';
+  input.focus();
+  document.getElementById('searchResults').innerHTML = '';
+}
+
+function closeSearch() {
+  document.getElementById('searchOverlay').classList.remove('visible');
+}
+
+function handleSearch(q) {
+  var results = document.getElementById('searchResults');
+  if (!q || q.length < 2) { results.innerHTML = ''; return; }
+  var lower = q.toLowerCase();
+  var matches = searchIndex.filter(function(item) {
+    return item.title.toLowerCase().indexOf(lower) !== -1 || item.desc.toLowerCase().indexOf(lower) !== -1;
+  });
+  // Also search activity
+  var activityEl = document.querySelectorAll('.activity-item');
+  // Build results
+  var html = '';
+  matches.slice(0, 8).forEach(function(m) {
+    html += '<div class="search-result" onclick="closeSearch();' + (m.href ? 'window.open(\'' + m.href + '\',\'_self\')' : 'showSection(\'' + m.section + '\')') + '">'
+      + '<div class="search-result-title">' + esc(m.title) + '</div>'
+      + '<div class="search-result-meta">' + esc(m.section) + ' &middot; ' + m.type + '</div>'
+      + '</div>';
+  });
+  if (!html) html = '<div class="search-hint" style="color:#666;margin-top:16px;">No results</div>';
+  results.innerHTML = html;
+}
+
+// Keyboard shortcuts
+document.addEventListener('keydown', function(e) {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'k') { e.preventDefault(); openSearch(); }
+  if (e.key === 'Escape') closeSearch();
+});
+
+// === PULL TO REFRESH ===
+(function() {
+  var startY = 0, pulling = false;
+  document.addEventListener('touchstart', function(e) {
+    if (window.scrollY === 0) { startY = e.touches[0].clientY; pulling = true; }
+  }, { passive: true });
+  document.addEventListener('touchmove', function(e) {
+    if (!pulling) return;
+    var dy = e.touches[0].clientY - startY;
+    if (dy > 80) {
+      pulling = false;
+      var ind = document.getElementById('ptrIndicator');
+      ind.classList.add('visible');
+      fetch('./status.json?t=' + Date.now())
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          renderAlerts(data.alerts || []);
+          renderUnitStatuses(data.units || {});
+          renderNtfyBadge(data.ntfy || {});
+          renderActivity(data.activity || []);
+          ind.textContent = 'Updated';
+          setTimeout(function() { ind.classList.remove('visible'); ind.textContent = 'Refreshing...'; }, 1500);
+        })
+        .catch(function() { ind.classList.remove('visible'); });
+    }
+  }, { passive: true });
+  document.addEventListener('touchend', function() { pulling = false; }, { passive: true });
+})();
+
+// === UPDATE SHOW SECTION TO SYNC TAB BAR ===
+var _origShowSection = showSection;
+showSection = function(id) {
+  _origShowSection(id);
+  // Sync bottom tab bar
+  document.querySelectorAll('.tab-bar a').forEach(function(a) { a.classList.remove('active'); });
+  var tab = document.querySelector('.tab-bar a[data-view="' + id + '"]');
+  if (tab) tab.classList.add('active');
+};
+
+// Hook into loadStatus to also render activity
+var _origLoadStatus = null;
+(function patchStatus() {
+  // Re-fetch and render activity on initial load
+  fetch('./status.json?t=' + Date.now())
+    .then(function(r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function(data) { renderActivity(data.activity || []); })
+    .catch(function() {});
+})();
 </script>
 
 </body>
