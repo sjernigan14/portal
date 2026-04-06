@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SAJ Consulting — Portal</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%230a0a0a' width='100' height='100' rx='20'/><text x='50' y='68' text-anchor='middle' fill='%23c8a55a' font-family='system-ui' font-size='52' font-weight='700'>S</text></svg>">
+<meta property="og:title" content="SAJ Consulting — Portal">
+<meta property="og:description" content="Dashboards, tools, and artifacts across Crawford Hospitality, MEGA, Patron Properties, NSH, and SAJ Consulting.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0a0a0a">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -110,27 +115,27 @@
       <a class="unit-card" onclick="showSection('crawford')">
         <h3>Crawford Hospitality</h3>
         <div class="desc">Restaurant group — Crawford & Son, Jolie, Brodeto, Bar Sousterre, Crawford Brothers. Websites, marketing dashboards, SEO audits.</div>
-        <div class="meta"><span class="count">4 artifacts</span><span>Last updated: Apr 5, 2026</span></div>
+        <div class="meta"><span class="count">6 artifacts</span><span data-date="2026-04-05">Apr 5, 2026</span></div>
       </a>
       <a class="unit-card" onclick="showSection('mega')">
         <h3>MEGA</h3>
         <div class="desc">The MEGA Workout — Pilates & fitness. Competitive intel, content engine, marketing dashboards, operational reports.</div>
-        <div class="meta"><span class="count">2 artifacts</span><span>Last updated: Apr 5, 2026</span></div>
+        <div class="meta"><span class="count">2 artifacts</span><span data-date="2026-04-05">Apr 5, 2026</span></div>
       </a>
       <a class="unit-card" onclick="showSection('patron')">
         <h3>Patron Properties</h3>
         <div class="desc">Augusta short-term rental platform. Prototype screens, property prospecting tools, guest lifecycle flows.</div>
-        <div class="meta"><span class="count">1 artifact</span><span>Last updated: Mar 2026</span></div>
+        <div class="meta"><span class="count">1 artifact</span><span data-date="2026-03-15">Mar 2026</span></div>
       </a>
       <a class="unit-card" onclick="showSection('nsh')">
         <h3>NSH / SAJ Consulting</h3>
         <div class="desc">Norwood Street Holdings + SAJ. Masters badge tracking, price monitor, deal analysis, system architecture.</div>
-        <div class="meta"><span class="count">3 artifacts</span><span>Last updated: Apr 5, 2026</span></div>
+        <div class="meta"><span class="count">3 artifacts</span><span data-date="2026-04-05">Apr 5, 2026</span></div>
       </a>
       <a class="unit-card" onclick="showSection('personal')">
         <h3>Personal</h3>
         <div class="desc">Girls activities tracker, home management, travel briefs, daily briefings, grocery automation.</div>
-        <div class="meta"><span class="count">2 artifacts</span><span>Last updated: Apr 5, 2026</span></div>
+        <div class="meta"><span class="count">2 artifacts</span><span data-date="2026-04-05">Apr 5, 2026</span></div>
       </a>
     </div>
   </div>
@@ -167,6 +172,17 @@
         <a href="https://sjernigan14.github.io/crawford-and-son" target="_blank">View Site &rarr;</a>
         <div class="artifact-date">Live on GitHub Pages</div>
       </div>
+      <div class="artifact">
+        <h4>Bar Sousterre</h4>
+        <div class="artifact-desc">Subterranean wine bar beneath Crawford & Son. Curated wine program, charcuterie, intimate vibe.</div>
+        <div class="artifact-date" style="color:#818cf8;">Site planned</div>
+      </div>
+      <div class="artifact">
+        <h4>Group Overview</h4>
+        <div class="artifact-desc">Restaurant group dashboard — all 5 concepts, site status, locations, contacts.</div>
+        <a href="./crawford-hospitality/overview.html">View Overview &rarr;</a>
+        <div class="artifact-date" data-date="2026-04-05">April 5, 2026</div>
+      </div>
     </div>
   </div>
 
@@ -182,13 +198,13 @@
         <h4>Competitive Intel Report</h4>
         <div class="artifact-desc">Weekly scan of Raleigh-Cary Pilates and boutique fitness market — pricing, reviews, new studios, social engagement.</div>
         <a href="./mega/competitive-intel.html">View Report &rarr;</a>
-        <div class="artifact-date">Auto-generated Sundays 9 PM</div>
+        <div class="artifact-date" data-date="2026-04-05">Auto-generated Sundays 9 PM</div>
       </div>
       <div class="artifact">
         <h4>Weekly Content Package</h4>
         <div class="artifact-desc">Instagram captions, email newsletter draft, and blog post drafts using brand voice guide.</div>
         <a href="./mega/content-package.html">View Package &rarr;</a>
-        <div class="artifact-date">Auto-generated Sundays 8 PM</div>
+        <div class="artifact-date" data-date="2026-04-05">Auto-generated Sundays 8 PM</div>
       </div>
     </div>
   </div>
@@ -205,7 +221,7 @@
         <h4>Platform Prototype</h4>
         <div class="artifact-desc">5-screen interactive prototype — property listings, guest lifecycle, owner dashboard, booking flow, analytics.</div>
         <a href="./patron/prototype.html">View Prototype &rarr;</a>
-        <div class="artifact-date">March 2026</div>
+        <div class="artifact-date" data-date="2026-03-15">March 2026</div>
       </div>
     </div>
   </div>
@@ -222,19 +238,19 @@
         <h4>System Architecture Map</h4>
         <div class="artifact-desc">Interactive 5-tab dashboard — data flow, threads, scheduled tasks, file structure, playbook status.</div>
         <a href="./dashboards/system-architecture.html">View Map &rarr;</a>
-        <div class="artifact-date">April 5, 2026</div>
+        <div class="artifact-date" data-date="2026-04-05">April 5, 2026</div>
       </div>
       <div class="artifact">
         <h4>Pioneer Golf Due Diligence</h4>
         <div class="artifact-desc">8-section analysis — deal snapshot, comps, risk matrix, stress test, operator diligence, go/no-go.</div>
         <a href="./dashboards/pioneer-golf-dd.html">View Analysis &rarr;</a>
-        <div class="artifact-date">April 5, 2026</div>
+        <div class="artifact-date" data-date="2026-04-05">April 5, 2026</div>
       </div>
       <div class="artifact">
         <h4>Masters Price Monitor</h4>
         <div class="artifact-desc">Daily StubHub + Vivid Seats price/inventory delta report for Masters tickets.</div>
         <a href="./dashboards/masters-price-monitor.html">View Monitor &rarr;</a>
-        <div class="artifact-date">Daily at 3 PM</div>
+        <div class="artifact-date" data-date="2026-04-05">Daily at 3 PM</div>
       </div>
     </div>
   </div>
@@ -251,13 +267,13 @@
         <h4>Girls Activities Tracker</h4>
         <div class="artifact-desc">Interactive dashboard — activity status board, 12 summer camps, April-August calendar, key contacts.</div>
         <a href="./personal/girls-activities.html">View Tracker &rarr;</a>
-        <div class="artifact-date">April 5, 2026</div>
+        <div class="artifact-date" data-date="2026-04-05">April 5, 2026</div>
       </div>
       <div class="artifact">
         <h4>Palm Beach Trip Brief</h4>
         <div class="artifact-desc">May 8-11 Mother's Day trip — Four Seasons, flights, restaurants, day-by-day sketch.</div>
         <a href="./personal/palm-beach-trip.html">View Brief &rarr;</a>
-        <div class="artifact-date">April 4, 2026</div>
+        <div class="artifact-date" data-date="2026-04-04">April 4, 2026</div>
       </div>
     </div>
   </div>
@@ -335,6 +351,33 @@ document.querySelectorAll('nav a').forEach(function(a) {
     showSection(this.dataset.view);
   });
 });
+
+// Relative dates — converts data-date attributes to "X days ago" / "X weeks ago" etc.
+(function() {
+  var now = new Date();
+  document.querySelectorAll('[data-date]').forEach(function(el) {
+    var d = new Date(el.getAttribute('data-date') + 'T12:00:00');
+    var diff = Math.floor((now - d) / 86400000);
+    var rel;
+    if (diff < 0) rel = 'Upcoming';
+    else if (diff === 0) rel = 'Today';
+    else if (diff === 1) rel = 'Yesterday';
+    else if (diff < 7) rel = diff + ' days ago';
+    else if (diff < 14) rel = '1 week ago';
+    else if (diff < 30) rel = Math.floor(diff / 7) + ' weeks ago';
+    else if (diff < 60) rel = '1 month ago';
+    else rel = Math.floor(diff / 30) + ' months ago';
+    // For home cards (inside .meta), prefix with "Updated "
+    if (el.parentElement && el.parentElement.classList.contains('meta')) {
+      el.textContent = 'Updated ' + rel.toLowerCase();
+    } else {
+      // For artifact dates, append relative in parentheses if there's existing text
+      var orig = el.textContent.trim();
+      if (orig && orig !== rel) el.textContent = orig + ' (' + rel.toLowerCase() + ')';
+      else el.textContent = rel;
+    }
+  });
+})();
 </script>
 
 </body>
