@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAJ Consulting — Portal</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  /* Password gate overlay */
+  #gate { position: fixed; inset: 0; background: #0a0a0a; z-index: 9999; display: flex; align-items: center; justify-content: center; flex-direction: column; }
+  #gate.hidden { display: none; }
+  #gate h2 { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif; color: #fff; font-size: 20px; margin-bottom: 16px; font-weight: 600; }
+  #gate input { background: #1a1a1a; border: 1px solid #333; color: #fff; padding: 12px 20px; border-radius: 8px; font-size: 16px; width: 280px; text-align: center; font-family: inherit; outline: none; }
+  #gate input:focus { border-color: #c8a55a; }
+  #gate input::placeholder { color: #555; }
+  #gate .error { color: #f87171; font-size: 13px; margin-top: 8px; font-family: -apple-system, sans-serif; min-height: 20px; }
+
+  body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif; background: #0a0a0a; color: #e0e0e0; min-height: 100vh; }
+  body.locked { overflow: hidden; }
+
+  /* Header */
+  header { padding: 40px 32px 24px; max-width: 1200px; margin: 0 auto; }
+  header h1 { font-size: 28px; font-weight: 700; color: #fff; letter-spacing: -0.5px; }
+  header .subtitle { font-size: 14px; color: #666; margin-top: 4px; }
+
+  /* Nav */
+  nav { display: flex; gap: 8px; padding: 0 32px; max-width: 1200px; margin: 0 auto 32px; flex-wrap: wrap; }
+  nav a { padding: 6px 14px; border-radius: 6px; font-size: 13px; font-weight: 600; color: #888; text-decoration: none; transition: all 0.2s; }
+  nav a:hover { color: #fff; background: #1a1a1a; }
+  nav a.active { color: #c8a55a; background: #1a1a1a; }
+
+  /* Main content */
+  main { max-width: 1200px; margin: 0 auto; padding: 0 32px 60px; }
+
+  /* Business unit cards */
+  .units { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; margin-bottom: 48px; }
+  .unit-card { background: #141414; border: 1px solid #222; border-radius: 12px; padding: 24px; cursor: pointer; transition: all 0.2s; text-decoration: none; display: block; }
+  .unit-card:hover { border-color: #c8a55a; transform: translateY(-2px); }
+  .unit-card h3 { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+  .unit-card .desc { font-size: 13px; color: #888; line-height: 1.5; margin-bottom: 16px; }
+  .unit-card .meta { display: flex; justify-content: space-between; font-size: 12px; color: #555; }
+  .unit-card .count { color: #c8a55a; font-weight: 600; }
+
+  /* Section pages */
+  .section { display: none; }
+  .section.active { display: block; }
+  .section-header { margin-bottom: 24px; }
+  .section-header h2 { font-size: 22px; font-weight: 700; color: #fff; }
+  .section-header p { font-size: 13px; color: #666; margin-top: 4px; }
+  .back { font-size: 13px; color: #c8a55a; text-decoration: none; margin-bottom: 16px; display: inline-block; }
+  .back:hover { text-decoration: underline; }
+
+  /* Artifact list */
+  .artifacts { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+  .artifact { background: #141414; border: 1px solid #1e1e1e; border-radius: 10px; padding: 16px; transition: border-color 0.2s; }
+  .artifact:hover { border-color: #333; }
+  .artifact h4 { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 4px; }
+  .artifact .artifact-desc { font-size: 12px; color: #888; margin-bottom: 10px; line-height: 1.4; }
+  .artifact a { font-size: 12px; color: #c8a55a; text-decoration: none; font-weight: 600; }
+  .artifact a:hover { text-decoration: underline; }
+  .artifact .artifact-date { font-size: 11px; color: #444; margin-top: 8px; }
+
+  /* Footer */
+  footer { max-width: 1200px; margin: 0 auto; padding: 32px; border-top: 1px solid #1a1a1a; }
+  .footer-logos { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 12px; }
+  .footer-logos a { font-size: 12px; color: #555; text-decoration: none; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; }
+  .footer-logos a:hover { color: #c8a55a; }
+  .footer-credit { font-size: 11px; color: #333; }
+
+  /* Mobile */
+  @media (max-width: 640px) {
+    header { padding: 24px 16px 16px; }
+    nav { padding: 0 16px; }
+    main { padding: 0 16px 40px; }
+    footer { padding: 24px 16px; }
+    .units { grid-template-columns: 1fr; }
+    .artifacts { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body class="locked">
+
+<!-- Password Gate -->
+<div id="gate">
+  <h2>SAJ Consulting</h2>
+  <input type="password" id="pw" placeholder="Enter access code" autofocus>
+  <div class="error" id="err"></div>
+</div>
+
+<!-- Main App -->
+<header>
+  <h1>Portal</h1>
+  <div class="subtitle">SAJ Consulting — Dashboards, Tools & Artifacts</div>
+</header>
+
+<nav id="nav">
+  <a href="#" class="active" data-view="home">Home</a>
+  <a href="#" data-view="crawford">Crawford Hospitality</a>
+  <a href="#" data-view="mega">MEGA</a>
+  <a href="#" data-view="patron">Patron Properties</a>
+  <a href="#" data-view="nsh">NSH / SAJ</a>
+  <a href="#" data-view="personal">Personal</a>
+</nav>
+
+<main>
+  <!-- HOME -->
+  <div class="section active" id="home">
+    <div class="units">
+      <a class="unit-card" onclick="showSection('crawford')">
+        <h3>Crawford Hospitality</h3>
+        <div class="desc">Restaurant group — Crawford & Son, Jolie, Brodeto, Bar Sousterre, Crawford Brothers. Websites, marketing dashboards, SEO audits.</div>
+        <div class="meta"><span class="count">4 artifacts</span><span>Last updated: Apr 5, 2026</span></div>
+      </a>
+      <a class="unit-card" onclick="showSection('mega')">
+        <h3>MEGA</h3>
+        <div class="desc">The MEGA Workout — Pilates & fitness. Competitive intel, content engine, marketing dashboards, operational reports.</div>
+        <div class="meta"><span class="count">2 artifacts</span><span>Last updated: Apr 5, 2026</span></div>
+      </a>
+      <a class="unit-card" onclick="showSection('patron')">
+        <h3>Patron Properties</h3>
+        <div class="desc">Augusta short-term rental platform. Prototype screens, property prospecting tools, guest lifecycle flows.</div>
+        <div class="meta"><span class="count">1 artifact</span><span>Last updated: Mar 2026</span></div>
+      </a>
+      <a class="unit-card" onclick="showSection('nsh')">
+        <h3>NSH / SAJ Consulting</h3>
+        <div class="desc">Norwood Street Holdings + SAJ. Masters badge tracking, price monitor, deal analysis, system architecture.</div>
+        <div class="meta"><span class="count">3 artifacts</span><span>Last updated: Apr 5, 2026</span></div>
+      </a>
+      <a class="unit-card" onclick="showSection('personal')">
+        <h3>Personal</h3>
+        <div class="desc">Girls activities tracker, home management, travel briefs, daily briefings, grocery automation.</div>
+        <div class="meta"><span class="count">2 artifacts</span><span>Last updated: Apr 5, 2026</span></div>
+      </a>
+    </div>
+  </div>
+
+  <!-- CRAWFORD HOSPITALITY -->
+  <div class="section" id="crawford">
+    <a class="back" onclick="showSection('home')">&larr; Back to Home</a>
+    <div class="section-header">
+      <h2>Crawford Hospitality</h2>
+      <p>Restaurant sites, marketing tools, and operational dashboards</p>
+    </div>
+    <div class="artifacts">
+      <div class="artifact">
+        <h4>Crawford Brothers</h4>
+        <div class="artifact-desc">Restaurant website — menus, hours, reservations, private events. GitHub Pages.</div>
+        <a href="https://sjernigan14.github.io/crawford-brothers" target="_blank">View Site &rarr;</a>
+        <div class="artifact-date">Migrating to WordPress — Johnny Belflower</div>
+      </div>
+      <div class="artifact">
+        <h4>Brodeto</h4>
+        <div class="artifact-desc">Restaurant website — Mediterranean seafood, downtown Raleigh.</div>
+        <a href="https://sjernigan14.github.io/brodeto" target="_blank">View Site &rarr;</a>
+        <div class="artifact-date">Live on GitHub Pages</div>
+      </div>
+      <div class="artifact">
+        <h4>Jolie</h4>
+        <div class="artifact-desc">Restaurant website — French-inspired, Raleigh.</div>
+        <a href="https://sjernigan14.github.io/jolie" target="_blank">View Site &rarr;</a>
+        <div class="artifact-date">Live on GitHub Pages</div>
+      </div>
+      <div class="artifact">
+        <h4>Crawford & Son</h4>
+        <div class="artifact-desc">Restaurant website — flagship Crawford Hospitality concept.</div>
+        <a href="https://sjernigan14.github.io/crawford-and-son" target="_blank">View Site &rarr;</a>
+        <div class="artifact-date">Live on GitHub Pages</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MEGA -->
+  <div class="section" id="mega">
+    <a class="back" onclick="showSection('home')">&larr; Back to Home</a>
+    <div class="section-header">
+      <h2>MEGA</h2>
+      <p>Competitive intel, content engine, and operational dashboards</p>
+    </div>
+    <div class="artifacts">
+      <div class="artifact">
+        <h4>Competitive Intel Report</h4>
+        <div class="artifact-desc">Weekly scan of Raleigh-Cary Pilates and boutique fitness market — pricing, reviews, new studios, social engagement.</div>
+        <a href="./mega/competitive-intel.html">View Report &rarr;</a>
+        <div class="artifact-date">Auto-generated Sundays 9 PM</div>
+      </div>
+      <div class="artifact">
+        <h4>Weekly Content Package</h4>
+        <div class="artifact-desc">Instagram captions, email newsletter draft, and blog post drafts using brand voice guide.</div>
+        <a href="./mega/content-package.html">View Package &rarr;</a>
+        <div class="artifact-date">Auto-generated Sundays 8 PM</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PATRON PROPERTIES -->
+  <div class="section" id="patron">
+    <a class="back" onclick="showSection('home')">&larr; Back to Home</a>
+    <div class="section-header">
+      <h2>Patron Properties</h2>
+      <p>Augusta short-term rental platform — prototypes and tools</p>
+    </div>
+    <div class="artifacts">
+      <div class="artifact">
+        <h4>Platform Prototype</h4>
+        <div class="artifact-desc">5-screen interactive prototype — property listings, guest lifecycle, owner dashboard, booking flow, analytics.</div>
+        <a href="./patron/prototype.html">View Prototype &rarr;</a>
+        <div class="artifact-date">March 2026</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NSH / SAJ -->
+  <div class="section" id="nsh">
+    <a class="back" onclick="showSection('home')">&larr; Back to Home</a>
+    <div class="section-header">
+      <h2>NSH / SAJ Consulting</h2>
+      <p>Deal analysis, badge tracking, system architecture</p>
+    </div>
+    <div class="artifacts">
+      <div class="artifact">
+        <h4>System Architecture Map</h4>
+        <div class="artifact-desc">Interactive 5-tab dashboard — data flow, threads, scheduled tasks, file structure, playbook status.</div>
+        <a href="./dashboards/system-architecture.html">View Map &rarr;</a>
+        <div class="artifact-date">April 5, 2026</div>
+      </div>
+      <div class="artifact">
+        <h4>Pioneer Golf Due Diligence</h4>
+        <div class="artifact-desc">8-section analysis — deal snapshot, comps, risk matrix, stress test, operator diligence, go/no-go.</div>
+        <a href="./dashboards/pioneer-golf-dd.html">View Analysis &rarr;</a>
+        <div class="artifact-date">April 5, 2026</div>
+      </div>
+      <div class="artifact">
+        <h4>Masters Price Monitor</h4>
+        <div class="artifact-desc">Daily StubHub + Vivid Seats price/inventory delta report for Masters tickets.</div>
+        <a href="./dashboards/masters-price-monitor.html">View Monitor &rarr;</a>
+        <div class="artifact-date">Daily at 3 PM</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PERSONAL -->
+  <div class="section" id="personal">
+    <a class="back" onclick="showSection('home')">&larr; Back to Home</a>
+    <div class="section-header">
+      <h2>Personal</h2>
+      <p>Family activities, home management, travel, daily briefings</p>
+    </div>
+    <div class="artifacts">
+      <div class="artifact">
+        <h4>Girls Activities Tracker</h4>
+        <div class="artifact-desc">Interactive dashboard — activity status board, 12 summer camps, April-August calendar, key contacts.</div>
+        <a href="./personal/girls-activities.html">View Tracker &rarr;</a>
+        <div class="artifact-date">April 5, 2026</div>
+      </div>
+      <div class="artifact">
+        <h4>Palm Beach Trip Brief</h4>
+        <div class="artifact-desc">May 8-11 Mother's Day trip — Four Seasons, flights, restaurants, day-by-day sketch.</div>
+        <a href="./personal/palm-beach-trip.html">View Brief &rarr;</a>
+        <div class="artifact-date">April 4, 2026</div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-logos">
+    <a href="https://sjernigan14.github.io/crawford-and-son" target="_blank">Crawford & Son</a>
+    <a href="https://sjernigan14.github.io/jolie" target="_blank">Jolie</a>
+    <a href="https://sjernigan14.github.io/brodeto" target="_blank">Brodeto</a>
+    <a href="https://sjernigan14.github.io/crawford-brothers" target="_blank">Crawford Brothers</a>
+  </div>
+  <div class="footer-credit">Built by SAJ Consulting &middot; Powered by Claude</div>
+</footer>
+
+<script>
+// Password gate — hash-based, no plaintext in source
+// SHA-256 of the password is stored, not the password itself
+var HASH = '';
+var BYPASS = false;
+
+// On first deploy, Scott sets the password. Until then, gate is bypassed.
+// To set a password: run in console:
+//   crypto.subtle.digest('SHA-256', new TextEncoder().encode('yourpassword')).then(h => console.log(Array.from(new Uint8Array(h)).map(b => b.toString(16).padStart(2,'0')).join('')))
+// Then paste the hash into HASH above.
+
+(function() {
+  if (!HASH || BYPASS) {
+    document.getElementById('gate').classList.add('hidden');
+    document.body.classList.remove('locked');
+    return;
+  }
+
+  var input = document.getElementById('pw');
+  var err = document.getElementById('err');
+
+  input.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+      var val = input.value;
+      crypto.subtle.digest('SHA-256', new TextEncoder().encode(val)).then(function(buf) {
+        var hash = Array.from(new Uint8Array(buf)).map(function(b) { return b.toString(16).padStart(2, '0'); }).join('');
+        if (hash === HASH) {
+          document.getElementById('gate').classList.add('hidden');
+          document.body.classList.remove('locked');
+          sessionStorage.setItem('portal_auth', '1');
+        } else {
+          err.textContent = 'Invalid access code';
+          input.value = '';
+          input.focus();
+        }
+      });
+    }
+  });
+
+  // Check if already authenticated this session
+  if (sessionStorage.getItem('portal_auth') === '1') {
+    document.getElementById('gate').classList.add('hidden');
+    document.body.classList.remove('locked');
+  }
+})();
+
+// Navigation
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(function(s) { s.classList.remove('active'); });
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('nav a').forEach(function(a) { a.classList.remove('active'); });
+  var navLink = document.querySelector('nav a[data-view="' + id + '"]');
+  if (navLink) navLink.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+document.querySelectorAll('nav a').forEach(function(a) {
+  a.addEventListener('click', function(e) {
+    e.preventDefault();
+    showSection(this.dataset.view);
+  });
+});
+</script>
+
+</body>
+</html>

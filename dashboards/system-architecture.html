@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scott Jernigan — System Architecture Map</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif; background: #0a0a0a; color: #e0e0e0; padding: 24px; }
+  h1 { font-size: 28px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .subtitle { font-size: 14px; color: #888; margin-bottom: 32px; }
+  .updated { font-size: 12px; color: #555; position: absolute; top: 24px; right: 24px; }
+
+  /* Tabs */
+  .tabs { display: flex; gap: 2px; margin-bottom: 24px; border-bottom: 1px solid #222; }
+  .tab { padding: 10px 20px; font-size: 13px; font-weight: 600; color: #888; cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; }
+  .tab:hover { color: #ccc; }
+  .tab.active { color: #fff; border-bottom-color: #3b82f6; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* Cards */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; margin-bottom: 32px; }
+  .card { background: #141414; border: 1px solid #222; border-radius: 12px; padding: 20px; transition: border-color 0.2s; }
+  .card:hover { border-color: #333; }
+  .card-title { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+  .card-body { font-size: 13px; color: #999; line-height: 1.6; }
+  .card-body strong { color: #ccc; }
+
+  /* Status badges */
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: 600; }
+  .badge-active { background: #052e16; color: #4ade80; }
+  .badge-idle { background: #1a1a2e; color: #818cf8; }
+  .badge-auto { background: #1e1b4b; color: #a78bfa; }
+  .badge-blocked { background: #2a0a0a; color: #f87171; }
+  .badge-disabled { background: #1a1a1a; color: #555; }
+
+  /* File tree */
+  .tree { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 13px; line-height: 2; padding: 20px; background: #111; border-radius: 12px; border: 1px solid #222; }
+  .tree-file { color: #3b82f6; }
+  .tree-dir { color: #f59e0b; }
+  .tree-desc { color: #666; margin-left: 8px; }
+
+  /* Flow diagram */
+  .flow { display: flex; flex-direction: column; align-items: center; gap: 0; margin: 32px 0; }
+  .flow-box { background: #141414; border: 1px solid #333; border-radius: 12px; padding: 16px 24px; text-align: center; min-width: 320px; }
+  .flow-box h3 { font-size: 14px; color: #fff; margin-bottom: 4px; }
+  .flow-box p { font-size: 12px; color: #888; }
+  .flow-arrow { color: #333; font-size: 24px; line-height: 1.2; }
+  .flow-row { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+
+  /* Table */
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+  th { text-align: left; font-size: 11px; font-weight: 700; color: #555; text-transform: uppercase; letter-spacing: 0.5px; padding: 8px 12px; border-bottom: 1px solid #222; }
+  td { font-size: 13px; padding: 10px 12px; border-bottom: 1px solid #1a1a1a; color: #bbb; }
+  td:first-child { color: #fff; font-weight: 600; }
+  tr:hover td { background: #0f0f0f; }
+
+  /* Section headers */
+  .section-title { font-size: 18px; font-weight: 700; color: #fff; margin: 32px 0 16px 0; }
+  .section-subtitle { font-size: 13px; color: #666; margin-bottom: 16px; }
+
+  /* Connector pills */
+  .connectors { display: flex; gap: 8px; flex-wrap: wrap; margin: 16px 0; }
+  .connector { background: #1a1a2e; border: 1px solid #2a2a4e; border-radius: 8px; padding: 6px 14px; font-size: 12px; color: #818cf8; font-weight: 600; }
+
+  /* Legend */
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #888; }
+</style>
+</head>
+<body>
+
+<span class="updated">Updated: April 5, 2026</span>
+<h1>System Architecture Map</h1>
+<p class="subtitle">Scott Jernigan — AI Implementation Playbook v3</p>
+
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('overview')">Overview</div>
+  <div class="tab" onclick="switchTab('threads')">Threads</div>
+  <div class="tab" onclick="switchTab('tasks')">Scheduled Tasks</div>
+  <div class="tab" onclick="switchTab('files')">File Structure</div>
+  <div class="tab" onclick="switchTab('playbook')">Playbook Status</div>
+</div>
+
+<!-- OVERVIEW TAB -->
+<div id="overview" class="tab-content active">
+  <div class="section-title">Data Flow</div>
+  <div class="flow">
+    <div class="flow-box" style="border-color: #3b82f6;">
+      <h3>Data Sources</h3>
+      <p>Gmail, Google Drive, Calendar, Box, iMessages, Slack, Chrome</p>
+    </div>
+    <div class="flow-arrow">▼</div>
+    <div class="flow-box" style="border-color: #f59e0b;">
+      <h3>CLAUDE.md (Router)</h3>
+      <p>30-line file. Points to memory/ modules. Every session reads this first.</p>
+    </div>
+    <div class="flow-arrow">▼</div>
+    <div class="flow-row">
+      <div class="flow-box" style="min-width: 160px;"><h3>identity.md</h3><p>Who, businesses, finances</p></div>
+      <div class="flow-box" style="min-width: 160px;"><h3>people.md</h3><p>Contact glossary</p></div>
+      <div class="flow-box" style="min-width: 160px;"><h3>working-rules.md</h3><p>Rules + preferences</p></div>
+      <div class="flow-box" style="min-width: 160px;"><h3>active-context.md</h3><p>Live statuses + dates</p></div>
+      <div class="flow-box" style="min-width: 160px;"><h3>thread-map.md</h3><p>Threads + tasks</p></div>
+    </div>
+    <div class="flow-arrow">▼</div>
+    <div class="flow-box" style="border-color: #4ade80;">
+      <h3>Domain Threads</h3>
+      <p>Each loads router + only the memory files it needs</p>
+    </div>
+    <div class="flow-arrow">▼</div>
+    <div class="flow-row">
+      <div class="flow-box" style="min-width: 140px; border-color: #a78bfa;"><h3>Scheduled Tasks</h3><p>Cron jobs → Slack, Box, PDF</p></div>
+      <div class="flow-box" style="min-width: 140px; border-color: #a78bfa;"><h3>Custom Skills</h3><p>Travel, Badge, Marketing</p></div>
+      <div class="flow-box" style="min-width: 140px; border-color: #a78bfa;"><h3>Outputs</h3><p>Dashboards, memos, decks</p></div>
+    </div>
+  </div>
+
+  <div class="section-title">Connected Tools</div>
+  <div class="connectors">
+    <span class="connector">Gmail</span>
+    <span class="connector">Google Drive</span>
+    <span class="connector">Google Calendar</span>
+    <span class="connector">Box</span>
+    <span class="connector">Slack</span>
+    <span class="connector">iMessages</span>
+    <span class="connector">Chrome</span>
+    <span class="connector">Drafts</span>
+    <span class="connector">Apple Notes (osascript)</span>
+    <span class="connector">PDF Tools</span>
+    <span class="connector">Word</span>
+  </div>
+
+  <div class="section-title">Businesses</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-title">SAJ Consulting</div>
+      <div class="card-body">Holding co / consulting. All advisory + deal flow. Principal.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Crawford Hospitality</div>
+      <div class="card-body">Restaurant group. 5 concepts. Scott Crawford operates. <span class="badge badge-blocked">Toast API blocked</span></div>
+    </div>
+    <div class="card">
+      <div class="card-title">MEGA</div>
+      <div class="card-body">Boutique Pilates/fitness. Raleigh + Cary. Lauren Husketh is GM. <span class="badge badge-blocked">Mariana Tek blocked</span></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Norwood Street Holdings</div>
+      <div class="card-body">Real estate. Augusta Masters rentals + restaurant RE. Badge tracking built.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Patron Properties</div>
+      <div class="card-body">Augusta STR platform. 51% / $1.05M. April close. <span class="badge badge-active">APA in redline</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- THREADS TAB -->
+<div id="threads" class="tab-content">
+  <div class="legend">
+    <div class="legend-item"><span class="badge badge-active">Active</span> Thread in use</div>
+    <div class="legend-item"><span class="badge badge-idle">Idle</span> Waiting for input</div>
+    <div class="legend-item"><span class="badge badge-auto">Automated</span> Runs on schedule</div>
+    <div class="legend-item"><span class="badge badge-blocked">Blocked</span> Waiting on API/external</div>
+  </div>
+
+  <table>
+    <thead><tr><th>Thread</th><th>Domain</th><th>Status</th><th>Reads From Memory</th></tr></thead>
+    <tbody>
+      <tr><td>AI Implementation Playbook</td><td>Master orchestration</td><td><span class="badge badge-active">Active</span></td><td>All files</td></tr>
+      <tr><td>Girls Activities Tracker</td><td>P3 — kids' activities + camps</td><td><span class="badge badge-active">Active</span></td><td>people.md, active-context.md</td></tr>
+      <tr><td>Home & Household Ops</td><td>P4+P6 — property, grocery, vendors</td><td><span class="badge badge-active">Active</span></td><td>people.md, identity.md</td></tr>
+      <tr><td>Due Diligence Engine</td><td>P5 — deal analysis framework</td><td><span class="badge badge-idle">Idle</span></td><td>identity.md, projects/</td></tr>
+      <tr><td>Knowledge Base / Glossary</td><td>Memory architecture</td><td><span class="badge badge-active">Active</span></td><td>people.md, thread-map.md</td></tr>
+      <tr><td>Travel Assistant</td><td>P2a — trip research</td><td><span class="badge badge-idle">Idle</span></td><td>people.md, identity.md</td></tr>
+      <tr><td>MEGA Ops & Finance</td><td>M7+M9 + operations</td><td><span class="badge badge-idle">Idle</span></td><td>people.md, active-context.md</td></tr>
+      <tr><td>MEGA Content Engine</td><td>M7 execution</td><td><span class="badge badge-auto">Auto Sun 8PM</span></td><td>working-rules.md</td></tr>
+      <tr><td>MEGA Competitive Intel</td><td>M9 execution</td><td><span class="badge badge-auto">Auto Sun 9PM</span></td><td>working-rules.md</td></tr>
+      <tr><td>Daily 5AM Briefing v2</td><td>Rollup — all domains</td><td><span class="badge badge-auto">Auto Daily 5AM</span></td><td>All files</td></tr>
+      <tr><td>Crawford Brothers Build</td><td>Website build</td><td><span class="badge badge-active">Active</span></td><td>people.md</td></tr>
+      <tr><td>Patron Properties</td><td>Deal — platform + prospecting</td><td><span class="badge badge-idle">Idle</span></td><td>identity.md, people.md, projects/</td></tr>
+      <tr><td>Masters Price Monitor</td><td>NSH — ticket pricing</td><td><span class="badge badge-auto">Auto Daily 3PM</span></td><td>—</td></tr>
+      <tr><td>Voice & Writing DNA</td><td>P1 — voice clone foundation</td><td><span class="badge badge-blocked">Needs recording</span></td><td>working-rules.md</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- SCHEDULED TASKS TAB -->
+<div id="tasks" class="tab-content">
+  <div class="section-title">Active Tasks</div>
+  <table>
+    <thead><tr><th>Task</th><th>Schedule</th><th>What It Does</th><th>Thread</th></tr></thead>
+    <tbody>
+      <tr><td>daily-5am-briefing-v2</td><td>Daily 5:02 AM</td><td>Builds PDF briefing. Scott reviews + prints manually.</td><td>Daily 5AM Briefing v2</td></tr>
+      <tr><td>girls-activities-scan</td><td>Mon 5:02 AM</td><td>Scans Gmail for activity emails from Emma, MacNairs, TRC, Alicia</td><td>Girls Activities Tracker</td></tr>
+      <tr><td>mega-weekly-content-engine</td><td>Sun 8:10 PM</td><td>Generates Instagram captions, email newsletter, blog drafts</td><td>MEGA Content Engine</td></tr>
+      <tr><td>mega-competitive-intel</td><td>Sun 9:02 PM</td><td>Scans Raleigh-Cary Pilates market — pricing, reviews, new studios</td><td>MEGA Competitive Intel</td></tr>
+      <tr><td>masters-price-monitor-3pm</td><td>Daily 3:07 PM</td><td>StubHub + Vivid Seats price/inventory delta</td><td>Masters Price Monitor</td></tr>
+      <tr><td>monthly-financial-check</td><td>8th of month, 9 AM</td><td>Check if MEGA (Hasan) + Crawford (Olena) financials arrived</td><td>—</td></tr>
+      <tr><td>weekly-system-health-check</td><td>Sun 6:03 PM</td><td>Audit Box files, preferences, voice profile, lessons.md</td><td>—</td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-title">Disabled Tasks</div>
+  <table>
+    <thead><tr><th>Task</th><th>Last Run</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td>daily-5am-briefing</td><td>Mar 30</td><td>Replaced by v2</td></tr>
+      <tr><td>daily-ups-tracking-report</td><td>Apr 5</td><td>Post-Masters, badges delivered</td></tr>
+      <tr><td>badge-tracking-ups-report</td><td>Mar 31</td><td>Replaced by daily-ups-tracking-report</td></tr>
+      <tr><td>practice-rounds-tracking</td><td>Apr 3</td><td>Masters over</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- FILE STRUCTURE TAB -->
+<div id="files" class="tab-content">
+  <div class="section-title">Memory Architecture</div>
+  <div class="section-subtitle">Every session reads CLAUDE.md first. Threads load only the memory files relevant to their task.</div>
+
+  <div class="tree">
+    <span class="tree-dir">.claude/</span><br>
+    ├── <span class="tree-file">CLAUDE.md</span> <span class="tree-desc">← Thin router (~30 lines). Points to memory/ files.</span><br>
+    ├── <span class="tree-dir">memory/</span><br>
+    │   ├── <span class="tree-file">identity.md</span> <span class="tree-desc">← Who Scott is, 5 businesses, finances, properties, accounts</span><br>
+    │   ├── <span class="tree-file">people.md</span> <span class="tree-desc">← Contact glossary. All threads can append new contacts.</span><br>
+    │   ├── <span class="tree-file">working-rules.md</span> <span class="tree-desc">← Operating rules, comm preferences, output defaults</span><br>
+    │   ├── <span class="tree-file">active-context.md</span> <span class="tree-desc">← Live project statuses, pending decisions, key dates</span><br>
+    │   ├── <span class="tree-file">thread-map.md</span> <span class="tree-desc">← Thread inventory, scheduled tasks, data flow, connectors</span><br>
+    │   ├── <span class="tree-dir">projects/</span> <span class="tree-desc">← Deep-dive files per deal (Patron, Pioneer, Cresset)</span><br>
+    │   └── <span class="tree-dir">context/</span> <span class="tree-desc">← Balance sheet, insurance details, reference data</span><br>
+    ├── <span class="tree-dir">tasks/</span><br>
+    │   └── <span class="tree-file">lessons.md</span> <span class="tree-desc">← Mistake log + operating patterns</span><br>
+    └── <span class="tree-dir">skills/</span><br>
+        ├── <span class="tree-file">travel-research-agent/</span> <span class="tree-desc">← P2a travel skill + preferences</span><br>
+        ├── <span class="tree-file">badge-tracking-ups-report/</span> <span class="tree-desc">← NSH badge tracking</span><br>
+        ├── <span class="tree-file">masters-price-monitor/</span> <span class="tree-desc">← StubHub/Vivid scraper</span><br>
+        ├── <span class="tree-file">crawford-marketing-agent/</span> <span class="tree-desc">← Campaign segmentation, RFM scoring</span><br>
+        ├── <span class="tree-file">crawford-restaurant-site/</span> <span class="tree-desc">← Website builder/deployer</span><br>
+        ├── <span class="tree-file">crawford-site-audit/</span> <span class="tree-desc">← SEO + strategy deck generator</span><br>
+        ├── <span class="tree-file">wine-allocation-tracker/</span> <span class="tree-desc">← Portfolio + secondary market</span><br>
+        └── <span class="tree-file">prototype-designer/</span> <span class="tree-desc">← Competitor research → HTML prototypes</span><br>
+  </div>
+
+  <div class="section-title" style="margin-top: 32px;">Update Protocol</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-title">New Contact Discovered</div>
+      <div class="card-body">Append to <strong>memory/people.md</strong> with name, role, contact info, and notes.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Project Status Changed</div>
+      <div class="card-body">Update <strong>memory/active-context.md</strong> — statuses, dates, blockers.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Mistake Made</div>
+      <div class="card-body">Log to <strong>tasks/lessons.md</strong> — what happened, pattern, prevention.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">New Thread Created</div>
+      <div class="card-body">Update <strong>memory/thread-map.md</strong> — add thread, domain, status, memory dependencies.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PLAYBOOK TAB -->
+<div id="playbook" class="tab-content">
+  <div class="section-title">AI Implementation Playbook v3 — 28 Items</div>
+
+  <div class="section-subtitle">Personal (P1-P6)</div>
+  <table>
+    <thead><tr><th>Item</th><th>What</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>P1</td><td>Voice Clone</td><td><span class="badge badge-blocked">Needs 30-min recording</span></td></tr>
+      <tr><td>P2a</td><td>Travel Research Agent</td><td><span class="badge badge-active">Built + tested</span></td></tr>
+      <tr><td>P2b</td><td>Trip Logistics Automation</td><td><span class="badge badge-idle">Ready to build</span></td></tr>
+      <tr><td>P3</td><td>Girls Activities Tracker</td><td><span class="badge badge-active">Live + Monday scan</span></td></tr>
+      <tr><td>P4</td><td>Home Management</td><td><span class="badge badge-active">Merged into P4+P6 thread</span></td></tr>
+      <tr><td>P5</td><td>Due Diligence Engine</td><td><span class="badge badge-active">Framework built, Pioneer analyzed</span></td></tr>
+      <tr><td>P6</td><td>Personal Ops Hub</td><td><span class="badge badge-active">Grocery done, vendors in progress</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-subtitle">Crawford Hospitality (C1-C3)</div>
+  <table>
+    <thead><tr><th>Item</th><th>What</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>C1</td><td>Daily P&L Dashboard</td><td><span class="badge badge-blocked">Toast API</span></td></tr>
+      <tr><td>C2</td><td>Labor Cost Alerts</td><td><span class="badge badge-blocked">Toast API</span></td></tr>
+      <tr><td>C3</td><td>Reservation Intelligence</td><td><span class="badge badge-blocked">Toast + Tock APIs</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-subtitle">MEGA (M1-M10)</div>
+  <table>
+    <thead><tr><th>Item</th><th>What</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>M1</td><td>Daily Performance Dashboard</td><td><span class="badge badge-blocked">Mariana Tek</span></td></tr>
+      <tr><td>M2</td><td>Lead-to-Close Pipeline</td><td><span class="badge badge-blocked">Mariana Tek + Xplor + OpenPhone</span></td></tr>
+      <tr><td>M3</td><td>Retention Risk Alerts</td><td><span class="badge badge-blocked">Mariana Tek</span></td></tr>
+      <tr><td>M4</td><td>Class Yield Optimizer</td><td><span class="badge badge-blocked">Mariana Tek + Xplor</span></td></tr>
+      <tr><td>M5</td><td>Missed Call Recovery</td><td><span class="badge badge-blocked">OpenPhone</span></td></tr>
+      <tr><td>M6</td><td>Staff Scheduling Intel</td><td><span class="badge badge-blocked">Mariana Tek + Xplor</span></td></tr>
+      <tr><td>M7</td><td>Content Engine</td><td><span class="badge badge-auto">Automated Sun 8PM</span></td></tr>
+      <tr><td>M8</td><td>Competitive Intel (benchmarking)</td><td><span class="badge badge-blocked">Mariana Tek</span></td></tr>
+      <tr><td>M9</td><td>Competitive Intel (market scan)</td><td><span class="badge badge-auto">Automated Sun 9PM</span></td></tr>
+      <tr><td>M10</td><td>Owner Dashboard</td><td><span class="badge badge-blocked">Mariana Tek</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-subtitle">NSH + Patron Properties</div>
+  <table>
+    <thead><tr><th>Item</th><th>What</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>NSH 1-3</td><td>Masters Badge Tracking</td><td><span class="badge badge-active">Built — 91% delivered</span></td></tr>
+      <tr><td>NSH 4</td><td>Masters Price Monitor</td><td><span class="badge badge-auto">Automated Daily 3PM</span></td></tr>
+      <tr><td>Patron</td><td>Platform & Prospecting</td><td><span class="badge badge-idle">APA in redline, April close</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-title" style="margin-top: 32px;">API Blockers</div>
+  <table>
+    <thead><tr><th>API</th><th>Contact</th><th>Status</th><th>Unlocks</th></tr></thead>
+    <tbody>
+      <tr><td>Toast</td><td>Steven Camerlengo</td><td>Draft queued Mon 4/6 7AM</td><td>C1, C2, C3</td></tr>
+      <tr><td>Mariana Tek</td><td>Alicia (sent 4/2)</td><td>Awaiting reply</td><td>M1, M2, M3, M4, M6, M8, M10</td></tr>
+      <tr><td>Xplor</td><td>Lauren Husketh</td><td>Draft queued Mon 4/6 7AM</td><td>M2, M4, M6</td></tr>
+      <tr><td>OpenPhone</td><td>Lauren Husketh</td><td>Draft queued Mon 4/6 7AM</td><td>M2, M5</td></tr>
+      <tr><td>Tock</td><td>Unknown</td><td>Not started</td><td>C3</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<script>
+function switchTab(tabId) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  document.querySelector(`.tab[onclick="switchTab('${tabId}')"]`).classList.add('active');
+}
+</script>
+
+</body>
+</html>
