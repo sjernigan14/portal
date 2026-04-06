@@ -73,6 +73,33 @@
   .footer-logos a:hover { color: #c8a55a; }
   .footer-credit { font-size: 11px; color: #333; }
 
+  /* Alert Bar */
+  .alert-bar { max-width: 1200px; margin: 0 auto 24px; padding: 0 32px; display: none; }
+  .alert-bar.visible { display: block; }
+  .alert-summary { background: #141414; border: 1px solid #222; border-radius: 10px; padding: 14px 20px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; user-select: none; }
+  .alert-summary:hover { border-color: #c8a55a; }
+  .alert-counts { display: flex; gap: 12px; font-size: 13px; font-weight: 600; }
+  .alert-count-red { color: #f87171; }
+  .alert-count-amber { color: #fbbf24; }
+  .alert-count-blue { color: #60a5fa; }
+  .alert-chevron { color: #555; transition: transform 0.2s; font-size: 14px; }
+  .alert-bar.expanded .alert-chevron { transform: rotate(180deg); }
+  .alert-list { display: none; margin-top: 8px; }
+  .alert-bar.expanded .alert-list { display: block; }
+  .alert-item { background: #141414; border: 1px solid #1e1e1e; border-radius: 8px; padding: 12px 16px; margin-bottom: 6px; font-size: 13px; }
+  .alert-item .alert-title { color: #fff; font-weight: 600; }
+  .alert-item .alert-detail { color: #888; margin-top: 4px; font-size: 12px; line-height: 1.4; }
+  .alert-item .alert-meta { color: #555; font-size: 11px; margin-top: 6px; }
+  .alert-item[data-level="ACTION_NEEDED"] { border-left: 3px solid #f87171; }
+  .alert-item[data-level="WAITING_ON"] { border-left: 3px solid #fbbf24; }
+  .alert-item[data-level="FYI"] { border-left: 3px solid #60a5fa; }
+
+  /* Unit live status */
+  .unit-status { font-size: 12px; color: #999; margin-bottom: 12px; line-height: 1.4; min-height: 17px; }
+
+  /* Ntfy badge */
+  .ntfy-badge { display: inline-flex; align-items: center; justify-content: center; background: #f87171; color: #fff; font-size: 11px; font-weight: 700; min-width: 18px; height: 18px; border-radius: 9px; padding: 0 5px; margin-left: 8px; vertical-align: middle; }
+
   /* Mobile */
   @media (max-width: 640px) {
     header { padding: 24px 16px 16px; }
@@ -81,6 +108,7 @@
     footer { padding: 24px 16px; }
     .units { grid-template-columns: 1fr; }
     .artifacts { grid-template-columns: 1fr; }
+    .alert-bar { padding: 0 16px; }
   }
 </style>
 </head>
@@ -108,33 +136,50 @@
   <a href="#" data-view="personal">Personal</a>
 </nav>
 
+<!-- Alert Bar -->
+<div class="alert-bar" id="alertBar">
+  <div class="alert-summary" onclick="toggleAlerts()">
+    <div style="display:flex;align-items:center;gap:8px;">
+      <span style="font-size:14px;font-weight:700;color:#fff;">Today</span>
+      <div class="alert-counts" id="alertCounts"></div>
+    </div>
+    <span class="alert-chevron">&#9660;</span>
+  </div>
+  <div class="alert-list" id="alertList"></div>
+</div>
+
 <main>
   <!-- HOME -->
   <div class="section active" id="home">
     <div class="units">
-      <a class="unit-card" onclick="showSection('crawford')">
+      <a class="unit-card" data-unit="crawford" onclick="showSection('crawford')">
         <h3>Crawford Hospitality</h3>
         <div class="desc">Restaurant group — Crawford & Son, Jolie, Brodeto, Bar Sous Terre, Crawford Brothers. Websites, marketing dashboards, SEO audits.</div>
+        <div class="unit-status"></div>
         <div class="meta"><span class="count">6 artifacts</span><span data-date="2026-04-05">Apr 5, 2026</span></div>
       </a>
-      <a class="unit-card" onclick="showSection('mega')">
+      <a class="unit-card" data-unit="mega" onclick="showSection('mega')">
         <h3>MEGA</h3>
         <div class="desc">The MEGA Workout — Pilates & fitness. Competitive intel, content engine, marketing dashboards, operational reports.</div>
+        <div class="unit-status"></div>
         <div class="meta"><span class="count">2 artifacts</span><span data-date="2026-04-05">Apr 5, 2026</span></div>
       </a>
-      <a class="unit-card" onclick="showSection('patron')">
+      <a class="unit-card" data-unit="patron" onclick="showSection('patron')">
         <h3>Patron Properties</h3>
         <div class="desc">Augusta short-term rental platform. Prototype screens, property prospecting tools, guest lifecycle flows.</div>
+        <div class="unit-status"></div>
         <div class="meta"><span class="count">1 artifact</span><span data-date="2026-03-15">Mar 2026</span></div>
       </a>
-      <a class="unit-card" onclick="showSection('nsh')">
+      <a class="unit-card" data-unit="nsh" onclick="showSection('nsh')">
         <h3>NSH / SAJ Consulting</h3>
         <div class="desc">Norwood Street Holdings + SAJ. Masters badge tracking, price monitor, deal analysis, system architecture.</div>
+        <div class="unit-status"></div>
         <div class="meta"><span class="count">3 artifacts</span><span data-date="2026-04-05">Apr 5, 2026</span></div>
       </a>
-      <a class="unit-card" onclick="showSection('personal')">
+      <a class="unit-card" data-unit="personal" onclick="showSection('personal')">
         <h3>Personal</h3>
         <div class="desc">Girls activities tracker, home management, travel briefs, daily briefings, grocery automation.</div>
+        <div class="unit-status"></div>
         <div class="meta"><span class="count">2 artifacts</span><span data-date="2026-04-05">Apr 5, 2026</span></div>
       </a>
     </div>
@@ -378,6 +423,89 @@ document.querySelectorAll('nav a').forEach(function(a) {
     }
   });
 })();
+
+// === LIVE DATA PIPELINE ===
+(function loadStatus() {
+  fetch('./status.json?t=' + Date.now())
+    .then(function(r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function(data) {
+      renderAlerts(data.alerts || []);
+      renderUnitStatuses(data.units || {});
+      renderNtfyBadge(data.ntfy || {});
+    })
+    .catch(function() {});
+  setTimeout(loadStatus, 5 * 60 * 1000);
+})();
+
+function renderAlerts(alerts) {
+  if (!alerts.length) return;
+  var bar = document.getElementById('alertBar');
+  bar.classList.add('visible');
+  var red = 0, amber = 0, blue = 0;
+  alerts.forEach(function(a) {
+    if (a.level === 'ACTION_NEEDED') red++;
+    else if (a.level === 'WAITING_ON') amber++;
+    else blue++;
+  });
+  var h = '';
+  if (red) h += '<span class="alert-count-red">' + red + ' action</span>';
+  if (amber) h += '<span class="alert-count-amber">' + amber + ' waiting</span>';
+  if (blue) h += '<span class="alert-count-blue">' + blue + ' info</span>';
+  document.getElementById('alertCounts').innerHTML = h;
+  var list = '';
+  alerts.forEach(function(a) {
+    var ago = timeAgo(a.timestamp);
+    list += '<div class="alert-item" data-level="' + esc(a.level) + '">'
+      + '<div class="alert-title">' + esc(a.title) + '</div>'
+      + '<div class="alert-detail">' + esc(a.detail) + '</div>'
+      + '<div class="alert-meta">' + esc(a.unit.toUpperCase()) + ' &middot; ' + ago + '</div>'
+      + '</div>';
+  });
+  document.getElementById('alertList').innerHTML = list;
+}
+
+function renderUnitStatuses(units) {
+  Object.keys(units).forEach(function(key) {
+    var card = document.querySelector('[data-unit="' + key + '"]');
+    if (!card) return;
+    var el = card.querySelector('.unit-status');
+    if (el) el.textContent = units[key].status;
+    var dateEl = card.querySelector('.meta span[data-date]');
+    if (dateEl && units[key].updatedAt) {
+      dateEl.textContent = 'Updated ' + timeAgo(units[key].updatedAt);
+    }
+  });
+}
+
+function renderNtfyBadge(ntfy) {
+  if (!ntfy.pendingCount) return;
+  var h1 = document.querySelector('header h1');
+  if (h1 && !document.getElementById('ntfyBadge')) {
+    var b = document.createElement('span');
+    b.className = 'ntfy-badge';
+    b.id = 'ntfyBadge';
+    b.textContent = ntfy.pendingCount;
+    h1.appendChild(b);
+  }
+}
+
+function toggleAlerts() {
+  document.getElementById('alertBar').classList.toggle('expanded');
+}
+
+function timeAgo(iso) {
+  var diff = Math.floor((Date.now() - new Date(iso).getTime()) / 60000);
+  if (diff < 1) return 'just now';
+  if (diff < 60) return diff + 'm ago';
+  if (diff < 1440) return Math.floor(diff / 60) + 'h ago';
+  return Math.floor(diff / 1440) + 'd ago';
+}
+
+function esc(s) {
+  var d = document.createElement('div');
+  d.textContent = s || '';
+  return d.innerHTML;
+}
 </script>
 
 </body>

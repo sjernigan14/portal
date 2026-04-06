@@ -1,0 +1,84 @@
+{
+  "generated": "2026-04-06T10:30:00Z",
+  "alerts": [
+    {
+      "id": "trc-april-16-2026-04-06",
+      "level": "ACTION_NEEDED",
+      "unit": "personal",
+      "title": "TRC April 16 climbing session not confirmed",
+      "detail": "Kelly Hunsucker only confirmed April 23. Need reply to confirm whether 4/16 is on the calendar or was dropped.",
+      "source": "girls-activities",
+      "timestamp": "2026-04-06T05:00:00Z"
+    },
+    {
+      "id": "trc-payment-2026-04-06",
+      "level": "WAITING_ON",
+      "unit": "personal",
+      "title": "TRC payment status unclear",
+      "detail": "Kelly said payment collected once signed up. No payment confirmation found. Verify with Kelly or check for charge.",
+      "source": "girls-activities",
+      "timestamp": "2026-04-06T05:00:00Z"
+    },
+    {
+      "id": "mega-intel-v2-2026-04-05",
+      "level": "FYI",
+      "unit": "mega",
+      "title": "Weekly competitive intel report updated",
+      "detail": "The Daily Pilates opening Raleigh Winter 2026. Elite Core won MAGGY Award. FlowCorps expanding with 2 locations.",
+      "source": "mega/competitive-intel",
+      "timestamp": "2026-04-05T21:00:00Z"
+    },
+    {
+      "id": "mega-content-2026-04-05",
+      "level": "FYI",
+      "unit": "mega",
+      "title": "Content package ready for review",
+      "detail": "5 Instagram captions, 1 email newsletter, 1 blog post. Forward to Lauren for review.",
+      "source": "mega/content-package",
+      "timestamp": "2026-04-05T20:00:00Z"
+    }
+  ],
+  "units": {
+    "crawford": {
+      "status": "All 4 sites live. Crawford Brothers migrating to WordPress.",
+      "updatedAt": "2026-04-05T23:59:00Z"
+    },
+    "mega": {
+      "status": "Intel + content packages auto-refreshing weekly. The Daily Pilates entering Raleigh.",
+      "updatedAt": "2026-04-05T21:00:00Z"
+    },
+    "patron": {
+      "status": "Prototype complete, 5 screens. No active development.",
+      "updatedAt": "2026-03-15T12:00:00Z"
+    },
+    "nsh": {
+      "status": "Masters monitor active. Sunday Final $1,150. 43 of 47 badges delivered.",
+      "updatedAt": "2026-04-05T15:07:00Z"
+    },
+    "personal": {
+      "status": "TRC climbing Apr 23 confirmed, Apr 16 unconfirmed. Palm Beach May 8-11 booked.",
+      "updatedAt": "2026-04-06T05:00:00Z"
+    }
+  },
+  "artifacts": {
+    "mega/competitive-intel": {
+      "lastRun": "2026-04-05T21:00:00Z",
+      "nextRun": "2026-04-12T21:00:00Z",
+      "status": "ok"
+    },
+    "mega/content-package": {
+      "lastRun": "2026-04-05T20:00:00Z",
+      "nextRun": "2026-04-12T20:00:00Z",
+      "status": "ok"
+    },
+    "dashboards/masters-price-monitor": {
+      "lastRun": "2026-04-05T15:07:00Z",
+      "nextRun": "2026-04-06T15:07:00Z",
+      "status": "ok"
+    }
+  },
+  "ntfy": {
+    "pendingCount": 1,
+    "lastSent": "2026-04-06T05:01:00Z"
+  }
+}
