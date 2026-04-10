@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crawford Hospitality — Restaurant Group Overview</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%230a0a0a' width='100' height='100' rx='20'/><text x='50' y='68' text-anchor='middle' fill='%23c8a55a' font-family='system-ui' font-size='52' font-weight='700'>S</text></svg>">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif; background: #0a0a0a; color: #e0e0e0; min-height: 100vh; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 40px 24px 60px; }
+.back-link { display: inline-flex; align-items: center; gap: 8px; color: #888; text-decoration: none; font-size: 13px; margin-bottom: 24px; transition: color 0.2s; }
+.back-link:hover { color: #c8a55a; }
+
+h1 { font-size: 28px; font-weight: 700; color: #fff; letter-spacing: -0.5px; margin-bottom: 4px; }
+.subtitle { font-size: 14px; color: #666; margin-bottom: 40px; }
+
+.restaurants { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; margin-bottom: 48px; }
+.restaurant { background: #141414; border: 1px solid #222; border-radius: 12px; padding: 24px; transition: border-color 0.2s; }
+.restaurant:hover { border-color: #c8a55a; }
+.restaurant h3 { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+.restaurant .cuisine { font-size: 12px; color: #c8a55a; font-weight: 600; }
+.restaurant .desc { font-size: 13px; color: #888; line-height: 1.5; margin-bottom: 16px; }
+.restaurant .details { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+.restaurant .detail { font-size: 12px; color: #666; display: flex; gap: 8px; }
+.restaurant .detail span { color: #999; }
+.restaurant .status { display: inline-block; padding: 3px 10px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+.status-live { background: rgba(74, 222, 128, 0.1); color: #4ade80; }
+.status-migrating { background: rgba(251, 191, 36, 0.1); color: #fbbf24; }
+.status-planned { background: rgba(129, 140, 248, 0.1); color: #818cf8; }
+.restaurant .links { display: flex; gap: 12px; margin-top: 12px; flex-wrap: wrap; }
+.restaurant .links a { font-size: 12px; color: #c8a55a; text-decoration: none; font-weight: 600; }
+.restaurant .links a:hover { text-decoration: underline; }
+
+.summary { background: #141414; border: 1px solid #222; border-radius: 12px; padding: 24px; margin-bottom: 32px; }
+.summary h2 { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 16px; }
+.stats { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 16px; }
+.stat { text-align: center; }
+.stat-val { font-size: 28px; font-weight: 700; color: #c8a55a; }
+.stat-label { font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+
+.footer { font-size: 11px; color: #333; text-align: center; margin-top: 40px; padding-top: 24px; border-top: 1px solid #1a1a1a; }
+
+@media (max-width: 640px) {
+  .container { padding: 24px 16px 40px; }
+  .restaurants { grid-template-columns: 1fr; }
+  .stats { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+<!-- Portal Auth Gate --><div id="gate" style="position:fixed;inset:0;background:#0a0a0a;z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;font-family:-apple-system,sans-serif;"><h2 style="color:#fff;font-size:20px;margin-bottom:16px;font-weight:600;">SAJ Consulting</h2><input type="password" id="pw" placeholder="Enter access code" autofocus style="background:#1a1a1a;border:1px solid #333;color:#fff;padding:12px 20px;border-radius:8px;font-size:16px;width:280px;text-align:center;outline:none;"><div id="err" style="color:#f87171;font-size:13px;margin-top:8px;min-height:20px;"></div></div><script>(function(){var H="14bbfb5253b71a1818305190a90dd6bbb03461afcf78202aa1f90fc7f3632790";if(sessionStorage.getItem("portal_auth")==="1"){document.getElementById("gate").style.display="none";return;}document.body.style.overflow="hidden";var inp=document.getElementById("pw"),err=document.getElementById("err");inp.addEventListener("keydown",function(e){if(e.key==="Enter"){crypto.subtle.digest("SHA-256",new TextEncoder().encode(inp.value)).then(function(buf){var h=Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,"0")}).join("");if(h===H){document.getElementById("gate").style.display="none";document.body.style.overflow="";sessionStorage.setItem("portal_auth","1");}else{err.textContent="Invalid access code";inp.value="";inp.focus();}});}});inp.style.borderColor="#333";inp.addEventListener("focus",function(){inp.style.borderColor="#c8a55a";});inp.addEventListener("blur",function(){inp.style.borderColor="#333";});})();</script>
+
+<div class="container">
+  <a href="../index.html" class="back-link">&larr; Back to Portal</a>
+  <h1>Crawford Hospitality</h1>
+  <p class="subtitle">Restaurant group — Raleigh, NC &middot; 5 concepts</p>
+
+  <div class="summary">
+    <h2>Group Snapshot</h2>
+    <div class="stats">
+      <div class="stat"><div class="stat-val">5</div><div class="stat-label">Restaurants</div></div>
+      <div class="stat"><div class="stat-val">4</div><div class="stat-label">Sites Live</div></div>
+      <div class="stat"><div class="stat-val">1</div><div class="stat-label">Migrating</div></div>
+      <div class="stat"><div class="stat-val">1</div><div class="stat-label">Site Planned</div></div>
+    </div>
+  </div>
+
+  <div class="restaurants">
+    <div class="restaurant">
+      <h3>Crawford &amp; Son <span class="cuisine">New American</span></h3>
+      <div class="desc">Flagship concept. Downtown Raleigh. Modern American small plates, craft cocktails, vibrant atmosphere.</div>
+      <div class="details">
+        <div class="detail">Location: <span>329 W. Davie St, Raleigh</span></div>
+        <div class="detail">Website: <span class="status status-live">Live on GitHub Pages</span></div>
+      </div>
+      <div class="links">
+        <a href="https://sjernigan14.github.io/crawford-and-son" target="_blank">View Site &rarr;</a>
+      </div>
+    </div>
+
+    <div class="restaurant">
+      <h3>Jolie <span class="cuisine">French-Inspired</span></h3>
+      <div class="desc">French-inspired bistro. Elevated comfort food, wine-driven program, intimate setting.</div>
+      <div class="details">
+        <div class="detail">Location: <span>Raleigh, NC</span></div>
+        <div class="detail">Website: <span class="status status-live">Live on GitHub Pages</span></div>
+      </div>
+      <div class="links">
+        <a href="https://sjernigan14.github.io/jolie" target="_blank">View Site &rarr;</a>
+      </div>
+    </div>
+
+    <div class="restaurant">
+      <h3>Brodeto <span class="cuisine">Mediterranean Seafood</span></h3>
+      <div class="desc">Mediterranean seafood-forward concept. Downtown Raleigh. Seasonal, coastal-inspired menu.</div>
+      <div class="details">
+        <div class="detail">Location: <span>Downtown Raleigh</span></div>
+        <div class="detail">Website: <span class="status status-live">Live on GitHub Pages</span></div>
+      </div>
+      <div class="links">
+        <a href="https://sjernigan14.github.io/brodeto" target="_blank">View Site &rarr;</a>
+      </div>
+    </div>
+
+    <div class="restaurant">
+      <h3>Crawford Brothers <span class="cuisine">Casual Dining</span></h3>
+      <div class="desc">Casual Crawford concept. Menus, hours, reservations, private events.</div>
+      <div class="details">
+        <div class="detail">Location: <span>Raleigh, NC</span></div>
+        <div class="detail">Website: <span class="status status-migrating">Migrating to WordPress</span></div>
+        <div class="detail">Contact: <span>Johnny Belflower handling migration</span></div>
+      </div>
+      <div class="links">
+        <a href="https://sjernigan14.github.io/crawford-brothers" target="_blank">Current Site &rarr;</a>
+      </div>
+    </div>
+
+    <div class="restaurant">
+      <h3>Bar Sous Terre <span class="cuisine">Wine Bar</span></h3>
+      <div class="desc">Subterranean wine bar beneath Crawford &amp; Son. Curated wine program, charcuterie, intimate vibe.</div>
+      <div class="details">
+        <div class="detail">Location: <span>329 W. Davie St, Raleigh (below C&amp;S)</span></div>
+        <div class="detail">Website: <span class="status status-planned">Planned</span></div>
+      </div>
+      <div class="links">
+        <!-- No site yet -->
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">Crawford Hospitality &middot; Built by SAJ Consulting &middot; Powered by Claude</div>
+</div>
+
+</body>
+</html>

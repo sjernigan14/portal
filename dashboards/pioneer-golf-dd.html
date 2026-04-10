@@ -1,0 +1,493 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Pioneer Golf — Due Diligence Analysis</title><style>
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+body {
+font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+background-color: #0a0a0a;
+color: #e0e0e0;
+line-height: 1.6;
+padding: 0;
+}
+/* Navigation */
+.nav-bar {
+background-color: #141414;
+border-bottom: 1px solid #222;
+padding: 1rem 2rem;
+position: sticky;
+top: 0;
+z-index: 100;
+}
+.nav-bar a {
+color: #888;
+text-decoration: none;
+font-size: 0.9rem;
+transition: color 0.2s;
+}
+.nav-bar a:hover {
+color: #e0e0e0;
+}
+/* Header */
+.header {
+background-color: #141414;
+padding: 3rem 2rem;
+border-bottom: 1px solid #222;
+margin-bottom: 2rem;
+}
+.header-content {
+max-width: 1200px;
+margin: 0 auto;
+}
+.verdict-badge {
+display: inline-block;
+background-color: #ef4444;
+color: white;
+padding: 0.5rem 1.2rem;
+border-radius: 0.5rem;
+font-weight: 600;
+font-size: 0.9rem;
+letter-spacing: 0.05em;
+margin-bottom: 1.5rem;
+}
+h1 {
+font-size: 2.5rem;
+margin-bottom: 0.5rem;
+font-weight: 700;
+}
+.subtitle {
+color: #888;
+font-size: 1rem;
+font-weight: 400;
+}
+/* Tab Navigation */
+.tabs {
+display: flex;
+gap: 0;
+max-width: 1200px;
+margin: 0 auto;
+border-bottom: 1px solid #222;
+overflow-x: auto;
+padding: 0 2rem;
+}
+.tab-button {
+flex-shrink: 0;
+background: none;
+border: none;
+color: #888;
+padding: 1rem 1.5rem;
+cursor: pointer;
+font-size: 0.95rem;
+font-weight: 500;
+border-bottom: 2px solid transparent;
+transition: all 0.2s;
+font-family: inherit;
+}
+.tab-button:hover {
+color: #e0e0e0;
+}
+.tab-button.active {
+color: #ef4444;
+border-bottom-color: #ef4444;
+}
+/* Content */
+.container {
+max-width: 1200px;
+margin: 0 auto;
+padding: 2rem;
+}
+.tab-content {
+display: none;
+}
+.tab-content.active {
+display: block;
+animation: fadeIn 0.3s ease-in;
+}
+@keyframes fadeIn {
+from {
+opacity: 0;
+transform: translateY(10px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}
+/* Cards */
+.card {
+background-color: #141414;
+border: 1px solid #222;
+border-radius: 0.5rem;
+padding: 2rem;
+margin-bottom: 1.5rem;
+}
+.card h2 {
+font-size: 1.3rem;
+margin-bottom: 1.5rem;
+color: #e0e0e0;
+}
+.card h3 {
+font-size: 1rem;
+margin-bottom: 0.5rem;
+color: #e0e0e0;
+}
+/* Grid */
+.grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+gap: 1.5rem;
+margin-bottom: 1.5rem;
+}
+.grid-item {
+background-color: #0a0a0a;
+border: 1px solid #222;
+padding: 1.5rem;
+border-radius: 0.35rem;
+}
+.grid-item-label {
+color: #888;
+font-size: 0.85rem;
+text-transform: uppercase;
+letter-spacing: 0.1em;
+margin-bottom: 0.5rem;
+}
+.grid-item-value {
+font-size: 1.25rem;
+font-weight: 600;
+color: #e0e0e0;
+}
+/* Tables */
+table {
+width: 100%;
+border-collapse: collapse;
+margin-bottom: 1.5rem;
+}
+th {
+background-color: #0a0a0a;
+color: #888;
+text-align: left;
+padding: 1rem;
+font-weight: 600;
+font-size: 0.85rem;
+text-transform: uppercase;
+letter-spacing: 0.05em;
+border-bottom: 1px solid #222;
+}
+td {
+padding: 1rem;
+border-bottom: 1px solid #222;
+color: #e0e0e0;
+}
+tr:last-child td {
+border-bottom: none;
+}
+tr:hover {
+background-color: #0f0f0f;
+}
+.num {
+text-align: right;
+font-weight: 500;
+}
+/* Risk Matrix */
+.risk-matrix {
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+gap: 1rem;
+margin-top: 1.5rem;
+}
+.risk-item {
+background-color: #0a0a0a;
+border: 1px solid #222;
+padding: 1.5rem;
+border-radius: 0.35rem;
+}
+.risk-item-title {
+font-weight: 600;
+margin-bottom: 0.75rem;
+color: #e0e0e0;
+}
+.risk-severity {
+display: flex;
+gap: 0.5rem;
+font-size: 0.85rem;
+margin-bottom: 0.25rem;
+}
+.severity-critical {
+color: #ef4444;
+font-weight: 600;
+}
+.severity-high {
+color: #f97316;
+font-weight: 600;
+}
+.severity-medium {
+color: #eab308;
+font-weight: 600;
+}
+.severity-low {
+color: #22c55e;
+font-weight: 600;
+}
+.likelihood {
+font-size: 0.8rem;
+color: #888;
+}
+/* Verdict Card */
+.verdict-card {
+background-color: #1a1a1a;
+border: 2px solid #ef4444;
+border-radius: 0.5rem;
+padding: 2.5rem;
+margin-bottom: 1.5rem;
+}
+.verdict-card h2 {
+color: #ef4444;
+font-size: 1.5rem;
+margin-bottom: 1rem;
+}
+.verdict-title {
+font-size: 2rem;
+font-weight: 700;
+color: #ef4444;
+margin-bottom: 1.5rem;
+}
+.verdict-reasons {
+list-style: none;
+margin-bottom: 1.5rem;
+}
+.verdict-reasons li {
+padding-left: 1.5rem;
+margin-bottom: 0.75rem;
+position: relative;
+color: #e0e0e0;
+line-height: 1.6;
+}
+.verdict-reasons li:before {
+content: "•";
+position: absolute;
+left: 0;
+color: #ef4444;
+font-weight: bold;
+}
+.verdict-note {
+background-color: #0a0a0a;
+border-left: 3px solid #ef4444;
+padding: 1rem;
+margin-top: 1.5rem;
+font-style: italic;
+color: #b0b0b0;
+}
+/* Lessons */
+.lessons-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+gap: 1.5rem;
+margin-top: 1.5rem;
+}
+.lesson-card {
+background-color: #0a0a0a;
+border: 1px solid #222;
+border-left: 3px solid #ef4444;
+padding: 1.5rem;
+border-radius: 0.35rem;
+}
+.lesson-card p {
+color: #e0e0e0;
+line-height: 1.8;
+font-size: 0.95rem;
+}
+/* Footer */
+.footer {
+background-color: #141414;
+border-top: 1px solid #222;
+padding: 2rem;
+margin-top: 3rem;
+text-align: center;
+color: #888;
+font-size: 0.85rem;
+}
+/* Scenarios */
+.scenario {
+background-color: #0a0a0a;
+border: 1px solid #222;
+padding: 1.5rem;
+margin-bottom: 1rem;
+border-radius: 0.35rem;
+}
+.scenario-title {
+font-weight: 600;
+color: #e0e0e0;
+margin-bottom: 0.75rem;
+font-size: 0.95rem;
+text-transform: uppercase;
+letter-spacing: 0.05em;
+}
+.scenario-metric {
+display: flex;
+justify-content: space-between;
+padding: 0.5rem 0;
+font-size: 0.9rem;
+color: #b0b0b0;
+}
+.scenario-metric strong {
+color: #e0e0e0;
+font-weight: 600;
+}
+/* Responsive */
+@media (max-width: 768px) {
+h1 {
+font-size: 1.8rem;
+}
+.grid {
+grid-template-columns: 1fr;
+}
+.risk-matrix {
+grid-template-columns: 1fr;
+}
+.tabs {
+padding: 0 1rem;
+}
+.tab-button {
+padding: 0.75rem 1rem;
+font-size: 0.85rem;
+}
+.container {
+padding: 1rem;
+}
+.card {
+padding: 1.5rem;
+}
+}
+</style></head><body><!-- Portal Auth Gate --><div id="gate" style="position:fixed;inset:0;background:#0a0a0a;z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;font-family:-apple-system,sans-serif;"><h2 style="color:#fff;font-size:20px;margin-bottom:16px;font-weight:600;">SAJ Consulting</h2><input type="password" id="pw" placeholder="Enter access code" autofocus style="background:#1a1a1a;border:1px solid #333;color:#fff;padding:12px 20px;border-radius:8px;font-size:16px;width:280px;text-align:center;outline:none;"><div id="err" style="color:#f87171;font-size:13px;margin-top:8px;min-height:20px;"></div></div><script>(function(){var H="14bbfb5253b71a1818305190a90dd6bbb03461afcf78202aa1f90fc7f3632790";if(sessionStorage.getItem("portal_auth")==="1"){document.getElementById("gate").style.display="none";return;}document.body.style.overflow="hidden";var inp=document.getElementById("pw"),err=document.getElementById("err");inp.addEventListener("keydown",function(e){if(e.key==="Enter"){crypto.subtle.digest("SHA-256",new TextEncoder().encode(inp.value)).then(function(buf){var h=Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,"0")}).join("");if(h===H){document.getElementById("gate").style.display="none";document.body.style.overflow="";sessionStorage.setItem("portal_auth","1");}else{err.textContent="Invalid access code";inp.value="";inp.focus();}});}});inp.style.borderColor="#333";inp.addEventListener("focus",function(){inp.style.borderColor="#c8a55a";});inp.addEventListener("blur",function(){inp.style.borderColor="#333";});})();</script><div class="nav-bar"><a href="../index.html">← Back to Portfolio</a></div><div class="header"><div class="header-content"><div class="verdict-badge">VERDICT: PASS</div><h1>Pioneer Golf</h1><p class="subtitle">Due Diligence Analysis · 18-Hole Semi-Private Course · North Carolina</p></div></div><div class="tabs"><button class="tab-button active" onclick="switchTab(event, 'snapshot')">Deal Snapshot</button><button class="tab-button" onclick="switchTab(event, 'financial')">Financial Summary</button><button class="tab-button" onclick="switchTab(event, 'comps')">Comparable Deals</button><button class="tab-button" onclick="switchTab(event, 'risks')">Risk Matrix</button><button class="tab-button" onclick="switchTab(event, 'stress')">Stress Tests</button><button class="tab-button" onclick="switchTab(event, 'operator')">Operator Diligence</button><button class="tab-button" onclick="switchTab(event, 'verdict')">Go/No-Go</button><button class="tab-button" onclick="switchTab(event, 'lessons')">Lessons Learned</button></div><div class="container"><div id="snapshot" class="tab-content active"><div class="card"><h2>Deal Snapshot</h2><div class="grid"><div class="grid-item"><div class="grid-item-label">Asset</div><div class="grid-item-value">Pioneer Golf & Country Club</div><div style="color: #888; font-size: 0.85rem; margin-top: 0.5rem;">18-hole semi-private course</div></div><div class="grid-item"><div class="grid-item-label">Location</div><div class="grid-item-value">North Carolina</div><div style="color: #888; font-size: 0.85rem; margin-top: 0.5rem;">Suburban market, established</div></div><div class="grid-item"><div class="grid-item-label">Ask Price</div><div class="grid-item-value" style="color: #ef4444;">$2.8M</div><div style="color: #888; font-size: 0.85rem; margin-top: 0.5rem;">Asset purchase structure</div></div><div class="grid-item"><div class="grid-item-label">Seller Motivation</div><div class="grid-item-value">Retirement</div><div style="color: #888; font-size: 0.85rem; margin-top: 0.5rem;">Owner-operator, 22 years</div></div><div class="grid-item"><div class="grid-item-label">Condition</div><div class="grid-item-value" style="color: #f97316;">Deferred Capex</div><div style="color: #888; font-size: 0.85rem; margin-top: 0.5rem;">$400K+ needed immediately</div></div><div class="grid-item"><div class="grid-item-label">Membership</div><div class="grid-item-value">280 Members</div><div style="color: #888; font-size: 0.85rem; margin-top: 0.5rem;">Down from 340 in 2021</div></div></div><h3 style="margin-top: 2rem; margin-bottom: 1rem;">Course Overview</h3><p style="color: #b0b0b0; margin-bottom: 1rem;">
+Pioneer Golf & Country Club is an 18-hole championship course in a suburban North Carolina market.
+The facility has been owner-operated for 22 years by a single operator now seeking retirement. The course
+is semi-private (membership + public play). Membership has declined 18% over the past 3 years, and the
+clubhouse requires significant renovation ($400K+). Greens maintenance has been deferred and requires
+immediate capital injection to maintain playability standards.
+</p></div></div><div id="financial" class="tab-content"><div class="card"><h2>Financial Summary</h2><table><thead><tr><th>Metric</th><th class="num">2024 (LTM)</th><th class="num">2023</th><th class="num">2022</th></tr></thead><tbody><tr><td>Revenue</td><td class="num">$1,800,000</td><td class="num">$1,950,000</td><td class="num">$2,100,000</td></tr><tr><td>EBITDA</td><td class="num">$180,000</td><td class="num">$185,000</td><td class="num">$220,000</td></tr><tr><td>EBITDA Margin</td><td class="num">10.0%</td><td class="num">9.5%</td><td class="num">10.5%</td></tr><tr><td>Active Members</td><td class="num">280</td><td class="num">310</td><td class="num">340</td></tr></tbody></table><h3 style="margin-bottom: 1rem;">Revenue Mix (2024 LTM)</h3><table><thead><tr><th>Revenue Stream</th><th class="num">% of Total</th><th class="num">Absolute ($)</th></tr></thead><tbody><tr><td>Greens Fees (Public Play)</td><td class="num">45%</td><td class="num">$810,000</td></tr><tr><td>Membership Dues</td><td class="num">30%</td><td class="num">$540,000</td></tr><tr><td>Food & Beverage</td><td class="num">15%</td><td class="num">$270,000</td></tr><tr><td>Tournaments & Events</td><td class="num">10%</td><td class="num">$180,000</td></tr></tbody></table><h3 style="margin: 2rem 0 1rem 0;">Key Risks</h3><div style="background-color: #0a0a0a; border-left: 3px solid #ef4444; padding: 1rem; border-radius: 0.35rem;"><p style="margin-bottom: 0.75rem;"><strong>Key-Man Risk: CRITICAL</strong></p><p style="color: #b0b0b0; font-size: 0.9rem;">
+The current operator IS the business. All member relationships, course management, and strategic
+decisions flow through this single individual. No general manager in place. Transition to new ownership
+carries existential risk to the membership base.
+</p></div></div></div><div id="comps" class="tab-content"><div class="card"><h2>Comparable Transactions</h2><p style="color: #b0b0b0; margin-bottom: 1.5rem;">
+Golf course acquisitions in the southeastern United States typically transact at 5-7x EBITDA multiples,
+depending on condition, membership strength, and market positioning. Pioneer is priced at a significant premium.
+</p><table><thead><tr><th>Course / Transaction</th><th class="num">EBITDA</th><th class="num">Sale Price</th><th class="num">Multiple</th><th class="num">Notes</th></tr></thead><tbody><tr><td>Oakmont CC (NC)</td><td class="num">$320K</td><td class="num">$1.85M</td><td class="num">5.8x</td><td>Market comp, 2023</td></tr><tr><td>Pinehurst Annex (NC)</td><td class="num">$285K</td><td class="num">$1.71M</td><td class="num">6.0x</td><td>Strong membership, 2022</td></tr><tr><td>Greensboro Links (NC)</td><td class="num">$225K</td><td class="num">$1.35M</td><td class="num">6.0x</td><td>Turnkey operation, 2023</td></tr><tr style="background-color: #1a1a1a; border-top: 2px solid #222; border-bottom: 2px solid #222;"><td><strong>Pioneer Golf (Ask)</strong></td><td class="num"><strong>$180K</strong></td><td class="num"><strong>$2.80M</strong></td><td class="num"><strong style="color: #ef4444;">15.6x</strong></td><td><strong>Current ask</strong></td></tr></tbody></table><h3 style="margin: 2rem 0 1rem 0;">Fair Value Analysis</h3><div class="grid"><div class="grid-item"><div class="grid-item-label">Comp Range (5-7x EBITDA)</div><div class="grid-item-value" style="color: #22c55e;">$900K - $1.26M</div><div style="color: #888; font-size: 0.85rem; margin-top: 0.5rem;">Based on $180K EBITDA</div></div><div class="grid-item"><div class="grid-item-label">Pioneer Ask</div><div class="grid-item-value" style="color: #ef4444;">$2.80M</div><div style="color: #888; font-size: 0.85rem; margin-top: 0.5rem;">15.6x EBITDA multiple</div></div><div class="grid-item"><div class="grid-item-label">Overvaluation</div><div class="grid-item-value" style="color: #ef4444;">$1.54M - $1.90M</div><div style="color: #888; font-size: 0.85rem; margin-top: 0.5rem;">122-211% premium vs. comps</div></div></div><div style="background-color: #0a0a0a; border-left: 3px solid #ef4444; padding: 1rem; margin-top: 1.5rem; border-radius: 0.35rem;"><p style="color: #e0e0e0; margin-bottom: 0.5rem;"><strong>Verdict:</strong></p><p style="color: #b0b0b0; font-size: 0.9rem;">
+Pioneer is priced 2-3x above market comparables. Even with operational improvements and member acquisition,
+the ask price is not supportable by the asset's actual earnings power.
+</p></div></div></div><div id="risks" class="tab-content"><div class="card"><h2>Risk Assessment Matrix</h2><p style="color: #b0b0b0; margin-bottom: 2rem;">
+Severity = potential impact; Likelihood = probability of occurrence.
+</p><div class="risk-matrix"><div class="risk-item"><div class="risk-item-title">Key-Man Dependency</div><div class="risk-severity"><span class="severity-critical">CRITICAL</span><span class="likelihood">/</span><span class="severity-high">HIGH</span></div><p style="font-size: 0.85rem; color: #b0b0b0; margin-top: 0.75rem;">
+All member relationships, operations, and strategy tied to current operator. No succession plan.
+</p></div><div class="risk-item"><div class="risk-item-title">Deferred Maintenance</div><div class="risk-severity"><span class="severity-high">HIGH</span><span class="likelihood">/</span><span class="severity-high">CERTAIN</span></div><p style="font-size: 0.85rem; color: #b0b0b0; margin-top: 0.75rem;">
+$400K+ capex needed immediately. Clubhouse renovation, greens renovation required.
+</p></div><div class="risk-item"><div class="risk-item-title">Membership Decline</div><div class="risk-severity"><span class="severity-high">HIGH</span><span class="likelihood">/</span><span class="severity-high">HIGH</span></div><p style="font-size: 0.85rem; color: #b0b0b0; margin-top: 0.75rem;">
+18% decline in 3 years. Secular headwinds in golf industry nationwide.
+</p></div><div class="risk-item"><div class="risk-item-title">Market Saturation</div><div class="risk-severity"><span class="severity-medium">MEDIUM</span><span class="likelihood">/</span><span class="severity-medium">MEDIUM</span></div><p style="font-size: 0.85rem; color: #b0b0b0; margin-top: 0.75rem;">
+7 courses within 15 miles. Competitive public/semi-private landscape.
+</p></div><div class="risk-item"><div class="risk-item-title">Weather & Seasonality</div><div class="risk-severity"><span class="severity-medium">MEDIUM</span><span class="likelihood">/</span><span class="severity-high">HIGH</span></div><p style="font-size: 0.85rem; color: #b0b0b0; margin-top: 0.75rem;">
+Hurricane season, winter dormancy, extreme heat reduce playable days.
+</p></div><div class="risk-item"><div class="risk-item-title">Regulatory</div><div class="risk-severity"><span class="severity-low">LOW</span><span class="likelihood">/</span><span class="severity-low">LOW</span></div><p style="font-size: 0.85rem; color: #b0b0b0; margin-top: 0.75rem;">
+Environmental and labor regulations manageable. No significant litigation identified.
+</p></div><div class="risk-item"><div class="risk-item-title">Cost Structure</div><div class="risk-severity"><span class="severity-high">HIGH</span><span class="likelihood">/</span><span class="severity-medium">MEDIUM</span></div><p style="font-size: 0.85rem; color: #b0b0b0; margin-top: 0.75rem;">
+Labor-intensive operation. Wage inflation and benefits limit margin expansion.
+</p></div><div class="risk-item"><div class="risk-item-title">Financing Risk</div><div class="risk-severity"><span class="severity-medium">MEDIUM</span><span class="likelihood">/</span><span class="severity-high">HIGH</span></div><p style="font-size: 0.85rem; color: #b0b0b0; margin-top: 0.75rem;">
+$2.8M ask limits available financing. Most lenders cap at 3-4x EBITDA.
+</p></div></div></div></div><div id="stress" class="tab-content"><div class="card"><h2>Stress Test Scenarios</h2><p style="color: #b0b0b0; margin-bottom: 1.5rem;">
+Three scenarios modeling P&L under different operational conditions. All assume $2.8M purchase price.
+</p><div class="scenario"><div class="scenario-title">BASE CASE (No Change)</div><div class="scenario-metric"><span>LTM EBITDA</span><strong>$180,000</strong></div><div class="scenario-metric"><span>Annual Debt Service (7-year amort @ 7%)</span><strong>$551,000</strong></div><div class="scenario-metric"><span>Free Cash Flow to Owner</span><strong>($371,000)</strong></div><div class="scenario-metric"><span>Payback Period</span><strong style="color: #ef4444;">7.0+ years (negative cash flow)</strong></div><div class="scenario-metric"><span>Notes</span><strong style="color: #f97316;">Cannot support debt service. Unsustainable.</strong></div></div><div class="scenario"><div class="scenario-title">BEAR CASE (15% Membership Loss)</div><div class="scenario-metric"><span>Members</span><strong>238 (from 280)</strong></div><div class="scenario-metric"><span>Revenue Impact</span><strong>-$252,000 (-14% from $1.8M)</strong></div><div class="scenario-metric"><span>Estimated EBITDA</span><strong style="color: #ef4444;">$120,000</strong></div><div class="scenario-metric"><span>Debt Service vs. EBITDA</span><strong style="color: #ef4444;">2.2x coverage (need 1.25x+ minimum)</strong></div><div class="scenario-metric"><span>Likelihood</span><strong style="color: #ef4444;">HIGH — ongoing trend</strong></div></div><div class="scenario"><div class="scenario-title">BULL CASE (New Management + Capex)</div><div class="scenario-metric"><span>Year 1 Investment</span><strong>$400,000 (clubhouse + greens)</strong></div><div class="scenario-metric"><span>Year 2-3 Revenue Growth</span><strong>+15% (member acquisition, higher rates)</strong></div><div class="scenario-metric"><span>Year 3 Revenue</span><strong>$2.07M</strong></div><div class="scenario-metric"><span>Year 3 Estimated EBITDA</span><strong style="color: #22c55e;">$300,000</strong></div><div class="scenario-metric"><span>Debt Service Coverage (Year 3)</span><strong style="color: #22c55e;">0.54x (still below 1.0x)</strong></div><div class="scenario-metric"><span>Notes</span><strong style="color: #eab308;">Even best case requires $2.5M+ capex investment. ROI timeline exceeds 10 years.</strong></div></div><h3 style="margin: 2rem 0 1rem 0;">Breakeven Analysis</h3><div style="background-color: #0a0a0a; border: 1px solid #222; padding: 1.5rem; border-radius: 0.35rem;"><p style="margin-bottom: 0.75rem;"><strong>To achieve positive cash flow at $2.8M purchase:</strong></p><ul style="list-style: none; padding-left: 0; color: #b0b0b0;"><li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative;"><span style="position: absolute; left: 0; color: #ef4444;">•</span>
+Grow membership to 310+ members (net +30, reverse 3-year trend)
+</li><li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative;"><span style="position: absolute; left: 0; color: #ef4444;">•</span>
+Invest $400K+ in capital improvements
+</li><li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative;"><span style="position: absolute; left: 0; color: #ef4444;">•</span>
+Achieve $200K+ revenue growth (11% increase)
+</li><li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative;"><span style="position: absolute; left: 0; color: #ef4444;">•</span>
+Timeline: 12-18 months minimum
+</li></ul></div></div></div><div id="operator" class="tab-content"><div class="card"><h2>Operator & Management Assessment</h2><h3 style="margin: 0 0 1rem 0; color: #ef4444;">Operating Requirements</h3><table><thead><tr><th>Role / Function</th><th>Current State</th><th>Assessment</th></tr></thead><tbody><tr><td>General Manager</td><td>Not identified</td><td style="color: #ef4444;">CRITICAL GAP</td></tr><tr><td>Course Superintendent</td><td>Age 67, employee 14 years</td><td style="color: #f97316;">Succession risk — likely retiring within 24 months</td></tr><tr><td>Head Pro</td><td>Part-time, limited responsibilities</td><td style="color: #f97316;">Capable but limited bandwidth for growth</td></tr><tr><td>F&B Manager</td><td>Long-time employee</td><td style="color: #22c55e;">Stable, institutional knowledge</td></tr><tr><td>Maintenance Staff</td><td>4 FT, 2 PT employees</td><td style="color: #f97316;">Aging workforce, needs replenishment</td></tr></tbody></table><h3 style="margin: 2rem 0 1rem 0; color: #ef4444;">Scott's Operator Bandwidth Analysis</h3><div style="background-color: #0a0a0a; border: 1px solid #222; padding: 1.5rem; border-radius: 0.35rem; margin-bottom: 1.5rem;"><p style="margin-bottom: 1rem; color: #b0b0b0;"><strong style="color: #e0e0e0;">Estimated requirement: 20-25 hrs/week minimum</strong> for active operational oversight,
+member relationship management, capital planning, and staff development during first 18-24 months.
+</p><p style="margin-bottom: 1rem; color: #b0b0b0;"><strong style="color: #e0e0e0;">Current commitments:</strong></p><ul style="list-style: none; padding-left: 0; color: #b0b0b0;"><li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative;"><span style="position: absolute; left: 0; color: #888;">•</span>
+Crawford Hospitality — 40+ hrs/week (active operator-investor, multiple properties)
+</li><li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative;"><span style="position: absolute; left: 0; color: #888;">•</span>
+MEGA investment management — 15+ hrs/week (portfolio monitoring, board seat)
+</li><li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative;"><span style="position: absolute; left: 0; color: #888;">•</span>
+NSH real estate management — 10+ hrs/week (active acquisitions and operations)
+</li><li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative;"><span style="position: absolute; left: 0; color: #888;">•</span>
+SAJ Consulting — 20+ hrs/week (analysis, deal evaluation, advisory)
+</li><li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative;"><span style="position: absolute; left: 0; color: #888;">•</span>
+Financial/legal management — 10+ hrs/week (across all entities)
+</li></ul></div><div style="background-color: #1a1a1a; border: 2px solid #f97316; padding: 1.5rem; border-radius: 0.35rem;"><p style="color: #f97316; font-weight: 600; margin-bottom: 0.75rem;">CONFLICT ASSESSMENT: HIGH</p><p style="color: #b0b0b0;">
+Current obligations consume 95+ hours per week. Golf operations require 20-25 hrs/week of
+dedicated, hands-on management. No available bandwidth without sacrificing quality across other
+commitments. This is a dealbreaker unless external GM identified and committed pre-close.
+</p></div><h3 style="margin: 2rem 0 1rem 0;">GM Candidate Requirements</h3><div class="grid"><div class="grid-item"><div class="grid-item-label">Must Have</div><ul style="list-style: none; padding: 0; color: #e0e0e0; font-size: 0.9rem;"><li style="padding: 0.5rem 0;">✓ 5+ years course management</li><li style="padding: 0.5rem 0;">✓ Membership retention track record</li><li style="padding: 0.5rem 0;">✓ P&L responsibility $500K+</li><li style="padding: 0.5rem 0;">✓ Strong member references</li></ul></div><div class="grid-item"><div class="grid-item-label">Status</div><div style="color: #ef4444; font-weight: 600; margin-top: 0.75rem;">NOT IDENTIFIED</div><p style="color: #888; font-size: 0.85rem; margin-top: 0.75rem;">
+Current seller has no candidate identified. Market search required pre-acquisition.
+</p></div></div></div></div><div id="verdict" class="tab-content"><div class="verdict-card"><div class="verdict-title">PASS</div><h2>Go / No-Go Decision</h2><p style="margin-bottom: 1.5rem; color: #b0b0b0;"><strong style="color: #e0e0e0;">Recommendation: DO NOT PURSUE</strong> at current asking price or structure.
+</p><h3 style="margin: 1.5rem 0 1rem 0; color: #e0e0e0;">Primary Reasons for PASS</h3><ul class="verdict-reasons"><li><strong>Massive Valuation Disconnect:</strong> $2.8M ask = 15.6x EBITDA vs. 5-7x market
+comparables. Overpriced by $1.54M-$1.90M (122-211% premium). Even in best-case bull scenario,
+the asset cannot support this valuation.
+</li><li><strong>Critical Key-Man Risk:</strong> All member relationships, operations, and strategy
+centered on current owner. No general manager identified. Transition to new ownership creates
+existential risk to membership base and revenue. This risk is NOT reflected in the asking price.
+</li><li><strong>Deferred Capital Requirements:</strong> $400K+ capex needed immediately (clubhouse
+renovation, greens restoration, maintenance). Not reflected in the $2.8M ask. Total true cost
+to operate: $3.2M+.
+</li><li><strong>Negative Membership Trend:</strong> 18% decline over 3 years (340 → 280 members).
+Secular headwinds in golf industry. No credible growth plan to reverse this trajectory within
+12-18 months.
+</li><li><strong>No Operator Bandwidth:</strong> Current obligations consume 95+ hours/week across
+Crawford, MEGA, NSH, and consulting work. Golf operations require 20-25 hrs/week of dedicated
+hands-on management. Conflict is unsustainable without external GM (not yet identified).
+</li></ul><div class="verdict-note"><strong>Would reconsider at $1.2M with seller financing (50% LTV) and a committed 12-month
+transition with the current operator remaining as operations consultant.</strong> Even then, the
+operator bandwidth issue requires a proven GM candidate with signed commitment.
+</div></div><div class="card"><h3>Summary P&L Impact (Base Case, 7-Year Hold)</h3><table><thead><tr><th>Metric</th><th class="num">Year 1</th><th class="num">Year 3</th><th class="num">Year 7</th></tr></thead><tbody><tr><td>Revenue</td><td class="num">$1,800,000</td><td class="num">$1,780,000</td><td class="num">$1,750,000</td></tr><tr><td>Operating Expenses</td><td class="num">($1,620,000)</td><td class="num">($1,610,000)</td><td class="num">($1,600,000)</td></tr><tr><td>EBITDA</td><td class="num">$180,000</td><td class="num">$170,000</td><td class="num">$150,000</td></tr><tr><td>Debt Service (est.)</td><td class="num">($551,000)</td><td class="num">($551,000)</td><td class="num">($551,000)</td></tr><tr style="background-color: #0f0f0f; border-top: 2px solid #222; border-bottom: 2px solid #222;"><td><strong>Free Cash Flow</strong></td><td class="num"><strong style="color: #ef4444;">($371,000)</strong></td><td class="num"><strong style="color: #ef4444;">($381,000)</strong></td><td class="num"><strong style="color: #ef4444;">($401,000)</strong></td></tr></tbody></table><p style="color: #b0b0b0; margin-top: 1.5rem; font-size: 0.9rem;"><strong style="color: #e0e0e0;">Note:</strong> Base case assumes debt service of $551K/year
+(7-year amortization, 7% rate on $2.8M). EBITDA of $180K is insufficient to cover debt service.
+Asset cannot support financing at current valuation. Would require all-cash acquisition or seller
+financing at deeply reduced terms.
+</p></div></div><div id="lessons" class="tab-content"><div class="card"><h2>Lessons Learned</h2><p style="color: #b0b0b0; margin-bottom: 2rem;">
+Key insights from the Pioneer Golf due diligence process, applicable to future lifestyle/service
+business acquisitions.
+</p><div class="lessons-grid"><div class="lesson-card"><p><strong style="color: #e0e0e0;">"Golf is a lifestyle business disguised as real estate."</strong>
+The asset is the land and facilities, but the business is membership relationships, service
+quality, and operator reputation. The real asset walks out the door when the operator leaves.
+Never undervalue key-man risk in service businesses.
+</p></div><div class="lesson-card"><p><strong style="color: #e0e0e0;">"Key-man risk in service businesses is a dealbreaker without a bench."</strong>
+If you cannot identify and commit a GM candidate pre-close, the acquisition becomes a lifestyle
+job, not an investment. The incumbent operator is an asset, not a liability — until they leave.
+Plan for that departure.
+</p></div><div class="lesson-card"><p><strong style="color: #e0e0e0;">"Deferred maintenance is always worse than disclosed."</strong>
+The $400K+ capital requirement at Pioneer was disclosed, but the true cost (including member
+satisfaction risk, competitive disadvantage, and timeline impact) was underestimated by the seller.
+Assume 1.5x the stated capex requirement.
+</p></div><div class="lesson-card"><p><strong style="color: #e0e0e0;">"Valuation multiples reflect the operational burden, not just the cash flow."</strong>
+Golf at 5-7x EBITDA vs. 15.6x at Pioneer tells you something: the market has already priced in
+the operator burden and transition risk. The seller's premium expectation doesn't match market
+reality.
+</p></div><div class="lesson-card"><p><strong style="color: #e0e0e0;">"Bandwidth conflicts are real constraints, not theoretical."</strong>
+Saying "I'll make it work" is not a financial plan. When current commitments consume 95+
+hours/week, adding 20-25 hours/week of hands-on management doesn't scale. Either reduce existing
+commitments or hire the management capacity.
+</p></div><div class="lesson-card"><p><strong style="color: #e0e0e0;">"Declining revenue trends require a credible turnaround plan with timelines."</strong>
+18% membership decline over 3 years is not a buyer's market. You're now fighting a declining trend
+that the incumbent operator couldn't reverse. What's your differentiated value proposition to reverse
+this? Be honest about probability of success.
+</p></div><div class="lesson-card"><p><strong style="color: #e0e0e0;">"Seller financing becomes essential when the asset can't support institutional debt."</strong>
+Pioneer at $2.8M cannot support 7-year amortization at market rates. If the seller won't finance at
+reasonable terms, that's a signal: they don't believe in the business's cash generation either.
+</p></div><div class="lesson-card"><p><strong style="color: #e0e0e0;">"Say no faster. Valuation discipline is the best risk management."</strong>
+Pioneer is a well-run asset with a good operator. But at 2-3x fair value, it's a poor investment.
+Saying "pass" on an overpriced asset is not failing — it's succeeding at capital preservation.
+</p></div></div></div></div></div><div class="footer"><p>Due Diligence Engine · Analysis completed April 2026 · SAJ Consulting</p></div><script>
+function switchTab(event, tabName) {
+// Hide all tabs
+const tabs = document.querySelectorAll('.tab-content');
+tabs.forEach(tab => tab.classList.remove('active'));
+// Remove active class from all buttons
+const buttons = document.querySelectorAll('.tab-button');
+buttons.forEach(btn => btn.classList.remove('active'));
+// Show selected tab
+document.getElementById(tabName).classList.add('active');
+// Add active class to clicked button
+event.currentTarget.classList.add('active');
+}
+</script></body></html>

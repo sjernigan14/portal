@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SAJ Consulting — Portal</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%230a0a0a' width='100' height='100' rx='20'/><text x='50' y='68' text-anchor='middle' fill='%23c8a55a' font-family='system-ui' font-size='52' font-weight='700'>S</text></svg>">
+<meta property="og:title" content="SAJ Consulting — Portal">
+<meta property="og:description" content="Dashboards, tools, and artifacts across Crawford Hospitality, MEGA, Patron Properties, NSH, and SAJ Consulting.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0a0a0a">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -68,14 +73,154 @@
   .footer-logos a:hover { color: #c8a55a; }
   .footer-credit { font-size: 11px; color: #333; }
 
+  /* Alert Bar */
+  .alert-bar { max-width: 1200px; margin: 0 auto 24px; padding: 0 32px; display: none; }
+  .alert-bar.visible { display: block; }
+  .alert-summary { background: #141414; border: 1px solid #222; border-radius: 10px; padding: 14px 20px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; user-select: none; }
+  .alert-summary:hover { border-color: #c8a55a; }
+  .alert-counts { display: flex; gap: 12px; font-size: 13px; font-weight: 600; }
+  .alert-count-red { color: #f87171; }
+  .alert-count-amber { color: #fbbf24; }
+  .alert-count-blue { color: #60a5fa; }
+  .alert-chevron { color: #555; transition: transform 0.2s; font-size: 14px; }
+  .alert-bar.expanded .alert-chevron { transform: rotate(180deg); }
+  .alert-list { display: none; margin-top: 8px; }
+  .alert-bar.expanded .alert-list { display: block; }
+  .alert-item { background: #141414; border: 1px solid #1e1e1e; border-radius: 8px; padding: 12px 16px; margin-bottom: 6px; font-size: 13px; }
+  .alert-item .alert-title { color: #fff; font-weight: 600; }
+  .alert-item .alert-detail { color: #888; margin-top: 4px; font-size: 12px; line-height: 1.4; }
+  .alert-item .alert-meta { color: #555; font-size: 11px; margin-top: 6px; }
+  .alert-item[data-level="ACTION_NEEDED"] { border-left: 3px solid #f87171; }
+  .alert-item[data-level="WAITING_ON"] { border-left: 3px solid #fbbf24; }
+  .alert-item[data-level="FYI"] { border-left: 3px solid #60a5fa; }
+
+  /* Unit live status */
+  .unit-status { font-size: 12px; color: #999; margin-bottom: 12px; line-height: 1.4; min-height: 17px; }
+
+  /* Ntfy badge */
+  .ntfy-badge { display: inline-flex; align-items: center; justify-content: center; background: #f87171; color: #fff; font-size: 11px; font-weight: 700; min-width: 18px; height: 18px; border-radius: 9px; padding: 0 5px; margin-left: 8px; vertical-align: middle; }
+
+  /* Activity Feed */
+  .activity-feed { max-width: 800px; }
+  .activity-item { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid #1a1a1a; }
+  .activity-item:last-child { border-bottom: none; }
+  .activity-time { font-size: 11px; color: #555; min-width: 56px; padding-top: 2px; flex-shrink: 0; }
+  .activity-dot { width: 8px; height: 8px; border-radius: 50%; background: #333; margin-top: 5px; flex-shrink: 0; }
+  .activity-dot[data-unit="crawford"] { background: #c8a55a; }
+  .activity-dot[data-unit="mega"] { background: #818cf8; }
+  .activity-dot[data-unit="patron"] { background: #34d399; }
+  .activity-dot[data-unit="nsh"] { background: #60a5fa; }
+  .activity-dot[data-unit="personal"] { background: #f472b6; }
+  .activity-body { flex: 1; min-width: 0; }
+  .activity-thread { font-size: 11px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 2px; }
+  .activity-text { font-size: 13px; color: #ccc; line-height: 1.4; }
+  .activity-date-group { font-size: 12px; font-weight: 700; color: #555; padding: 16px 0 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* Search Overlay */
+  .search-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 8000; display: none; align-items: flex-start; justify-content: center; padding-top: 80px; }
+  .search-overlay.visible { display: flex; }
+  .search-box { width: 90%; max-width: 560px; }
+  .search-input { width: 100%; background: #1a1a1a; border: 1px solid #333; color: #fff; padding: 14px 20px; border-radius: 10px; font-size: 16px; font-family: inherit; outline: none; }
+  .search-input:focus { border-color: #c8a55a; }
+  .search-input::placeholder { color: #555; }
+  .search-results { margin-top: 8px; max-height: 400px; overflow-y: auto; }
+  .search-result { background: #141414; border: 1px solid #1e1e1e; border-radius: 8px; padding: 12px 16px; margin-bottom: 6px; cursor: pointer; transition: border-color 0.2s; }
+  .search-result:hover { border-color: #c8a55a; }
+  .search-result-title { font-size: 14px; font-weight: 600; color: #fff; }
+  .search-result-meta { font-size: 11px; color: #666; margin-top: 2px; }
+  .search-hint { font-size: 11px; color: #444; text-align: center; margin-top: 12px; }
+
+  /* Search trigger button */
+  .search-btn { position: fixed; top: 44px; right: 32px; z-index: 100; background: #141414; border: 1px solid #222; color: #888; width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; transition: all 0.2s; }
+  .search-btn:hover { border-color: #c8a55a; color: #fff; }
+
+  /* Briefing sections */
+  .briefing-section { margin-bottom: 20px; }
+  .briefing-label { font-size: 11px; font-weight: 700; color: #555; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+  .briefing-label.red { color: #f87171; }
+  .briefing-label.amber { color: #fbbf24; }
+  .briefing-label.blue { color: #60a5fa; }
+  .briefing-label.green { color: #27AE60; }
+
+  /* Calendar strip */
+  .cal-strip { background: #141414; border: 1px solid #222; border-radius: 10px; padding: 14px 18px; margin-bottom: 8px; }
+  .cal-event { display: flex; gap: 12px; padding: 6px 0; border-bottom: 1px solid #1a1a1a; align-items: baseline; }
+  .cal-event:last-child { border-bottom: none; }
+  .cal-time { font-size: 12px; color: #c8a55a; font-weight: 600; min-width: 64px; flex-shrink: 0; }
+  .cal-title { font-size: 13px; color: #fff; flex: 1; }
+  .cal-notes { font-size: 11px; color: #666; margin-top: 2px; }
+  .cal-declined { opacity: 0.45; }
+  .cal-week { font-size: 12px; color: #888; line-height: 1.6; }
+  .cal-week strong { color: #ccc; font-weight: 600; }
+
+  /* Priority list */
+  .priority-list { list-style: none; }
+  .priority-item { display: flex; gap: 10px; padding: 10px 14px; background: #141414; border: 1px solid #1e1e1e; border-radius: 8px; margin-bottom: 6px; cursor: pointer; transition: border-color 0.2s; text-decoration: none; }
+  .priority-item:hover { border-color: #c8a55a; }
+  .priority-num { font-size: 13px; font-weight: 700; color: #c8a55a; min-width: 18px; flex-shrink: 0; }
+  .priority-body { flex: 1; min-width: 0; }
+  .priority-title { font-size: 13px; font-weight: 600; color: #fff; }
+  .priority-detail { font-size: 12px; color: #888; margin-top: 2px; line-height: 1.4; }
+  .priority-tag { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-left: 6px; vertical-align: middle; }
+  .priority-tag.send { background: #27AE60; color: #fff; }
+  .priority-tag.deadline { background: #f87171; color: #fff; }
+  .priority-link { color: #555; font-size: 14px; flex-shrink: 0; align-self: center; }
+
+  /* Email table */
+  .email-row { display: flex; gap: 10px; padding: 10px 14px; background: #141414; border: 1px solid #1e1e1e; border-radius: 8px; margin-bottom: 6px; cursor: pointer; transition: border-color 0.2s; text-decoration: none; }
+  .email-row:hover { border-color: #c8a55a; }
+  .email-from { font-size: 12px; color: #c8a55a; font-weight: 600; min-width: 100px; flex-shrink: 0; }
+  .email-body { flex: 1; min-width: 0; }
+  .email-subject { font-size: 13px; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .email-action { font-size: 12px; color: #888; margin-top: 2px; }
+  .email-arrow { color: #555; font-size: 14px; flex-shrink: 0; align-self: center; }
+
+  /* Deal rows */
+  .deal-row { padding: 10px 14px; background: #141414; border: 1px solid #1e1e1e; border-radius: 8px; margin-bottom: 6px; }
+  .deal-name { font-size: 13px; font-weight: 600; color: #fff; }
+  .deal-status { font-size: 12px; color: #888; margin-top: 2px; }
+  .deal-waiting { font-size: 11px; color: #fbbf24; margin-top: 4px; }
+
+  /* Waiting-on rows */
+  .waiting-row { display: flex; gap: 10px; padding: 10px 14px; background: #141414; border: 1px solid #1e1e1e; border-radius: 8px; margin-bottom: 6px; align-items: baseline; }
+  .waiting-person { font-size: 13px; font-weight: 600; color: #fff; min-width: 100px; flex-shrink: 0; }
+  .waiting-item { font-size: 12px; color: #888; flex: 1; }
+  .waiting-flag { font-size: 10px; font-weight: 700; color: #f87171; flex-shrink: 0; }
+  .waiting-flag.stale { color: #fbbf24; }
+
+  /* Draft pills */
+  .draft-row { display: flex; gap: 10px; padding: 10px 14px; background: #141414; border: 1px solid #1e1e1e; border-radius: 8px; margin-bottom: 6px; align-items: center; cursor: pointer; transition: border-color 0.2s; }
+  .draft-row:hover { border-color: #c8a55a; }
+  .draft-title { font-size: 13px; font-weight: 600; color: #fff; flex: 1; }
+  .draft-notes { font-size: 12px; color: #888; }
+  .draft-send-tag { font-size: 10px; font-weight: 700; background: #27AE60; color: #fff; padding: 2px 8px; border-radius: 3px; }
+
+  /* Briefing timestamp */
+  .briefing-timestamp { font-size: 11px; color: #444; margin-bottom: 20px; }
+
+  /* Pull to refresh indicator */
+  .ptr-indicator { text-align: center; padding: 8px; font-size: 12px; color: #555; display: none; max-width: 1200px; margin: 0 auto; }
+  .ptr-indicator.visible { display: block; }
+
+  /* Bottom tab bar (mobile only) */
+  .tab-bar { display: none; }
+
   /* Mobile */
   @media (max-width: 640px) {
     header { padding: 24px 16px 16px; }
-    nav { padding: 0 16px; }
-    main { padding: 0 16px 40px; }
-    footer { padding: 24px 16px; }
+    nav { display: none; }
+    main { padding: 0 16px 100px; }
+    footer { padding: 24px 16px 100px; }
     .units { grid-template-columns: 1fr; }
     .artifacts { grid-template-columns: 1fr; }
+    .alert-bar { padding: 0 16px; }
+    .search-btn { top: 28px; right: 16px; }
+
+    /* Bottom tab bar */
+    .tab-bar { display: flex; position: fixed; bottom: 0; left: 0; right: 0; background: #0a0a0a; border-top: 1px solid #1a1a1a; z-index: 7000; padding: 6px 0 env(safe-area-inset-bottom, 8px); }
+    .tab-bar a { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 6px 0; text-decoration: none; color: #555; font-size: 10px; font-weight: 600; transition: color 0.2s; }
+    .tab-bar a.active { color: #c8a55a; }
+    .tab-bar a .tab-icon { font-size: 20px; line-height: 1; }
   }
 </style>
 </head>
@@ -101,37 +246,99 @@
   <a href="#" data-view="patron">Patron Properties</a>
   <a href="#" data-view="nsh">NSH / SAJ</a>
   <a href="#" data-view="personal">Personal</a>
+  <a href="#" data-view="activity">Activity</a>
 </nav>
 
+<!-- Search Button -->
+<div class="search-btn" onclick="openSearch()" title="Search (Ctrl+K)">&#8981;</div>
+
+<!-- Alert Bar -->
+<div class="alert-bar" id="alertBar">
+  <div class="alert-summary" onclick="toggleAlerts()">
+    <div style="display:flex;align-items:center;gap:8px;">
+      <span style="font-size:14px;font-weight:700;color:#fff;">Today</span>
+      <div class="alert-counts" id="alertCounts"></div>
+    </div>
+    <span class="alert-chevron">&#9660;</span>
+  </div>
+  <div class="alert-list" id="alertList"></div>
+</div>
+
 <main>
-  <!-- HOME -->
+  <!-- HOME — LIVE BRIEFING -->
   <div class="section active" id="home">
-    <div class="units">
-      <a class="unit-card" onclick="showSection('crawford')">
-        <h3>Crawford Hospitality</h3>
-        <div class="desc">Restaurant group — Crawford & Son, Jolie, Brodeto, Bar Sousterre, Crawford Brothers. Websites, marketing dashboards, SEO audits.</div>
-        <div class="meta"><span class="count">4 artifacts</span><span>Last updated: Apr 5, 2026</span></div>
-      </a>
-      <a class="unit-card" onclick="showSection('mega')">
-        <h3>MEGA</h3>
-        <div class="desc">The MEGA Workout — Pilates & fitness. Competitive intel, content engine, marketing dashboards, operational reports.</div>
-        <div class="meta"><span class="count">2 artifacts</span><span>Last updated: Apr 5, 2026</span></div>
-      </a>
-      <a class="unit-card" onclick="showSection('patron')">
-        <h3>Patron Properties</h3>
-        <div class="desc">Augusta short-term rental platform. Prototype screens, property prospecting tools, guest lifecycle flows.</div>
-        <div class="meta"><span class="count">1 artifact</span><span>Last updated: Mar 2026</span></div>
-      </a>
-      <a class="unit-card" onclick="showSection('nsh')">
-        <h3>NSH / SAJ Consulting</h3>
-        <div class="desc">Norwood Street Holdings + SAJ. Masters badge tracking, price monitor, deal analysis, system architecture.</div>
-        <div class="meta"><span class="count">3 artifacts</span><span>Last updated: Apr 5, 2026</span></div>
-      </a>
-      <a class="unit-card" onclick="showSection('personal')">
-        <h3>Personal</h3>
-        <div class="desc">Girls activities tracker, home management, travel briefs, daily briefings, grocery automation.</div>
-        <div class="meta"><span class="count">2 artifacts</span><span>Last updated: Apr 5, 2026</span></div>
-      </a>
+    <div class="briefing-timestamp" id="briefingTimestamp"></div>
+
+    <!-- Today's Calendar -->
+    <div class="briefing-section" id="calSection">
+      <div class="briefing-label">Today's Schedule</div>
+      <div class="cal-strip" id="calToday"></div>
+      <div class="briefing-label" style="margin-top:12px;">This Week</div>
+      <div class="cal-strip">
+        <div class="cal-week" id="calWeek"></div>
+      </div>
+    </div>
+
+    <!-- Priorities -->
+    <div class="briefing-section" id="prioritySection">
+      <div class="briefing-label red">Today</div>
+      <div class="priority-list" id="priorityList"></div>
+    </div>
+
+    <!-- Emails Needing Response -->
+    <div class="briefing-section" id="emailSection">
+      <div class="briefing-label">Emails Needing Response</div>
+      <div id="emailList"></div>
+    </div>
+
+    <!-- Drafts Ready to Send -->
+    <div class="briefing-section" id="draftSection">
+      <div class="briefing-label green">Drafts — Hit Send</div>
+      <div id="draftList"></div>
+    </div>
+
+    <!-- Active Deals -->
+    <div class="briefing-section" id="dealSection">
+      <div class="briefing-label">Active Deals / Projects</div>
+      <div id="dealList"></div>
+    </div>
+
+    <!-- Waiting On -->
+    <div class="briefing-section" id="waitingSection">
+      <div class="briefing-label amber">Waiting On</div>
+      <div id="waitingList"></div>
+    </div>
+
+    <!-- Business Units (collapsed view) -->
+    <div class="briefing-section">
+      <div class="briefing-label">Business Units</div>
+      <div class="units">
+        <a class="unit-card" data-unit="crawford" onclick="showSection('crawford')">
+          <h3>Crawford Hospitality</h3>
+          <div class="unit-status"></div>
+          <div class="meta"><span class="count">6 artifacts</span><span></span></div>
+        </a>
+        <a class="unit-card" data-unit="mega" onclick="showSection('mega')">
+          <h3>MEGA</h3>
+          <div class="unit-status"></div>
+          <div class="meta"><span class="count">2 artifacts</span><span></span></div>
+        </a>
+        <a class="unit-card" data-unit="patron" onclick="showSection('patron')">
+          <h3>Patron Properties</h3>
+          <div class="unit-status"></div>
+          <div class="meta"><span class="count">1 artifact</span><span></span></div>
+        </a>
+        <a class="unit-card" data-unit="nsh" onclick="showSection('nsh')">
+          <h3>NSH / SAJ Consulting</h3>
+          <div class="unit-status"></div>
+          <div class="meta"><span class="count">3 artifacts</span><span></span></div>
+        </a>
+        <a class="unit-card" data-unit="personal" onclick="showSection('personal')">
+          <h3>Personal</h3>
+          <div class="unit-status"></div>
+          <div class="meta"><span class="count">2 artifacts</span><span></span></div>
+        </a>
+      </div>
     </div>
   </div>
 
@@ -167,6 +374,17 @@
         <a href="https://sjernigan14.github.io/crawford-and-son" target="_blank">View Site &rarr;</a>
         <div class="artifact-date">Live on GitHub Pages</div>
       </div>
+      <div class="artifact">
+        <h4>Bar Sous Terre</h4>
+        <div class="artifact-desc">Subterranean wine bar beneath Crawford & Son. Curated wine program, charcuterie, intimate vibe.</div>
+        <div class="artifact-date" style="color:#818cf8;">Site planned</div>
+      </div>
+      <div class="artifact">
+        <h4>Group Overview</h4>
+        <div class="artifact-desc">Restaurant group dashboard — all 5 concepts, site status, locations, contacts.</div>
+        <a href="./crawford-hospitality/overview.html">View Overview &rarr;</a>
+        <div class="artifact-date" data-date="2026-04-05">April 5, 2026</div>
+      </div>
     </div>
   </div>
 
@@ -182,13 +400,13 @@
         <h4>Competitive Intel Report</h4>
         <div class="artifact-desc">Weekly scan of Raleigh-Cary Pilates and boutique fitness market — pricing, reviews, new studios, social engagement.</div>
         <a href="./mega/competitive-intel.html">View Report &rarr;</a>
-        <div class="artifact-date">Auto-generated Sundays 9 PM</div>
+        <div class="artifact-date" data-date="2026-04-05">Auto-generated Sundays 9 PM</div>
       </div>
       <div class="artifact">
         <h4>Weekly Content Package</h4>
         <div class="artifact-desc">Instagram captions, email newsletter draft, and blog post drafts using brand voice guide.</div>
         <a href="./mega/content-package.html">View Package &rarr;</a>
-        <div class="artifact-date">Auto-generated Sundays 8 PM</div>
+        <div class="artifact-date" data-date="2026-04-05">Auto-generated Sundays 8 PM</div>
       </div>
     </div>
   </div>
@@ -205,7 +423,7 @@
         <h4>Platform Prototype</h4>
         <div class="artifact-desc">5-screen interactive prototype — property listings, guest lifecycle, owner dashboard, booking flow, analytics.</div>
         <a href="./patron/prototype.html">View Prototype &rarr;</a>
-        <div class="artifact-date">March 2026</div>
+        <div class="artifact-date" data-date="2026-03-15">March 2026</div>
       </div>
     </div>
   </div>
@@ -222,19 +440,19 @@
         <h4>System Architecture Map</h4>
         <div class="artifact-desc">Interactive 5-tab dashboard — data flow, threads, scheduled tasks, file structure, playbook status.</div>
         <a href="./dashboards/system-architecture.html">View Map &rarr;</a>
-        <div class="artifact-date">April 5, 2026</div>
+        <div class="artifact-date" data-date="2026-04-05">April 5, 2026</div>
       </div>
       <div class="artifact">
         <h4>Pioneer Golf Due Diligence</h4>
         <div class="artifact-desc">8-section analysis — deal snapshot, comps, risk matrix, stress test, operator diligence, go/no-go.</div>
         <a href="./dashboards/pioneer-golf-dd.html">View Analysis &rarr;</a>
-        <div class="artifact-date">April 5, 2026</div>
+        <div class="artifact-date" data-date="2026-04-05">April 5, 2026</div>
       </div>
       <div class="artifact">
         <h4>Masters Price Monitor</h4>
         <div class="artifact-desc">Daily StubHub + Vivid Seats price/inventory delta report for Masters tickets.</div>
         <a href="./dashboards/masters-price-monitor.html">View Monitor &rarr;</a>
-        <div class="artifact-date">Daily at 3 PM</div>
+        <div class="artifact-date" data-date="2026-04-05">Daily at 3 PM</div>
       </div>
     </div>
   </div>
@@ -251,15 +469,25 @@
         <h4>Girls Activities Tracker</h4>
         <div class="artifact-desc">Interactive dashboard — activity status board, 12 summer camps, April-August calendar, key contacts.</div>
         <a href="./personal/girls-activities.html">View Tracker &rarr;</a>
-        <div class="artifact-date">April 5, 2026</div>
+        <div class="artifact-date" data-date="2026-04-05">April 5, 2026</div>
       </div>
       <div class="artifact">
         <h4>Palm Beach Trip Brief</h4>
         <div class="artifact-desc">May 8-11 Mother's Day trip — Four Seasons, flights, restaurants, day-by-day sketch.</div>
         <a href="./personal/palm-beach-trip.html">View Brief &rarr;</a>
-        <div class="artifact-date">April 4, 2026</div>
+        <div class="artifact-date" data-date="2026-04-04">April 4, 2026</div>
       </div>
     </div>
+  </div>
+
+  <!-- ACTIVITY -->
+  <div class="section" id="activity">
+    <a class="back" onclick="showSection('home')">&larr; Back to Home</a>
+    <div class="section-header">
+      <h2>Activity</h2>
+      <p>Everything your AI system has done across all sessions and scheduled tasks</p>
+    </div>
+    <div class="activity-feed" id="activityFeed"></div>
   </div>
 </main>
 
@@ -273,10 +501,31 @@
   <div class="footer-credit">Built by SAJ Consulting &middot; Powered by Claude</div>
 </footer>
 
+<!-- Search Overlay -->
+<div class="search-overlay" id="searchOverlay" onclick="if(event.target===this)closeSearch()">
+  <div class="search-box">
+    <input type="text" class="search-input" id="searchInput" placeholder="Search artifacts, units, activity..." oninput="handleSearch(this.value)">
+    <div class="search-results" id="searchResults"></div>
+    <div class="search-hint">ESC to close</div>
+  </div>
+</div>
+
+<!-- Pull to refresh indicator -->
+<div class="ptr-indicator" id="ptrIndicator">Refreshing...</div>
+
+<!-- Bottom Tab Bar (mobile) -->
+<div class="tab-bar" id="tabBar">
+  <a href="#" data-view="home" class="active" onclick="event.preventDefault();showSection('home')"><span class="tab-icon">&#9679;</span>Home</a>
+  <a href="#" data-view="crawford" onclick="event.preventDefault();showSection('crawford')"><span class="tab-icon">&#9733;</span>Crawford</a>
+  <a href="#" data-view="mega" onclick="event.preventDefault();showSection('mega')"><span class="tab-icon">&#9883;</span>MEGA</a>
+  <a href="#" data-view="nsh" onclick="event.preventDefault();showSection('nsh')"><span class="tab-icon">&#9878;</span>NSH</a>
+  <a href="#" data-view="activity" onclick="event.preventDefault();showSection('activity')"><span class="tab-icon">&#9776;</span>Activity</a>
+</div>
+
 <script>
 // Password gate — hash-based, no plaintext in source
 // SHA-256 of the password is stored, not the password itself
-var HASH = '13b8ca5927f222955404d87727f02187ee3bdfa07b68943ea03ab6f9bc27c824';
+var HASH = '14bbfb5253b71a1818305190a90dd6bbb03461afcf78202aa1f90fc7f3632790';
 var BYPASS = false;
 
 // On first deploy, Scott sets the password. Until then, gate is bypassed.
@@ -335,6 +584,363 @@ document.querySelectorAll('nav a').forEach(function(a) {
     showSection(this.dataset.view);
   });
 });
+
+// Relative dates — converts data-date attributes to "X days ago" / "X weeks ago" etc.
+(function() {
+  var now = new Date();
+  document.querySelectorAll('[data-date]').forEach(function(el) {
+    var d = new Date(el.getAttribute('data-date') + 'T12:00:00');
+    var diff = Math.floor((now - d) / 86400000);
+    var rel;
+    if (diff < 0) rel = 'Upcoming';
+    else if (diff === 0) rel = 'Today';
+    else if (diff === 1) rel = 'Yesterday';
+    else if (diff < 7) rel = diff + ' days ago';
+    else if (diff < 14) rel = '1 week ago';
+    else if (diff < 30) rel = Math.floor(diff / 7) + ' weeks ago';
+    else if (diff < 60) rel = '1 month ago';
+    else rel = Math.floor(diff / 30) + ' months ago';
+    // For home cards (inside .meta), prefix with "Updated "
+    if (el.parentElement && el.parentElement.classList.contains('meta')) {
+      el.textContent = 'Updated ' + rel.toLowerCase();
+    } else {
+      // For artifact dates, append relative in parentheses if there's existing text
+      var orig = el.textContent.trim();
+      if (orig && orig !== rel) el.textContent = orig + ' (' + rel.toLowerCase() + ')';
+      else el.textContent = rel;
+    }
+  });
+})();
+
+// === LIVE DATA PIPELINE ===
+(function loadStatus() {
+  fetch('./status.json?t=' + Date.now())
+    .then(function(r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function(data) {
+      renderAlerts(data.alerts || []);
+      renderUnitStatuses(data.units || {});
+      renderNtfyBadge(data.ntfy || {});
+      renderBriefing(data.briefing || {});
+      renderActivity(data.activity || []);
+    })
+    .catch(function() {});
+  setTimeout(loadStatus, 5 * 60 * 1000);
+})();
+
+function renderAlerts(alerts) {
+  if (!alerts.length) return;
+  var bar = document.getElementById('alertBar');
+  bar.classList.add('visible');
+  var red = 0, amber = 0, blue = 0;
+  alerts.forEach(function(a) {
+    if (a.level === 'ACTION_NEEDED') red++;
+    else if (a.level === 'WAITING_ON') amber++;
+    else blue++;
+  });
+  var h = '';
+  if (red) h += '<span class="alert-count-red">' + red + ' action</span>';
+  if (amber) h += '<span class="alert-count-amber">' + amber + ' waiting</span>';
+  if (blue) h += '<span class="alert-count-blue">' + blue + ' info</span>';
+  document.getElementById('alertCounts').innerHTML = h;
+  var list = '';
+  alerts.forEach(function(a) {
+    var ago = timeAgo(a.timestamp);
+    var hasLink = a.link && a.link.length > 0;
+    var openTag = hasLink ? '<a href="' + esc(a.link) + '" target="_blank" style="text-decoration:none;display:block;">' : '';
+    var closeTag = hasLink ? '</a>' : '';
+    list += openTag + '<div class="alert-item" data-level="' + esc(a.level) + '"' + (hasLink ? ' style="cursor:pointer;"' : '') + '>'
+      + '<div class="alert-title">' + esc(a.title) + (hasLink ? ' <span style="color:#c8a55a;font-size:11px;">&#8599;</span>' : '') + '</div>'
+      + '<div class="alert-detail">' + esc(a.detail) + '</div>'
+      + '<div class="alert-meta">' + esc(a.unit.toUpperCase()) + ' &middot; ' + ago + '</div>'
+      + '</div>' + closeTag;
+  });
+  document.getElementById('alertList').innerHTML = list;
+}
+
+function renderUnitStatuses(units) {
+  Object.keys(units).forEach(function(key) {
+    var card = document.querySelector('[data-unit="' + key + '"]');
+    if (!card) return;
+    var el = card.querySelector('.unit-status');
+    if (el) el.textContent = units[key].status;
+    var dateEl = card.querySelector('.meta span[data-date]');
+    if (dateEl && units[key].updatedAt) {
+      dateEl.textContent = 'Updated ' + timeAgo(units[key].updatedAt);
+    }
+  });
+}
+
+function renderNtfyBadge(ntfy) {
+  if (!ntfy.pendingCount) return;
+  var h1 = document.querySelector('header h1');
+  if (h1 && !document.getElementById('ntfyBadge')) {
+    var b = document.createElement('span');
+    b.className = 'ntfy-badge';
+    b.id = 'ntfyBadge';
+    b.textContent = ntfy.pendingCount;
+    h1.appendChild(b);
+  }
+}
+
+function toggleAlerts() {
+  document.getElementById('alertBar').classList.toggle('expanded');
+}
+
+function timeAgo(iso) {
+  var diff = Math.floor((Date.now() - new Date(iso).getTime()) / 60000);
+  if (diff < 1) return 'just now';
+  if (diff < 60) return diff + 'm ago';
+  if (diff < 1440) return Math.floor(diff / 60) + 'h ago';
+  return Math.floor(diff / 1440) + 'd ago';
+}
+
+function esc(s) {
+  var d = document.createElement('div');
+  d.textContent = s || '';
+  return d.innerHTML;
+}
+
+// === ACTIVITY FEED ===
+function renderActivity(activity) {
+  if (!activity || !activity.length) return;
+  var feed = document.getElementById('activityFeed');
+  if (!feed) return;
+  var html = '';
+  var lastDate = '';
+  activity.forEach(function(item) {
+    var d = new Date(item.timestamp);
+    var dateStr = d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+    if (dateStr !== lastDate) {
+      html += '<div class="activity-date-group">' + esc(dateStr) + '</div>';
+      lastDate = dateStr;
+    }
+    var time = d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+    html += '<div class="activity-item">'
+      + '<div class="activity-time">' + time + '</div>'
+      + '<div class="activity-dot" data-unit="' + esc(item.unit || '') + '"></div>'
+      + '<div class="activity-body">'
+      + '<div class="activity-thread">' + esc(item.thread) + '</div>'
+      + '<div class="activity-text">' + esc(item.action) + '</div>'
+      + '</div></div>';
+  });
+  feed.innerHTML = html;
+}
+
+// === BRIEFING RENDERER ===
+function renderBriefing(b) {
+  if (!b || !b.date) return;
+
+  // Timestamp
+  var ts = document.getElementById('briefingTimestamp');
+  if (ts && b.title) ts.textContent = b.title;
+
+  // Calendar — Today
+  if (b.calendar && b.calendar.today) {
+    var calHtml = '';
+    b.calendar.today.forEach(function(ev) {
+      var cls = ev.status === 'declined' ? ' cal-declined' : '';
+      calHtml += '<div class="cal-event' + cls + '">'
+        + '<div class="cal-time">' + esc(ev.time) + '</div>'
+        + '<div style="flex:1"><div class="cal-title">' + esc(ev.title) + '</div>'
+        + (ev.notes ? '<div class="cal-notes">' + esc(ev.notes) + '</div>' : '')
+        + '</div></div>';
+    });
+    document.getElementById('calToday').innerHTML = calHtml;
+  }
+
+  // Calendar — Week
+  if (b.calendar && b.calendar.week) {
+    var weekHtml = '';
+    b.calendar.week.forEach(function(w) {
+      weekHtml += '<strong>' + esc(w.day) + '</strong> — ' + esc(w.events) + '<br>';
+    });
+    document.getElementById('calWeek').innerHTML = weekHtml;
+  }
+
+  // Priorities
+  if (b.priorities && b.priorities.length) {
+    var pHtml = '';
+    b.priorities.forEach(function(p) {
+      var hasLink = p.link && p.link.length > 0;
+      var tags = '';
+      (p.tags || []).forEach(function(t) {
+        if (t === 'SEND') tags += '<span class="priority-tag send">HIT SEND</span>';
+        if (t === 'DEADLINE') tags += '<span class="priority-tag deadline">DEADLINE</span>';
+      });
+      var openTag = hasLink ? '<a href="' + esc(p.link) + '" target="_blank" class="priority-item">' : '<div class="priority-item">';
+      var closeTag = hasLink ? '</a>' : '</div>';
+      pHtml += openTag
+        + '<div class="priority-num">' + p.num + '</div>'
+        + '<div class="priority-body">'
+        + '<div class="priority-title">' + esc(p.title) + tags + '</div>'
+        + '<div class="priority-detail">' + esc(p.detail) + '</div>'
+        + '</div>'
+        + (hasLink ? '<div class="priority-link">&#8599;</div>' : '')
+        + closeTag;
+    });
+    document.getElementById('priorityList').innerHTML = pHtml;
+  }
+
+  // Emails
+  if (b.emails && b.emails.length) {
+    var eHtml = '';
+    b.emails.forEach(function(e) {
+      var hasLink = e.link && e.link.length > 0;
+      var openTag = hasLink ? '<a href="' + esc(e.link) + '" target="_blank" class="email-row">' : '<div class="email-row">';
+      var closeTag = hasLink ? '</a>' : '</div>';
+      eHtml += openTag
+        + '<div class="email-from">' + esc(e.from) + '</div>'
+        + '<div class="email-body">'
+        + '<div class="email-subject">' + esc(e.subject) + '</div>'
+        + '<div class="email-action">' + esc(e.action) + '</div>'
+        + '</div>'
+        + (hasLink ? '<div class="email-arrow">&#8599;</div>' : '')
+        + closeTag;
+    });
+    document.getElementById('emailList').innerHTML = eHtml;
+  }
+
+  // Drafts
+  if (b.drafts && b.drafts.length) {
+    var dHtml = '';
+    b.drafts.forEach(function(d) {
+      dHtml += '<a href="https://mail.google.com/mail/u/0/#drafts" target="_blank" class="draft-row">'
+        + '<div class="draft-title">' + esc(d.title) + '</div>'
+        + '<div class="draft-notes">' + esc(d.notes) + '</div>'
+        + '<div class="draft-send-tag">SEND</div>'
+        + '</a>';
+    });
+    document.getElementById('draftList').innerHTML = dHtml;
+  }
+
+  // Deals
+  if (b.deals && b.deals.length) {
+    var dlHtml = '';
+    b.deals.forEach(function(d) {
+      dlHtml += '<div class="deal-row">'
+        + '<div class="deal-name">' + esc(d.name) + '</div>'
+        + '<div class="deal-status">' + esc(d.status) + '</div>'
+        + (d.waiting ? '<div class="deal-waiting">⏳ ' + esc(d.waiting) + '</div>' : '')
+        + '</div>';
+    });
+    document.getElementById('dealList').innerHTML = dlHtml;
+  }
+
+  // Waiting On
+  if (b.waitingOn && b.waitingOn.length) {
+    var wHtml = '';
+    b.waitingOn.forEach(function(w) {
+      var flagClass = (w.flag || '').indexOf('STALE') !== -1 ? ' stale' : '';
+      wHtml += '<div class="waiting-row">'
+        + '<div class="waiting-person">' + esc(w.person) + '</div>'
+        + '<div class="waiting-item">' + esc(w.item) + (w.due ? ' — due ' + esc(w.due) : '') + '</div>'
+        + (w.flag ? '<div class="waiting-flag' + flagClass + '">' + esc(w.flag) + '</div>' : '')
+        + '</div>';
+    });
+    document.getElementById('waitingList').innerHTML = wHtml;
+  }
+}
+
+// === SEARCH ===
+var searchIndex = [];
+function buildSearchIndex() {
+  searchIndex = [];
+  document.querySelectorAll('.artifact').forEach(function(el) {
+    var title = (el.querySelector('h4') || {}).textContent || '';
+    var desc = (el.querySelector('.artifact-desc') || {}).textContent || '';
+    var link = el.querySelector('a[href]');
+    var section = el.closest('.section');
+    var sectionId = section ? section.id : 'home';
+    searchIndex.push({ title: title, desc: desc, section: sectionId, href: link ? link.getAttribute('href') : null, type: 'artifact' });
+  });
+  document.querySelectorAll('.unit-card').forEach(function(el) {
+    var title = (el.querySelector('h3') || {}).textContent || '';
+    var view = el.getAttribute('data-unit') || '';
+    searchIndex.push({ title: title, desc: '', section: view, href: null, type: 'unit' });
+  });
+}
+buildSearchIndex();
+
+function openSearch() {
+  document.getElementById('searchOverlay').classList.add('visible');
+  var input = document.getElementById('searchInput');
+  input.value = '';
+  input.focus();
+  document.getElementById('searchResults').innerHTML = '';
+}
+
+function closeSearch() {
+  document.getElementById('searchOverlay').classList.remove('visible');
+}
+
+function handleSearch(q) {
+  var results = document.getElementById('searchResults');
+  if (!q || q.length < 2) { results.innerHTML = ''; return; }
+  var lower = q.toLowerCase();
+  var matches = searchIndex.filter(function(item) {
+    return item.title.toLowerCase().indexOf(lower) !== -1 || item.desc.toLowerCase().indexOf(lower) !== -1;
+  });
+  // Also search activity
+  var activityEl = document.querySelectorAll('.activity-item');
+  // Build results
+  var html = '';
+  matches.slice(0, 8).forEach(function(m) {
+    html += '<div class="search-result" onclick="closeSearch();' + (m.href ? 'window.open(\'' + m.href + '\',\'_self\')' : 'showSection(\'' + m.section + '\')') + '">'
+      + '<div class="search-result-title">' + esc(m.title) + '</div>'
+      + '<div class="search-result-meta">' + esc(m.section) + ' &middot; ' + m.type + '</div>'
+      + '</div>';
+  });
+  if (!html) html = '<div class="search-hint" style="color:#666;margin-top:16px;">No results</div>';
+  results.innerHTML = html;
+}
+
+// Keyboard shortcuts
+document.addEventListener('keydown', function(e) {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'k') { e.preventDefault(); openSearch(); }
+  if (e.key === 'Escape') closeSearch();
+});
+
+// === PULL TO REFRESH ===
+(function() {
+  var startY = 0, pulling = false;
+  document.addEventListener('touchstart', function(e) {
+    if (window.scrollY === 0) { startY = e.touches[0].clientY; pulling = true; }
+  }, { passive: true });
+  document.addEventListener('touchmove', function(e) {
+    if (!pulling) return;
+    var dy = e.touches[0].clientY - startY;
+    if (dy > 80) {
+      pulling = false;
+      var ind = document.getElementById('ptrIndicator');
+      ind.classList.add('visible');
+      fetch('./status.json?t=' + Date.now())
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          renderAlerts(data.alerts || []);
+          renderUnitStatuses(data.units || {});
+          renderNtfyBadge(data.ntfy || {});
+          renderBriefing(data.briefing || {});
+          renderActivity(data.activity || []);
+          ind.textContent = 'Updated';
+          setTimeout(function() { ind.classList.remove('visible'); ind.textContent = 'Refreshing...'; }, 1500);
+        })
+        .catch(function() { ind.classList.remove('visible'); });
+    }
+  }, { passive: true });
+  document.addEventListener('touchend', function() { pulling = false; }, { passive: true });
+})();
+
+// === UPDATE SHOW SECTION TO SYNC TAB BAR ===
+var _origShowSection = showSection;
+showSection = function(id) {
+  _origShowSection(id);
+  // Sync bottom tab bar
+  document.querySelectorAll('.tab-bar a').forEach(function(a) { a.classList.remove('active'); });
+  var tab = document.querySelector('.tab-bar a[data-view="' + id + '"]');
+  if (tab) tab.classList.add('active');
+};
+
+// Initial loadStatus now handles activity + briefing rendering
 </script>
 
 </body>

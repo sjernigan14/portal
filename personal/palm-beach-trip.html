@@ -1,0 +1,458 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Palm Beach — Mother's Day Trip Brief</title><style>
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+html, body {
+height: 100%;
+}
+body {
+font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+background-color: #0a0a0a;
+color: #e0e0e0;
+line-height: 1.6;
+overflow-x: hidden;
+}
+/* Header & Navigation */
+.header {
+border-bottom: 1px solid #222;
+padding: 1.5rem 2rem;
+margin-bottom: 2rem;
+position: sticky;
+top: 0;
+background-color: #0a0a0a;
+z-index: 100;
+}
+.back-link {
+display: inline-block;
+color: #f59e0b;
+text-decoration: none;
+font-size: 0.875rem;
+font-weight: 500;
+margin-bottom: 1.5rem;
+transition: color 0.3s;
+}
+.back-link:hover {
+color: #fbbf24;
+}
+.header-content h1 {
+font-size: 2.2rem;
+font-weight: 700;
+margin-bottom: 0.5rem;
+color: #ffffff;
+letter-spacing: -0.5px;
+}
+.header-content p {
+color: #b0b0b0;
+font-size: 1rem;
+font-weight: 500;
+}
+.updated {
+color: #888;
+font-size: 0.8rem;
+margin-top: 1rem;
+}
+/* Container */
+.container {
+max-width: 1100px;
+margin: 0 auto;
+padding: 0 2rem 3rem;
+}
+/* Section Titles */
+.section-title {
+font-size: 1.5rem;
+font-weight: 700;
+color: #ffffff;
+margin: 2.5rem 0 1.5rem 0;
+padding-top: 1rem;
+border-top: 2px solid #222;
+}
+.section-title:first-of-type {
+border-top: none;
+padding-top: 0;
+}
+/* Card Styles */
+.card {
+background-color: #141414;
+border: 1px solid #222;
+border-radius: 8px;
+padding: 2rem;
+margin-bottom: 1.5rem;
+transition: border-color 0.3s;
+}
+.card:hover {
+border-color: #333;
+}
+.card h3 {
+color: #f59e0b;
+font-size: 1.25rem;
+margin-bottom: 1rem;
+font-weight: 600;
+}
+.card p {
+margin-bottom: 0.75rem;
+line-height: 1.7;
+}
+.card-row {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 1.5rem;
+margin-bottom: 1.5rem;
+}
+@media (max-width: 900px) {
+.card-row {
+grid-template-columns: 1fr;
+}
+}
+/* Trip Overview */
+.overview-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 1rem;
+margin-top: 1rem;
+}
+@media (max-width: 700px) {
+.overview-grid {
+grid-template-columns: 1fr;
+}
+}
+.overview-item {
+background-color: #0a0a0a;
+border: 1px solid #222;
+border-radius: 6px;
+padding: 1rem;
+}
+.overview-label {
+color: #888;
+font-size: 0.8rem;
+text-transform: uppercase;
+letter-spacing: 0.5px;
+margin-bottom: 0.5rem;
+}
+.overview-value {
+color: #e0e0e0;
+font-size: 1.1rem;
+font-weight: 600;
+}
+/* Flight Cards */
+.flight-card {
+background: linear-gradient(135deg, #1a1a1a 0%, #141414 100%);
+border: 1px solid #222;
+border-radius: 8px;
+padding: 1.5rem;
+margin-bottom: 1rem;
+}
+.flight-header {
+display: flex;
+justify-content: space-between;
+align-items: flex-start;
+margin-bottom: 1.5rem;
+padding-bottom: 1rem;
+border-bottom: 1px solid #222;
+}
+.flight-route {
+font-size: 1.3rem;
+font-weight: 700;
+color: #ffffff;
+}
+.flight-status {
+background-color: #0f5e3f;
+color: #a7f3d0;
+padding: 0.4rem 0.8rem;
+border-radius: 4px;
+font-size: 0.75rem;
+font-weight: 600;
+}
+.flight-details {
+display: grid;
+grid-template-columns: 1fr 1fr 1fr;
+gap: 1rem;
+}
+@media (max-width: 700px) {
+.flight-details {
+grid-template-columns: 1fr;
+}
+}
+.flight-detail-item {
+display: flex;
+flex-direction: column;
+}
+.flight-detail-label {
+color: #888;
+font-size: 0.75rem;
+text-transform: uppercase;
+letter-spacing: 0.5px;
+margin-bottom: 0.4rem;
+}
+.flight-detail-value {
+color: #e0e0e0;
+font-size: 0.95rem;
+font-weight: 500;
+}
+.flight-detail-value strong {
+color: #ffffff;
+font-weight: 600;
+}
+/* Hotel Card */
+.hotel-details {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 1.5rem;
+margin-top: 1.5rem;
+}
+@media (max-width: 700px) {
+.hotel-details {
+grid-template-columns: 1fr;
+}
+}
+.hotel-detail-group {
+padding: 1rem;
+background-color: #0a0a0a;
+border: 1px solid #222;
+border-radius: 6px;
+}
+.hotel-detail-group dt {
+color: #888;
+font-size: 0.75rem;
+text-transform: uppercase;
+letter-spacing: 0.5px;
+margin-bottom: 0.5rem;
+font-weight: 600;
+}
+.hotel-detail-group dd {
+color: #e0e0e0;
+font-size: 0.95rem;
+margin-bottom: 1rem;
+}
+.hotel-detail-group dd:last-child {
+margin-bottom: 0;
+}
+.amenities-list {
+margin-top: 1rem;
+padding-top: 1rem;
+border-top: 1px solid #222;
+}
+.amenities-list p {
+color: #888;
+font-size: 0.75rem;
+text-transform: uppercase;
+letter-spacing: 0.5px;
+margin-bottom: 0.5rem;
+}
+.amenities {
+display: flex;
+flex-wrap: wrap;
+gap: 0.5rem;
+}
+.amenity-tag {
+background-color: #1a1a1a;
+border: 1px solid #333;
+color: #b0b0b0;
+padding: 0.4rem 0.8rem;
+border-radius: 4px;
+font-size: 0.8rem;
+}
+/* Timeline */
+.timeline {
+position: relative;
+margin: 2rem 0;
+}
+.timeline-day {
+background-color: #141414;
+border: 1px solid #222;
+border-radius: 8px;
+padding: 1.5rem;
+margin-bottom: 1.5rem;
+border-left: 4px solid #f59e0b;
+}
+.timeline-day h4 {
+color: #f59e0b;
+font-size: 1.1rem;
+margin-bottom: 0.25rem;
+font-weight: 600;
+}
+.timeline-day .day-subtitle {
+color: #888;
+font-size: 0.85rem;
+margin-bottom: 1rem;
+}
+.timeline-events {
+margin-top: 1rem;
+}
+.timeline-event {
+display: flex;
+margin-bottom: 1rem;
+padding-bottom: 1rem;
+border-bottom: 1px solid #222;
+}
+.timeline-event:last-child {
+border-bottom: none;
+margin-bottom: 0;
+padding-bottom: 0;
+}
+.timeline-time {
+color: #f59e0b;
+font-weight: 600;
+min-width: 100px;
+font-size: 0.9rem;
+}
+.timeline-content {
+color: #e0e0e0;
+font-size: 0.95rem;
+flex: 1;
+}
+/* Tables */
+table {
+width: 100%;
+border-collapse: collapse;
+margin-top: 1.5rem;
+}
+thead {
+background-color: #0a0a0a;
+border-bottom: 2px solid #222;
+}
+thead th {
+color: #f59e0b;
+padding: 1rem;
+text-align: left;
+font-size: 0.85rem;
+font-weight: 600;
+text-transform: uppercase;
+letter-spacing: 0.5px;
+}
+tbody td {
+padding: 1rem;
+border-bottom: 1px solid #222;
+color: #e0e0e0;
+font-size: 0.95rem;
+}
+tbody tr:last-child td {
+border-bottom: none;
+}
+tbody tr:hover {
+background-color: #0a0a0a;
+}
+/* Budget Table Specific */
+.budget-row {
+display: grid;
+grid-template-columns: 2fr 1fr;
+gap: 2rem;
+padding: 1rem;
+border-bottom: 1px solid #222;
+align-items: center;
+}
+.budget-row:last-child {
+border-bottom: none;
+}
+.budget-item-name {
+color: #e0e0e0;
+font-size: 0.95rem;
+}
+.budget-item-amount {
+color: #f59e0b;
+font-weight: 600;
+font-size: 1rem;
+}
+.budget-total {
+background-color: #0a0a0a;
+border: 2px solid #f59e0b;
+border-radius: 6px;
+padding: 1.5rem;
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 2rem;
+margin-top: 1.5rem;
+}
+@media (max-width: 700px) {
+.budget-total {
+grid-template-columns: 1fr;
+}
+}
+.budget-total-label {
+color: #888;
+font-size: 0.8rem;
+text-transform: uppercase;
+letter-spacing: 0.5px;
+}
+.budget-total-value {
+color: #f59e0b;
+font-size: 1.8rem;
+font-weight: 700;
+}
+/* Packing List */
+.packing-list {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 1rem;
+margin-top: 1rem;
+}
+@media (max-width: 700px) {
+.packing-list {
+grid-template-columns: 1fr;
+}
+}
+.packing-item {
+display: flex;
+align-items: center;
+padding: 0.75rem;
+background-color: #0a0a0a;
+border: 1px solid #222;
+border-radius: 6px;
+color: #e0e0e0;
+font-size: 0.95rem;
+}
+.packing-item::before {
+content: "✓";
+color: #f59e0b;
+font-weight: 700;
+margin-right: 0.75rem;
+font-size: 1.1rem;
+}
+/* Footer */
+.footer {
+border-top: 1px solid #222;
+margin-top: 3rem;
+padding-top: 2rem;
+padding-bottom: 2rem;
+text-align: center;
+color: #666;
+font-size: 0.8rem;
+}
+.footer p {
+margin-bottom: 0.5rem;
+}
+/* Accent Elements */
+.highlight {
+color: #f59e0b;
+font-weight: 600;
+}
+/* Responsive */
+@media (max-width: 768px) {
+.header-content h1 {
+font-size: 1.8rem;
+}
+.container {
+padding: 0 1.5rem 2rem;
+}
+.card {
+padding: 1.5rem;
+}
+}
+</style></head><body><!-- Portal Auth Gate --><div id="gate" style="position:fixed;inset:0;background:#0a0a0a;z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;font-family:-apple-system,sans-serif;"><h2 style="color:#fff;font-size:20px;margin-bottom:16px;font-weight:600;">SAJ Consulting</h2><input type="password" id="pw" placeholder="Enter access code" autofocus style="background:#1a1a1a;border:1px solid #333;color:#fff;padding:12px 20px;border-radius:8px;font-size:16px;width:280px;text-align:center;outline:none;"><div id="err" style="color:#f87171;font-size:13px;margin-top:8px;min-height:20px;"></div></div><script>(function(){var H="14bbfb5253b71a1818305190a90dd6bbb03461afcf78202aa1f90fc7f3632790";if(sessionStorage.getItem("portal_auth")==="1"){document.getElementById("gate").style.display="none";return;}document.body.style.overflow="hidden";var inp=document.getElementById("pw"),err=document.getElementById("err");inp.addEventListener("keydown",function(e){if(e.key==="Enter"){crypto.subtle.digest("SHA-256",new TextEncoder().encode(inp.value)).then(function(buf){var h=Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,"0")}).join("");if(h===H){document.getElementById("gate").style.display="none";document.body.style.overflow="";sessionStorage.setItem("portal_auth","1");}else{err.textContent="Invalid access code";inp.value="";inp.focus();}});}});inp.style.borderColor="#333";inp.addEventListener("focus",function(){inp.style.borderColor="#c8a55a";});inp.addEventListener("blur",function(){inp.style.borderColor="#333";});})();</script><div class="header"><a href="../index.html" class="back-link">← Back to Portal</a><div class="header-content"><h1>Palm Beach — Mother's Day Trip Brief</h1><p>May 8-11, 2026 · Family of 4</p><div class="updated">Updated: April 4, 2026</div></div></div><div class="container"><h2 class="section-title">Trip Overview</h2><div class="card"><div class="overview-grid"><div class="overview-item"><div class="overview-label">Dates</div><div class="overview-value">May 8-11, 2026</div><div style="color: #666; font-size: 0.85rem; margin-top: 0.25rem;">Thu-Sun, 3 nights</div></div><div class="overview-item"><div class="overview-label">Travelers</div><div class="overview-value">Family of 4</div><div style="color: #666; font-size: 0.85rem; margin-top: 0.25rem;">Scott, Alicia, + 2 daughters</div></div><div class="overview-item"><div class="overview-label">Destination</div><div class="overview-value">Palm Beach, FL</div><div style="color: #666; font-size: 0.85rem; margin-top: 0.25rem;">Mother's Day Weekend</div></div><div class="overview-item"><div class="overview-label">Budget</div><div class="overview-value">~$10,450</div><div style="color: #666; font-size: 0.85rem; margin-top: 0.25rem;">Total estimated</div></div><div class="overview-item"><div class="overview-label">Hotel</div><div class="overview-value">Four Seasons</div><div style="color: #666; font-size: 0.85rem; margin-top: 0.25rem;">Ocean-View Suite</div></div><div class="overview-item"><div class="overview-label">Flights</div><div class="overview-value">Delta</div><div style="color: #666; font-size: 0.85rem; margin-top: 0.25rem;">RDU ↔ PBI, Comfort+</div></div></div></div><h2 class="section-title">Flights</h2><div class="flight-card"><div class="flight-header"><div class="flight-route">RDU → PBI</div><div class="flight-status">CONFIRMED</div></div><div class="flight-details"><div class="flight-detail-item"><div class="flight-detail-label">Flight Number</div><div class="flight-detail-value"><strong>Delta DL1847</strong></div></div><div class="flight-detail-item"><div class="flight-detail-label">Departure</div><div class="flight-detail-value"><strong>May 8, 10:15 AM</strong> (RDU)</div></div><div class="flight-detail-item"><div class="flight-detail-label">Arrival</div><div class="flight-detail-value"><strong>12:30 PM</strong> (PBI) · 2h 15m</div></div></div><div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #222;"><p style="color: #b0b0b0; font-size: 0.9rem;"><span style="color: #888;">Cabin:</span> Comfort+ · <span style="color: #888;">Seats:</span> Confirmed
+</p></div></div><div class="flight-card"><div class="flight-header"><div class="flight-route">PBI → RDU</div><div class="flight-status">CONFIRMED</div></div><div class="flight-details"><div class="flight-detail-item"><div class="flight-detail-label">Flight Number</div><div class="flight-detail-value"><strong>Delta DL2203</strong></div></div><div class="flight-detail-item"><div class="flight-detail-label">Departure</div><div class="flight-detail-value"><strong>May 11, 4:45 PM</strong> (PBI)</div></div><div class="flight-detail-item"><div class="flight-detail-label">Arrival</div><div class="flight-detail-value"><strong>6:55 PM</strong> (RDU) · 2h 10m</div></div></div><div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #222;"><p style="color: #b0b0b0; font-size: 0.9rem;"><span style="color: #888;">Status:</span> Delta Diamond Medallion · <span style="color: #888;">Bags:</span> 2 free checked
+</p></div></div><h2 class="section-title">Hotel</h2><div class="card"><h3>Four Seasons Resort Palm Beach</h3><p style="color: #999; font-size: 0.95rem; margin-bottom: 1.5rem;">
+2700 S Ocean Blvd, Palm Beach, FL 33480
+</p><div class="hotel-details"><div class="hotel-detail-group"><dt>Room Type</dt><dd>Ocean-View Suite</dd><dt style="margin-top: 1rem;">Bedding</dt><dd>King + Pullout Sofa</dd><dt style="margin-top: 1rem;">Confirmation #</dt><dd>FS-PB-2026-4521</dd></div><div class="hotel-detail-group"><dt>Check-in</dt><dd>3:00 PM (early check-in arranged)</dd><dt style="margin-top: 1rem;">Check-out</dt><dd>12:00 PM</dd><dt style="margin-top: 1rem;">Rate</dt><dd><span style="color: #f59e0b; font-weight: 600;">$1,850/night</span> (3 nights + tax)</dd></div></div><div class="amenities-list"><p>Amenities & Services</p><div class="amenities"><span class="amenity-tag">Private Beach Access</span><span class="amenity-tag">2 Pools</span><span class="amenity-tag">Kids Club</span><span class="amenity-tag">Spa & Wellness</span><span class="amenity-tag">Fitness Center</span><span class="amenity-tag">Beachfront Dining</span><span class="amenity-tag">Room Service 24h</span><span class="amenity-tag">Concierge</span></div></div></div><h2 class="section-title">Day-by-Day Itinerary</h2><div class="timeline-day"><h4>Thursday, May 8</h4><div class="day-subtitle">Arrival Day</div><div class="timeline-events"><div class="timeline-event"><div class="timeline-time">10:15 AM</div><div class="timeline-content">Depart RDU on Delta DL1847 (Comfort+)</div></div><div class="timeline-event"><div class="timeline-time">12:30 PM</div><div class="timeline-content">Arrive PBI · Meet car service driver in baggage claim</div></div><div class="timeline-event"><div class="timeline-time">1:00 PM</div><div class="timeline-content">Car service to Four Seasons Resort (45 min drive)</div></div><div class="timeline-event"><div class="timeline-time">3:00 PM</div><div class="timeline-content">Check-in at hotel · Unpack & settle in · Beach time</div></div><div class="timeline-event"><div class="timeline-time">7:00 PM</div><div class="timeline-content"><strong>Dinner at Buccan</strong> · 4-top confirmed via Resy</div></div></div></div><div class="timeline-day"><h4>Friday, May 9</h4><div class="day-subtitle">Beach & Explore</div><div class="timeline-events"><div class="timeline-event"><div class="timeline-time">Morning</div><div class="timeline-content">Pool & beach time at Four Seasons</div></div><div class="timeline-event"><div class="timeline-time">11:00 AM</div><div class="timeline-content">Optional: Drop girls at hotel kids club</div></div><div class="timeline-event"><div class="timeline-time">12:30 PM</div><div class="timeline-content"><strong>Lunch at The Breakers Beach Club</strong> · Guest pass arranged</div></div><div class="timeline-event"><div class="timeline-time">3:00 PM</div><div class="timeline-content">Worth Avenue shopping & exploration</div></div><div class="timeline-event"><div class="timeline-time">7:30 PM</div><div class="timeline-content"><strong>Dinner at Café Boulud</strong> · 4-top confirmed via Resy</div></div></div></div><div class="timeline-day"><h4>Saturday, May 10</h4><div class="day-subtitle">Mother's Day Eve</div><div class="timeline-events"><div class="timeline-event"><div class="timeline-time">10:00 AM</div><div class="timeline-content"><strong>Alicia's Spa Appointment</strong> · 90-min signature treatment at Four Seasons Spa</div></div><div class="timeline-event"><div class="timeline-time">10:00 AM</div><div class="timeline-content">Scott & girls: Snorkeling adventure at Phil Foster Park (concurrent)</div></div><div class="timeline-event"><div class="timeline-time">12:30 PM</div><div class="timeline-content"><strong>Lunch at Eau Palm Beach</strong> · Poolside at Four Seasons</div></div><div class="timeline-event"><div class="timeline-time">2:00 PM</div><div class="timeline-content"><strong>Lion Country Safari</strong> · 30 min drive · Kids love it, plan 3 hours</div></div><div class="timeline-event"><div class="timeline-time">7:00 PM</div><div class="timeline-content"><strong>Mother's Day Dinner at Flagler Steakhouse</strong> (The Breakers) · 4-top confirmed via Resy</div></div></div></div><div class="timeline-day"><h4>Sunday, May 11</h4><div class="day-subtitle">Mother's Day / Departure</div><div class="timeline-events"><div class="timeline-event"><div class="timeline-time">8:30 AM</div><div class="timeline-content"><strong>Room Service Breakfast</strong> · Pre-ordered Mother's Day package for suite</div></div><div class="timeline-event"><div class="timeline-time">10:00 AM</div><div class="timeline-content">Beach time · Final swim · Pack luggage</div></div><div class="timeline-event"><div class="timeline-time">12:00 PM</div><div class="timeline-content">Check-out from Four Seasons · Late lunch at hotel (light fare)</div></div><div class="timeline-event"><div class="timeline-time">2:30 PM</div><div class="timeline-content">Car service to PBI · Security & gate arrival</div></div><div class="timeline-event"><div class="timeline-time">4:45 PM</div><div class="timeline-content">Depart PBI on Delta DL2203 (Comfort+)</div></div><div class="timeline-event"><div class="timeline-time">6:55 PM</div><div class="timeline-content">Arrive RDU · Head home</div></div></div></div><h2 class="section-title">Restaurant Reservations</h2><div class="card"><table><thead><tr><th>Restaurant</th><th>Date & Time</th><th>Party Size</th><th>Status</th></tr></thead><tbody><tr><td><strong>Buccan</strong></td><td>Thursday, May 8 · 7:00 PM</td><td>4-top</td><td style="color: #a7f3d0;">✓ Confirmed via Resy</td></tr><tr><td><strong>Café Boulud</strong></td><td>Friday, May 9 · 7:30 PM</td><td>4-top</td><td style="color: #a7f3d0;">✓ Confirmed via Resy</td></tr><tr><td><strong>Flagler Steakhouse</strong> (The Breakers)</td><td>Saturday, May 10 · 7:00 PM</td><td>4-top</td><td style="color: #a7f3d0;">✓ Confirmed via Resy</td></tr></tbody></table><p style="color: #888; font-size: 0.85rem; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #222;"><strong>Note:</strong> All reservations booked direct or via Resy per preference. No OTA platforms used. Confirmations on phone for easy reference.
+</p></div><h2 class="section-title">Budget Breakdown</h2><div class="card"><div class="budget-row"><div class="budget-item-name">Flights</div><div class="budget-item-amount">$2,400</div></div><div style="color: #666; font-size: 0.85rem; padding: 0 1rem -0.5rem 1rem;">
+4 tickets · Delta Comfort+ · RDU ↔ PBI
+</div><div class="budget-row" style="margin-top: 1rem;"><div class="budget-item-name">Hotel</div><div class="budget-item-amount">$6,200</div></div><div style="color: #666; font-size: 0.85rem; padding: 0 1rem -0.5rem 1rem;">
+3 nights + tax + resort fee · Four Seasons Ocean-View Suite
+</div><div class="budget-row" style="margin-top: 1rem;"><div class="budget-item-name">Dining</div><div class="budget-item-amount">$1,200</div></div><div style="color: #666; font-size: 0.85rem; padding: 0 1rem -0.5rem 1rem;">
+3 dinners (high-end) + 4 lunches + room service
+</div><div class="budget-row" style="margin-top: 1rem;"><div class="budget-item-name">Activities & Experiences</div><div class="budget-item-amount">$350</div></div><div style="color: #666; font-size: 0.85rem; padding: 0 1rem -0.5rem 1rem;">
+Spa treatment · Snorkeling · Lion Country Safari · Park fees
+</div><div class="budget-row" style="margin-top: 1rem;"><div class="budget-item-name">Ground Transportation</div><div class="budget-item-amount">$300</div></div><div style="color: #666; font-size: 0.85rem; padding: 0 1rem -0.5rem 1rem;">
+Car service to/from airport + local transfers (4 segments)
+</div><div class="budget-total"><div><div class="budget-total-label">Estimated Total</div></div><div style="text-align: right;"><div class="budget-total-value">$10,450</div></div></div></div><h2 class="section-title">Packing Notes & Reminders</h2><div class="card"><div class="packing-list"><div class="packing-item">Reef-safe sunscreen (SPF 50+)</div><div class="packing-item">Girls' swim goggles & floaties</div><div class="packing-item">Alicia's Mother's Day gift (arriving May 6)</div><div class="packing-item">Delta app installed, boarding passes saved</div><div class="packing-item">Restaurant confirmation screenshots/emails</div><div class="packing-item">Hotel confirmation & Diamond Medallion card</div><div class="packing-item">Medications & first-aid supplies</div><div class="packing-item">Casual dinner attire (smart-casual for restaurants)</div></div><p style="color: #888; font-size: 0.85rem; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #222;"><strong>Pro tip:</strong> Pack sunscreen in checked luggage. TSA limit on carry-on sunscreen is 3.4 oz (100 ml).
+</p></div><div class="footer"><p>Travel Brief · Generated by Travel Research Agent</p><p>Scott's Preferences: Delta Diamond Medallion · Luxury Accommodations · Resy Direct Bookings · Premium Experiences</p></div></div></body></html>
