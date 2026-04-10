@@ -97,6 +97,34 @@ header .update { font-size:12px; color:#c8a55a; margin-top:8px; font-weight:600;
 .methodology .source-tag.tock { background:#0a1a2e; color:#60a5fa; border:1px solid #1e40af; }
 .methodology .source-tag.pl { background:#0a2a1a; color:#4ade80; border:1px solid #166534; }
 
+/* Labor section */
+.labor { margin-top:16px; padding:16px; background:#0a0a0a; border:1px solid #1a1a1a; border-radius:8px; }
+.labor h4 { font-size:12px; color:#888; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:12px; }
+.labor-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
+.labor-grid .cell { text-align:center; }
+.labor-grid .cell .lbl { font-size:10px; color:#666; text-transform:uppercase; }
+.labor-grid .cell .val { font-size:18px; font-weight:700; margin-top:2px; }
+.labor-grid .cell .val.green { color:#4ade80; }
+.labor-grid .cell .val.red { color:#f87171; }
+.labor-grid .cell .val.yellow { color:#facc15; }
+.labor-grid .cell .sub { font-size:10px; color:#555; margin-top:1px; }
+.labor-bar { margin-top:12px; }
+.labor-bar .bar-label { display:flex; justify-content:space-between; font-size:10px; color:#666; margin-bottom:3px; }
+.labor-bar .bar-track { background:#1a1a1a; border-radius:4px; height:6px; position:relative; }
+.labor-bar .bar-fill { height:100%; border-radius:4px; }
+.labor-bar .bar-target { position:absolute; top:-2px; height:10px; width:2px; background:#fff; }
+
+/* Labor summary table */
+.labor-summary { margin-top:24px; margin-bottom:24px; }
+.labor-summary h2 { font-size:18px; color:#fff; margin-bottom:12px; }
+.labor-summary table { width:100%; border-collapse:collapse; background:#111; border-radius:10px; overflow:hidden; border:1px solid #222; }
+.labor-summary th { text-align:left; padding:10px 14px; font-size:11px; color:#888; text-transform:uppercase; letter-spacing:0.5px; border-bottom:1px solid #222; background:#0d0d0d; }
+.labor-summary td { padding:10px 14px; font-size:13px; border-bottom:1px solid #1a1a1a; }
+.labor-summary td.num { text-align:right; font-variant-numeric:tabular-nums; }
+.labor-summary .red { color:#f87171; }
+.labor-summary .green { color:#4ade80; }
+.labor-summary .yellow { color:#facc15; }
+
 @media(max-width:768px) {
   .kpi-strip { grid-template-columns:repeat(2,1fr); }
   .rtd-rtg { grid-template-columns:1fr; }
@@ -133,11 +161,74 @@ header .update { font-size:12px; color:#c8a55a; margin-top:8px; font-weight:600;
     <div class="value">9 / 30</div>
     <div class="detail">30% of month</div>
   </div>
-  <div class="kpi neutral">
-    <div class="label">Backtest Accuracy</div>
-    <div class="value">2-7%</div>
-    <div class="detail">March 2026 validation</div>
+  <div class="kpi at-risk">
+    <div class="label">Labor % (all 4)</div>
+    <div class="value">30-33%</div>
+    <div class="detail">Target: 30% | None hitting</div>
   </div>
+</div>
+
+<!-- LABOR OVERVIEW -->
+<div class="labor-summary">
+  <h2>Labor Tracking — April 1-9</h2>
+  <table>
+    <tr>
+      <th>Restaurant</th>
+      <th class="num">API Wages</th>
+      <th class="num">Est. Payroll</th>
+      <th class="num">Proj. Month</th>
+      <th class="num">Proj. Revenue</th>
+      <th class="num">Labor %</th>
+      <th class="num">30% Ceiling</th>
+      <th class="num">Cushion</th>
+      <th class="num">OT %</th>
+    </tr>
+    <tr>
+      <td>Crawford & Son</td>
+      <td class="num">$6,103</td>
+      <td class="num">$15,137</td>
+      <td class="num">$47,572</td>
+      <td class="num">$143,289</td>
+      <td class="num red">33.2%</td>
+      <td class="num">$42,987</td>
+      <td class="num red">-$4,585</td>
+      <td class="num green">1.1%</td>
+    </tr>
+    <tr>
+      <td>Jolie</td>
+      <td class="num">$5,224</td>
+      <td class="num">$12,956</td>
+      <td class="num">$40,718</td>
+      <td class="num">$128,457</td>
+      <td class="num red">31.7%</td>
+      <td class="num">$38,537</td>
+      <td class="num red">-$2,181</td>
+      <td class="num yellow">2.4%</td>
+    </tr>
+    <tr>
+      <td>Brodeto</td>
+      <td class="num">$20,524</td>
+      <td class="num">$38,791</td>
+      <td class="num">$129,303</td>
+      <td class="num">$404,226</td>
+      <td class="num red">32.0%</td>
+      <td class="num">$121,268</td>
+      <td class="num red">-$8,035</td>
+      <td class="num yellow">3.3%</td>
+    </tr>
+    <tr>
+      <td>Crawford Brothers</td>
+      <td class="num">$18,535</td>
+      <td class="num">$35,031</td>
+      <td class="num">$116,768</td>
+      <td class="num">$388,461</td>
+      <td class="num yellow">30.1%</td>
+      <td class="num">$116,538</td>
+      <td class="num red">-$230</td>
+      <td class="num green">1.1%</td>
+    </tr>
+  </table>
+  <p style="font-size:11px; color:#555; margin-top:8px;">API wages from Toast Labor API (Apr 1-9). Multiplied by 2.48x (5-night) or 1.89x (7-night) to estimate actual payroll. Labor % calculated against calibrated revenue projections. March 2026: no restaurant hit 30%.</p>
 </div>
 
 <!-- CRAWFORD & SON -->
@@ -179,7 +270,17 @@ header .update { font-size:12px; color:#c8a55a; margin-top:8px; font-weight:600;
   <div class="bonus">
     <h4>Bonus Scorecard</h4>
     <div class="row"><span class="k">Revenue $150K</span><span class="v tbd">$143K projected — gap closeable</span></div>
-    <div class="row"><span class="k">Labor 30%</span><span class="v tbd">Tracking in progress</span></div>
+    <div class="row"><span class="k">Labor 30%</span><span class="v miss">33.2% projected ($47,572 / $143,289)</span></div>
+    <div class="row"><span class="k">March labor</span><span class="v" style="color:#999;font-weight:400">34.2% — same pattern, revenue is the lever</span></div>
+  </div>
+  <div class="labor">
+    <h4>Labor Detail — Apr 1-9</h4>
+    <div class="labor-grid">
+      <div class="cell"><div class="lbl">Payroll MTD</div><div class="val">$15,137</div><div class="sub">API × 2.48x</div></div>
+      <div class="cell"><div class="lbl">Proj Month</div><div class="val red">$47,572</div><div class="sub">vs $42,987 ceiling</div></div>
+      <div class="cell"><div class="lbl">OT Hours</div><div class="val green">6.1</div><div class="sub">1.1% of total</div></div>
+      <div class="cell"><div class="lbl">Staff</div><div class="val">14</div><div class="sub">unique employees</div></div>
+    </div>
   </div>
   <span class="daily-toggle" onclick="this.nextElementSibling.classList.toggle('open')">Show daily detail</span>
   <div class="daily-table">
@@ -239,8 +340,17 @@ header .update { font-size:12px; color:#c8a55a; margin-top:8px; font-weight:600;
   <div class="bonus">
     <h4>Bonus Scorecard</h4>
     <div class="row"><span class="k">Revenue $140K</span><span class="v miss">$128K projected — needs attention</span></div>
-    <div class="row"><span class="k">Labor 30%</span><span class="v tbd">Tracking in progress</span></div>
-    <div class="row"><span class="k">Note</span><span class="v" style="color:#999;font-weight:400">Missed $140K target in March ($132,914). Same pattern forming.</span></div>
+    <div class="row"><span class="k">Labor 30%</span><span class="v miss">31.7% projected ($40,718 / $128,457)</span></div>
+    <div class="row"><span class="k">Note</span><span class="v" style="color:#999;font-weight:400">Missed both targets in March ($132,914 rev, 32.9% labor). Same pattern forming.</span></div>
+  </div>
+  <div class="labor">
+    <h4>Labor Detail — Apr 1-9</h4>
+    <div class="labor-grid">
+      <div class="cell"><div class="lbl">Payroll MTD</div><div class="val">$12,956</div><div class="sub">API × 2.48x</div></div>
+      <div class="cell"><div class="lbl">Proj Month</div><div class="val red">$40,718</div><div class="sub">vs $38,537 ceiling</div></div>
+      <div class="cell"><div class="lbl">OT Hours</div><div class="val yellow">12.2</div><div class="sub">2.4% of total</div></div>
+      <div class="cell"><div class="lbl">Staff</div><div class="val">14</div><div class="sub">unique employees</div></div>
+    </div>
   </div>
   <span class="daily-toggle" onclick="this.nextElementSibling.classList.toggle('open')">Show daily detail</span>
   <div class="daily-table">
@@ -296,8 +406,18 @@ header .update { font-size:12px; color:#c8a55a; margin-top:8px; font-weight:600;
   <div class="bonus">
     <h4>Bonus Scorecard</h4>
     <div class="row"><span class="k">Revenue $350K</span><span class="v hit">$404K projected — on track</span></div>
-    <div class="row"><span class="k">Labor 30%</span><span class="v tbd">Tracking in progress</span></div>
+    <div class="row"><span class="k">Labor 30%</span><span class="v miss">32.0% projected ($129,303 / $404,226)</span></div>
     <div class="row"><span class="k">COGS 30%</span><span class="v tbd">March was 29.3% — on target</span></div>
+    <div class="row"><span class="k">March labor</span><span class="v" style="color:#999;font-weight:400">33.0% — Brodeto OT at 3.3% is highest in portfolio</span></div>
+  </div>
+  <div class="labor">
+    <h4>Labor Detail — Apr 1-9</h4>
+    <div class="labor-grid">
+      <div class="cell"><div class="lbl">Payroll MTD</div><div class="val">$38,791</div><div class="sub">API × 1.89x</div></div>
+      <div class="cell"><div class="lbl">Proj Month</div><div class="val red">$129,303</div><div class="sub">vs $121,268 ceiling</div></div>
+      <div class="cell"><div class="lbl">OT Hours</div><div class="val yellow">50.8</div><div class="sub">3.3% — highest</div></div>
+      <div class="cell"><div class="lbl">Staff</div><div class="val">33</div><div class="sub">unique employees</div></div>
+    </div>
   </div>
   <span class="daily-toggle" onclick="this.nextElementSibling.classList.toggle('open')">Show daily detail</span>
   <div class="daily-table">
@@ -355,7 +475,17 @@ header .update { font-size:12px; color:#c8a55a; margin-top:8px; font-weight:600;
   <div class="bonus">
     <h4>Bonus Scorecard</h4>
     <div class="row"><span class="k">Revenue $350K</span><span class="v hit">$388K projected — on track</span></div>
-    <div class="row"><span class="k">Labor 30%</span><span class="v tbd">Tracking in progress</span></div>
+    <div class="row"><span class="k">Labor 30%</span><span class="v yellow">30.1% projected ($116,768 / $388,461)</span></div>
+    <div class="row"><span class="k">Note</span><span class="v" style="color:#999;font-weight:400">Closest to target. CB calibration pending March P&L.</span></div>
+  </div>
+  <div class="labor">
+    <h4>Labor Detail — Apr 1-9</h4>
+    <div class="labor-grid">
+      <div class="cell"><div class="lbl">Payroll MTD</div><div class="val">$35,031</div><div class="sub">API × 1.89x</div></div>
+      <div class="cell"><div class="lbl">Proj Month</div><div class="val yellow">$116,768</div><div class="sub">vs $116,538 ceiling</div></div>
+      <div class="cell"><div class="lbl">OT Hours</div><div class="val green">15.8</div><div class="sub">1.1% of total</div></div>
+      <div class="cell"><div class="lbl">Staff</div><div class="val">38</div><div class="sub">unique employees</div></div>
+    </div>
   </div>
 </div>
 
@@ -415,6 +545,17 @@ header .update { font-size:12px; color:#c8a55a; margin-top:8px; font-weight:600;
     <tr><td>Brodeto</td><td class="num">$412,047</td><td class="num">$405,506</td><td class="num">+1.6%</td></tr>
   </table>
   <p>The model tends to slightly underproject for 5-night restaurants and slightly overproject for 7-night restaurants. This conservative bias is intentional — it's better to beat a projection than miss one.</p>
+
+  <h3>Labor Tracking Model</h3>
+  <p>Labor data comes from the <span class="source-tag toast">Toast</span> Labor API (<code>/labor/v1/timeEntries</code>), which reports hourly wages, overtime, and employee counts per day. However, Toast only captures hourly wages — not salaried managers, payroll taxes, benefits, or management fees that appear on the P&L.</p>
+  <div class="formula">Estimated Actual Payroll = Toast API Wages x Multiplier</div>
+  <p>The multiplier bridges the gap between API-reported wages and total P&L payroll:</p>
+  <table>
+    <tr><th>Restaurant Type</th><th>Multiplier</th><th>Derivation</th></tr>
+    <tr><td>5-night (C&S, Jolie)</td><td class="num">2.48x</td><td>March P&L payroll / Toast API wages for same period</td></tr>
+    <tr><td>7-night (Brodeto, CB)</td><td class="num">1.89x</td><td>Same methodology — lower multiplier because 7-night has more hourly coverage</td></tr>
+  </table>
+  <p style="margin-top:8px;">The 30% labor target is the bonus threshold from the Manager Reports. In March 2026, no restaurant hit 30%: C&S was 34.2%, Jolie 32.9%, Brodeto 33.0%. This is consistent across the portfolio — labor % is primarily a revenue problem, not a cost problem. Payroll varies 7-15% month to month, while revenue varies 25-64%.</p>
 
   <h3>Key Limitations</h3>
   <ul>
