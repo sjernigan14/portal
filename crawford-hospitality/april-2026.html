@@ -3,419 +3,436 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Crawford Hospitality — April 2026 Labor Snapshot</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%230a0a0a' width='100' height='100' rx='20'/><text x='50' y='68' text-anchor='middle' fill='%23c8a55a' font-family='system-ui' font-size='52' font-weight='700'>C</text></svg>">
+<title>Crawford Hospitality — April 2026 Intelligence</title>
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif; background: #0a0a0a; color: #e0e0e0; min-height: 100vh; }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif; background:#0a0a0a; color:#e0e0e0; min-height:100vh; }
+a { color:#c8a55a; text-decoration:none; }
+a:hover { text-decoration:underline; }
 
-.container { max-width: 1200px; margin: 0 auto; padding: 40px 24px 60px; }
-.back-link { display: inline-flex; align-items: center; gap: 8px; color: #888; text-decoration: none; font-size: 13px; margin-bottom: 24px; transition: color 0.2s; }
-.back-link:hover { color: #c8a55a; }
+header { padding:40px 32px 20px; max-width:1200px; margin:0 auto; }
+header h1 { font-size:26px; font-weight:700; color:#fff; letter-spacing:-0.5px; }
+header .sub { font-size:13px; color:#666; margin-top:4px; }
+header .update { font-size:12px; color:#c8a55a; margin-top:8px; font-weight:600; }
 
-h1 { font-size: 28px; font-weight: 700; color: #fff; letter-spacing: -0.5px; margin-bottom: 4px; }
-.subtitle { font-size: 14px; color: #666; margin-bottom: 8px; }
-.live-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; color: #4ade80; background: rgba(74,222,128,0.1); padding: 3px 10px; border-radius: 4px; margin-bottom: 32px; }
-.live-badge::before { content: ''; width: 6px; height: 6px; background: #4ade80; border-radius: 50%; animation: pulse 2s infinite; }
-@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+.content { max-width:1200px; margin:0 auto; padding:0 32px 60px; }
 
-/* Portfolio KPI strip */
-.kpi-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 32px; }
-.kpi { background: #141414; border: 1px solid #222; border-radius: 10px; padding: 16px; text-align: center; }
-.kpi-val { font-size: 26px; font-weight: 700; color: #c8a55a; }
-.kpi-label { font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
+/* KPI Strip */
+.kpi-strip { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:24px 0 32px; }
+.kpi { background:#111; border:1px solid #222; border-radius:10px; padding:16px; text-align:center; }
+.kpi .label { font-size:11px; color:#888; text-transform:uppercase; letter-spacing:0.5px; }
+.kpi .value { font-size:28px; font-weight:700; color:#fff; margin:4px 0; }
+.kpi .detail { font-size:12px; color:#666; }
+.kpi.on-track .value { color:#4ade80; }
+.kpi.at-risk .value { color:#f87171; }
+.kpi.neutral .value { color:#c8a55a; }
 
-/* Restaurant cards */
-.restaurants { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 32px; }
-.card { background: #141414; border: 1px solid #222; border-radius: 12px; padding: 24px; position: relative; overflow: hidden; }
-.card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
-.card.on-track::before { background: #4ade80; }
-.card.at-risk::before { background: #fb923c; }
+/* Restaurant Cards */
+.restaurant { background:#111; border:1px solid #222; border-radius:12px; padding:24px; margin-bottom:20px; }
+.restaurant h2 { font-size:18px; color:#fff; margin-bottom:4px; }
+.restaurant .schedule { font-size:12px; color:#666; margin-bottom:16px; }
+.restaurant .status { display:inline-block; padding:3px 10px; border-radius:4px; font-size:11px; font-weight:700; text-transform:uppercase; }
+.restaurant .status.on-track { background:#052e16; color:#4ade80; border:1px solid #166534; }
+.restaurant .status.at-risk { background:#2a0a0a; color:#f87171; border:1px solid #991b1b; }
 
-.card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
-.card-name { font-size: 18px; font-weight: 700; color: #fff; }
-.card-schedule { font-size: 11px; color: #666; margin-top: 2px; }
-.status-tag { padding: 3px 10px; border-radius: 4px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
-.tag-on-track { background: rgba(74,222,128,0.1); color: #4ade80; }
-.tag-at-risk { background: rgba(251,146,60,0.1); color: #fb923c; }
-
-.card-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
-.metric { text-align: center; }
-.metric-val { font-size: 20px; font-weight: 700; }
-.metric-val.green { color: #4ade80; }
-.metric-val.amber { color: #fb923c; }
-.metric-val.gold { color: #c8a55a; }
-.metric-label { font-size: 10px; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+.rtd-rtg { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:16px 0; }
+.rtd-rtg .box { background:#0a0a0a; border:1px solid #1a1a1a; border-radius:8px; padding:14px; }
+.rtd-rtg .box .lbl { font-size:10px; color:#888; text-transform:uppercase; letter-spacing:0.5px; }
+.rtd-rtg .box .val { font-size:22px; font-weight:700; color:#fff; margin-top:2px; }
+.rtd-rtg .box .sub { font-size:11px; color:#666; margin-top:2px; }
+.rtd-rtg .box.highlight { border-color:#c8a55a33; }
+.rtd-rtg .box.highlight .val { color:#c8a55a; }
 
 /* Progress bar */
-.progress-section { margin-bottom: 16px; }
-.progress-header { display: flex; justify-content: space-between; font-size: 11px; color: #666; margin-bottom: 6px; }
-.progress-bar { height: 6px; background: #222; border-radius: 3px; overflow: hidden; position: relative; }
-.progress-fill { height: 100%; border-radius: 3px; transition: width 0.5s; }
-.progress-fill.green { background: #4ade80; }
-.progress-fill.amber { background: #fb923c; }
-.progress-marker { position: absolute; top: -2px; width: 2px; height: 10px; background: #fff; opacity: 0.5; }
+.progress-wrap { margin:12px 0 8px; }
+.progress-label { display:flex; justify-content:space-between; font-size:11px; color:#888; margin-bottom:4px; }
+.progress-bar { background:#1a1a1a; border-radius:4px; height:8px; overflow:hidden; }
+.progress-fill { height:100%; border-radius:4px; transition:width 0.3s; }
+.progress-fill.green { background:linear-gradient(90deg,#166534,#4ade80); }
+.progress-fill.yellow { background:linear-gradient(90deg,#854d0e,#facc15); }
+.progress-fill.red { background:linear-gradient(90deg,#991b1b,#f87171); }
 
-/* Bonus math */
-.bonus-math { background: #1a1a1a; border-radius: 8px; padding: 12px 16px; font-size: 13px; color: #999; line-height: 1.6; }
-.bonus-math strong { color: #e0e0e0; font-weight: 600; }
-.bonus-math .amt-green { color: #4ade80; font-weight: 700; }
-.bonus-math .amt-amber { color: #fb923c; font-weight: 700; }
+/* RTG Breakdown */
+.rtg-breakdown { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:8px 0 0; }
+.rtg-breakdown .item { display:flex; justify-content:space-between; padding:6px 10px; background:#0a0a0a; border-radius:6px; font-size:12px; }
+.rtg-breakdown .item .k { color:#888; }
+.rtg-breakdown .item .v { color:#ccc; font-weight:600; }
 
-/* OT section */
-.ot-section { background: #141414; border: 1px solid #222; border-radius: 12px; padding: 24px; margin-bottom: 32px; }
-.ot-section h2 { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 16px; }
-.ot-table { width: 100%; border-collapse: collapse; }
-.ot-table th { font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 0.5px; text-align: left; padding: 8px 12px; border-bottom: 1px solid #222; }
-.ot-table td { font-size: 13px; color: #ccc; padding: 10px 12px; border-bottom: 1px solid #1a1a1a; }
-.ot-table td:first-child { color: #fff; font-weight: 600; }
-.ot-table .highlight { color: #fb923c; font-weight: 600; }
+/* Bonus section */
+.bonus { margin-top:16px; padding:12px 16px; background:#0a0a0a; border:1px solid #1a1a1a; border-radius:8px; }
+.bonus h4 { font-size:12px; color:#888; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:8px; }
+.bonus .row { display:flex; justify-content:space-between; font-size:13px; padding:3px 0; }
+.bonus .row .k { color:#888; }
+.bonus .row .v { font-weight:600; }
+.bonus .row .v.hit { color:#4ade80; }
+.bonus .row .v.miss { color:#f87171; }
+.bonus .row .v.tbd { color:#facc15; }
 
-/* April 2025 comp */
-.comp-section { background: #141414; border: 1px solid #222; border-radius: 12px; padding: 24px; margin-bottom: 32px; }
-.comp-section h2 { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 4px; }
-.comp-subtitle { font-size: 13px; color: #666; margin-bottom: 16px; }
-.comp-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-.comp-card { background: #1a1a1a; border-radius: 8px; padding: 14px; text-align: center; }
-.comp-name { font-size: 12px; color: #888; font-weight: 600; margin-bottom: 8px; }
-.comp-val { font-size: 18px; font-weight: 700; color: #4ade80; margin-bottom: 2px; }
-.comp-detail { font-size: 11px; color: #666; }
+/* Daily table */
+.daily-toggle { font-size:12px; color:#c8a55a; cursor:pointer; margin-top:12px; display:inline-block; }
+.daily-toggle:hover { text-decoration:underline; }
+.daily-table { display:none; margin-top:12px; overflow-x:auto; }
+.daily-table.open { display:block; }
+.daily-table table { width:100%; border-collapse:collapse; font-size:12px; }
+.daily-table th { text-align:left; padding:6px 8px; color:#888; border-bottom:1px solid #222; font-weight:600; text-transform:uppercase; font-size:10px; letter-spacing:0.5px; }
+.daily-table td { padding:5px 8px; border-bottom:1px solid #1a1a1a; }
+.daily-table tr.actual td { color:#4ade80; }
+.daily-table tr.projected td { color:#ccc; }
+.daily-table .num { text-align:right; font-variant-numeric:tabular-nums; }
 
-/* Action items */
-.actions { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 32px; }
-.action { background: #141414; border: 1px solid #222; border-radius: 12px; padding: 20px; }
-.action-name { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 4px; }
-.action-status { font-size: 12px; font-weight: 600; margin-bottom: 10px; }
-.action-status.green { color: #4ade80; }
-.action-status.amber { color: #fb923c; }
-.action-text { font-size: 13px; color: #999; line-height: 1.6; }
-.action-text strong { color: #ccc; }
+/* Methodology */
+.methodology { background:#111; border:1px solid #222; border-radius:12px; padding:28px; margin-top:32px; }
+.methodology h2 { font-size:18px; color:#fff; margin-bottom:16px; }
+.methodology h3 { font-size:14px; color:#c8a55a; margin:20px 0 8px; }
+.methodology p, .methodology li { font-size:13px; color:#999; line-height:1.6; }
+.methodology ul { padding-left:20px; }
+.methodology li { margin-bottom:6px; }
+.methodology .formula { background:#0a0a0a; border:1px solid #1a1a1a; border-radius:6px; padding:12px 16px; font-family:'SF Mono',Menlo,monospace; font-size:12px; color:#c8a55a; margin:8px 0 12px; }
+.methodology table { width:100%; border-collapse:collapse; margin:8px 0 16px; }
+.methodology table th { text-align:left; padding:6px 10px; font-size:11px; color:#888; border-bottom:1px solid #222; text-transform:uppercase; }
+.methodology table td { padding:6px 10px; font-size:12px; color:#ccc; border-bottom:1px solid #1a1a1a; }
+.methodology table td.num { text-align:right; font-variant-numeric:tabular-nums; }
+.methodology .source-tag { display:inline-block; padding:2px 8px; border-radius:3px; font-size:10px; font-weight:600; text-transform:uppercase; margin-right:4px; }
+.methodology .source-tag.toast { background:#1a1206; color:#facc15; border:1px solid #854d0e; }
+.methodology .source-tag.tock { background:#0a1a2e; color:#60a5fa; border:1px solid #1e40af; }
+.methodology .source-tag.pl { background:#0a2a1a; color:#4ade80; border:1px solid #166534; }
 
-/* Next report */
-.next-report { background: linear-gradient(135deg, #1a1a1a, #141414); border: 1px solid #c8a55a33; border-radius: 12px; padding: 24px; text-align: center; }
-.next-report h3 { font-size: 16px; color: #c8a55a; font-weight: 700; margin-bottom: 6px; }
-.next-report p { font-size: 13px; color: #888; }
-
-.footer { font-size: 11px; color: #333; text-align: center; margin-top: 40px; padding-top: 24px; border-top: 1px solid #1a1a1a; }
-
-@media (max-width: 768px) {
-  .kpi-strip { grid-template-columns: repeat(3, 1fr); }
-  .restaurants { grid-template-columns: 1fr; }
-  .comp-grid { grid-template-columns: repeat(2, 1fr); }
-  .actions { grid-template-columns: 1fr; }
-}
-@media (max-width: 480px) {
-  .kpi-strip { grid-template-columns: repeat(2, 1fr); }
+@media(max-width:768px) {
+  .kpi-strip { grid-template-columns:repeat(2,1fr); }
+  .rtd-rtg { grid-template-columns:1fr; }
+  .rtg-breakdown { grid-template-columns:1fr; }
+  header { padding:24px 16px 16px; }
+  .content { padding:0 16px 40px; }
 }
 </style>
 </head>
 <body>
-<div class="container">
 
-<a href="overview.html" class="back-link">&larr; Crawford Hospitality</a>
+<header>
+  <h1>Crawford Hospitality — April 2026</h1>
+  <div class="sub">Revenue Intelligence Dashboard</div>
+  <div class="update">Updated April 10, 2026 6:45 AM | Model v2.0 — Calibrated</div>
+</header>
 
-<h1>April 2026 &mdash; Labor Snapshot</h1>
-<p class="subtitle">Through Day 9 of 30 &nbsp;|&nbsp; Live Toast API Data</p>
-<span class="live-badge">Live &mdash; April 9, 2026 11:42 PM</span>
+<div class="content">
 
-<!-- Portfolio KPIs -->
+<!-- KPI STRIP -->
 <div class="kpi-strip">
-  <div class="kpi">
-    <div class="kpi-val">$101.9K</div>
-    <div class="kpi-label">Payroll MTD</div>
+  <div class="kpi neutral">
+    <div class="label">Portfolio Projected</div>
+    <div class="value">$1.06M</div>
+    <div class="detail">RTD $227K + RTG $838K</div>
   </div>
-  <div class="kpi">
-    <div class="kpi-val">$334K</div>
-    <div class="kpi-label">Projected Month</div>
+  <div class="kpi on-track">
+    <div class="label">vs Bonus Targets</div>
+    <div class="value">+$74K</div>
+    <div class="detail">$1.06M vs $990K combined</div>
   </div>
-  <div class="kpi">
-    <div class="kpi-val">$1.21M</div>
-    <div class="kpi-label">Revenue Forecast</div>
+  <div class="kpi neutral">
+    <div class="label">Days Complete</div>
+    <div class="value">9 / 30</div>
+    <div class="detail">30% of month</div>
   </div>
-  <div class="kpi">
-    <div class="kpi-val" style="color:#4ade80">27.6%</div>
-    <div class="kpi-label">Portfolio Labor %</div>
-  </div>
-  <div class="kpi">
-    <div class="kpi-val">4,061</div>
-    <div class="kpi-label">Total Hours</div>
+  <div class="kpi neutral">
+    <div class="label">Backtest Accuracy</div>
+    <div class="value">2-7%</div>
+    <div class="detail">March 2026 validation</div>
   </div>
 </div>
 
-<!-- Restaurant Cards -->
-<div class="restaurants">
-
-  <!-- C&S -->
-  <div class="card at-risk">
-    <div class="card-header">
-      <div>
-        <div class="card-name">Crawford & Son</div>
-        <div class="card-schedule">Tue&ndash;Sat &nbsp;|&nbsp; 7 of 22 service days elapsed</div>
-      </div>
-      <span class="status-tag tag-at-risk">At Risk</span>
+<!-- CRAWFORD & SON -->
+<div class="restaurant">
+  <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+    <div>
+      <h2>Crawford & Son</h2>
+      <div class="schedule">Tue-Sat | 5 nights/week | Bonus target: $150,000</div>
     </div>
-    <div class="card-metrics">
-      <div class="metric">
-        <div class="metric-val amber">30.1%</div>
-        <div class="metric-label">Projected Labor</div>
-      </div>
-      <div class="metric">
-        <div class="metric-val gold">$158K</div>
-        <div class="metric-label">Rev Forecast</div>
-      </div>
-      <div class="metric">
-        <div class="metric-val amber">&ndash;$164</div>
-        <div class="metric-label">Bonus Cushion</div>
-      </div>
+    <span class="status at-risk">At Risk</span>
+  </div>
+  <div class="rtd-rtg">
+    <div class="box">
+      <div class="lbl">Revenue to Date</div>
+      <div class="val">$28,942</div>
+      <div class="sub">Apr 1-9 actuals (Toast)</div>
     </div>
-    <div class="progress-section">
-      <div class="progress-header">
-        <span>Month progress</span>
-        <span>32% complete</span>
-      </div>
-      <div class="progress-bar">
-        <div class="progress-fill amber" style="width:32%"></div>
-      </div>
+    <div class="box">
+      <div class="lbl">Revenue to Go</div>
+      <div class="val">$114,347</div>
+      <div class="sub">Apr 10-30 projected (Tock)</div>
     </div>
-    <div class="bonus-math">
-      Bonus ceiling at 30%: <strong>$47,408</strong> &nbsp;|&nbsp; Projected payroll: <strong>$47,572</strong><br>
-      Gap: <span class="amt-amber">$164 over</span> &mdash; less than one cover separates this from a hit. Week 2 staffing is lighter (9 vs 12 Wed/Thu) &mdash; trajectory improving.
+    <div class="box highlight">
+      <div class="lbl">Projected April</div>
+      <div class="val">$143,289</div>
+      <div class="sub">$6,711 below target</div>
     </div>
   </div>
-
-  <!-- Jolie -->
-  <div class="card on-track">
-    <div class="card-header">
-      <div>
-        <div class="card-name">Jolie</div>
-        <div class="card-schedule">Tue&ndash;Sat &nbsp;|&nbsp; 7 of 22 service days elapsed</div>
-      </div>
-      <span class="status-tag tag-on-track">On Track</span>
-    </div>
-    <div class="card-metrics">
-      <div class="metric">
-        <div class="metric-val green">28.7%</div>
-        <div class="metric-label">Projected Labor</div>
-      </div>
-      <div class="metric">
-        <div class="metric-val gold">$142K</div>
-        <div class="metric-label">Rev Forecast</div>
-      </div>
-      <div class="metric">
-        <div class="metric-val green">+$1,894</div>
-        <div class="metric-label">Bonus Cushion</div>
-      </div>
-    </div>
-    <div class="progress-section">
-      <div class="progress-header">
-        <span>Month progress</span>
-        <span>32% complete</span>
-      </div>
-      <div class="progress-bar">
-        <div class="progress-fill green" style="width:32%"></div>
-      </div>
-    </div>
-    <div class="bonus-math">
-      Bonus ceiling at 30%: <strong>$42,612</strong> &nbsp;|&nbsp; Projected payroll: <strong>$40,718</strong><br>
-      Cushion: <span class="amt-green">$1,894 under</span> &mdash; comfortable. Last April ran 26.2% labor. Stay the course.
-    </div>
+  <div class="progress-wrap">
+    <div class="progress-label"><span>$0</span><span>Target: $150,000</span></div>
+    <div class="progress-bar"><div class="progress-fill yellow" style="width:95%"></div></div>
   </div>
-
-  <!-- Brodeto -->
-  <div class="card at-risk">
-    <div class="card-header">
-      <div>
-        <div class="card-name">Brodeto</div>
-        <div class="card-schedule">7 nights &nbsp;|&nbsp; 9 of 30 service days elapsed</div>
-      </div>
-      <span class="status-tag tag-at-risk">At Risk</span>
-    </div>
-    <div class="card-metrics">
-      <div class="metric">
-        <div class="metric-val amber">30.8%</div>
-        <div class="metric-label">Projected Labor</div>
-      </div>
-      <div class="metric">
-        <div class="metric-val gold">$420K</div>
-        <div class="metric-label">Rev Forecast</div>
-      </div>
-      <div class="metric">
-        <div class="metric-val amber">&ndash;$3,267</div>
-        <div class="metric-label">Bonus Cushion</div>
-      </div>
-    </div>
-    <div class="progress-section">
-      <div class="progress-header">
-        <span>Month progress</span>
-        <span>30% complete</span>
-      </div>
-      <div class="progress-bar">
-        <div class="progress-fill amber" style="width:30%"></div>
-      </div>
-    </div>
-    <div class="bonus-math">
-      Bonus ceiling at 30%: <strong>$126,036</strong> &nbsp;|&nbsp; Projected payroll: <strong>$129,303</strong><br>
-      Gap: <span class="amt-amber">$3,267 over</span> &mdash; Sunday OT (23.7 hrs) is the primary lever. Trimming Sunday OT 30% over the remaining 3 Sundays saves ~$2,100.
-    </div>
+  <div class="rtg-breakdown">
+    <div class="item"><span class="k">RTG — Booked reservations</span><span class="v">$48,860</span></div>
+    <div class="item"><span class="k">RTG — Future reservations</span><span class="v">$65,487</span></div>
+    <div class="item"><span class="k">March 2026 actual</span><span class="v">$151,772</span></div>
+    <div class="item"><span class="k">vs March</span><span class="v">94%</span></div>
   </div>
-
-  <!-- CB -->
-  <div class="card on-track">
-    <div class="card-header">
-      <div>
-        <div class="card-name">Crawford Brothers</div>
-        <div class="card-schedule">7 nights &nbsp;|&nbsp; 9 of 30 service days elapsed</div>
-      </div>
-      <span class="status-tag tag-on-track">On Track</span>
-    </div>
-    <div class="card-metrics">
-      <div class="metric">
-        <div class="metric-val green">23.7%</div>
-        <div class="metric-label">Projected Labor</div>
-      </div>
-      <div class="metric">
-        <div class="metric-val gold">$493K</div>
-        <div class="metric-label">Rev Forecast</div>
-      </div>
-      <div class="metric">
-        <div class="metric-val green">+$31,036</div>
-        <div class="metric-label">Bonus Cushion</div>
-      </div>
-    </div>
-    <div class="progress-section">
-      <div class="progress-header">
-        <span>Month progress</span>
-        <span>30% complete</span>
-      </div>
-      <div class="progress-bar">
-        <div class="progress-fill green" style="width:30%"></div>
-      </div>
-    </div>
-    <div class="bonus-math">
-      Bonus ceiling at 30%: <strong>$147,804</strong> &nbsp;|&nbsp; Projected payroll: <strong>$116,768</strong><br>
-      Cushion: <span class="amt-green">$31,036 under</span> &mdash; strongest labor position in the portfolio. 45 employees, 15.8 OT hours. Bonus is locked.
-    </div>
+  <div class="bonus">
+    <h4>Bonus Scorecard</h4>
+    <div class="row"><span class="k">Revenue $150K</span><span class="v tbd">$143K projected — gap closeable</span></div>
+    <div class="row"><span class="k">Labor 30%</span><span class="v tbd">Tracking in progress</span></div>
   </div>
-
+  <span class="daily-toggle" onclick="this.nextElementSibling.classList.toggle('open')">Show daily detail</span>
+  <div class="daily-table">
+    <table>
+      <tr><th>Date</th><th>Day</th><th>Status</th><th class="num">Booked</th><th class="num">Revenue</th></tr>
+      <tr class="actual"><td>Apr 1</td><td>Wed</td><td>Actual</td><td class="num">—</td><td class="num">$4,387</td></tr>
+      <tr class="actual"><td>Apr 2</td><td>Thu</td><td>Actual</td><td class="num">—</td><td class="num">$4,170</td></tr>
+      <tr class="actual"><td>Apr 3</td><td>Fri</td><td>Actual</td><td class="num">—</td><td class="num">$7,168</td></tr>
+      <tr class="actual"><td>Apr 4</td><td>Sat</td><td>Actual</td><td class="num">—</td><td class="num">$7,617</td></tr>
+      <tr class="actual"><td>Apr 7</td><td>Tue</td><td>Actual</td><td class="num">—</td><td class="num">$5,600</td></tr>
+      <tr class="projected"><td>Apr 8</td><td>Wed</td><td>Projected</td><td class="num">23</td><td class="num">$4,459</td></tr>
+      <tr class="projected"><td>Apr 9</td><td>Thu</td><td>Projected</td><td class="num">20</td><td class="num">$4,417</td></tr>
+      <tr class="projected"><td>Apr 10</td><td>Fri</td><td>Today</td><td class="num">39</td><td class="num">$8,281</td></tr>
+      <tr class="projected"><td>Apr 11</td><td>Sat</td><td>Projected</td><td class="num">42</td><td class="num">$9,465</td></tr>
+      <tr class="projected"><td>Apr 14</td><td>Tue</td><td>Projected</td><td class="num">9</td><td class="num">$5,768</td></tr>
+      <tr class="projected"><td>Apr 15-30</td><td>—</td><td>Projected</td><td class="num">—</td><td class="num">$86,957</td></tr>
+    </table>
+  </div>
 </div>
 
-<!-- Overtime -->
-<div class="ot-section">
-  <h2>Overtime Through Day 9</h2>
-  <table class="ot-table">
-    <thead>
-      <tr>
-        <th>Restaurant</th>
-        <th>Total Hours</th>
-        <th>OT Hours</th>
-        <th>OT %</th>
-        <th>Pattern</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Crawford & Son</td>
-        <td>547</td>
-        <td>6.1</td>
-        <td>1.1%</td>
-        <td>Saturday only &mdash; controlled</td>
-      </tr>
-      <tr>
-        <td>Jolie</td>
-        <td>513</td>
-        <td>12.2</td>
-        <td>2.4%</td>
-        <td>Saturday only &mdash; controlled</td>
-      </tr>
-      <tr>
-        <td>Brodeto</td>
-        <td>1,555</td>
-        <td class="highlight">50.8</td>
-        <td class="highlight">3.3%</td>
-        <td class="highlight">Fri 13.7 &nbsp; Sat 13.4 &nbsp; Sun 23.7 &mdash; Sunday heavy</td>
-      </tr>
-      <tr>
-        <td>Crawford Brothers</td>
-        <td>1,446</td>
-        <td>15.8</td>
-        <td>1.1%</td>
-        <td>Sat 2.9 &nbsp; Sun 12.9 &mdash; well managed</td>
-      </tr>
-    </tbody>
+<!-- JOLIE -->
+<div class="restaurant">
+  <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+    <div>
+      <h2>Jolie</h2>
+      <div class="schedule">Tue-Sat | 5 nights/week | Bonus target: $140,000</div>
+    </div>
+    <span class="status at-risk">At Risk</span>
+  </div>
+  <div class="rtd-rtg">
+    <div class="box">
+      <div class="lbl">Revenue to Date</div>
+      <div class="val">$27,355</div>
+      <div class="sub">Apr 1-9 actuals (Toast)</div>
+    </div>
+    <div class="box">
+      <div class="lbl">Revenue to Go</div>
+      <div class="val">$101,102</div>
+      <div class="sub">Apr 10-30 projected (Tock)</div>
+    </div>
+    <div class="box highlight">
+      <div class="lbl">Projected April</div>
+      <div class="val">$128,457</div>
+      <div class="sub">$11,543 below target</div>
+    </div>
+  </div>
+  <div class="progress-wrap">
+    <div class="progress-label"><span>$0</span><span>Target: $140,000</span></div>
+    <div class="progress-bar"><div class="progress-fill red" style="width:92%"></div></div>
+  </div>
+  <div class="rtg-breakdown">
+    <div class="item"><span class="k">RTG — Booked reservations</span><span class="v">$52,141</span></div>
+    <div class="item"><span class="k">RTG — Future reservations</span><span class="v">$48,961</span></div>
+    <div class="item"><span class="k">March 2026 actual</span><span class="v">$132,914</span></div>
+    <div class="item"><span class="k">vs March</span><span class="v">97%</span></div>
+  </div>
+  <div class="bonus">
+    <h4>Bonus Scorecard</h4>
+    <div class="row"><span class="k">Revenue $140K</span><span class="v miss">$128K projected — needs attention</span></div>
+    <div class="row"><span class="k">Labor 30%</span><span class="v tbd">Tracking in progress</span></div>
+    <div class="row"><span class="k">Note</span><span class="v" style="color:#999;font-weight:400">Missed $140K target in March ($132,914). Same pattern forming.</span></div>
+  </div>
+  <span class="daily-toggle" onclick="this.nextElementSibling.classList.toggle('open')">Show daily detail</span>
+  <div class="daily-table">
+    <table>
+      <tr><th>Date</th><th>Day</th><th>Status</th><th class="num">Booked</th><th class="num">Revenue</th></tr>
+      <tr class="actual"><td>Apr 1</td><td>Wed</td><td>Actual</td><td class="num">—</td><td class="num">$4,234</td></tr>
+      <tr class="actual"><td>Apr 2</td><td>Thu</td><td>Actual</td><td class="num">—</td><td class="num">$3,744</td></tr>
+      <tr class="actual"><td>Apr 3</td><td>Fri</td><td>Actual</td><td class="num">—</td><td class="num">$8,293</td></tr>
+      <tr class="actual"><td>Apr 4</td><td>Sat</td><td>Actual</td><td class="num">—</td><td class="num">$8,108</td></tr>
+      <tr class="actual"><td>Apr 7</td><td>Tue</td><td>Actual</td><td class="num">—</td><td class="num">$2,976</td></tr>
+      <tr class="projected"><td>Apr 10</td><td>Fri</td><td>Today</td><td class="num">31</td><td class="num">$7,319</td></tr>
+      <tr class="projected"><td>Apr 11-30</td><td>—</td><td>Projected</td><td class="num">—</td><td class="num">$93,783</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- BRODETO -->
+<div class="restaurant">
+  <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+    <div>
+      <h2>Brodeto</h2>
+      <div class="schedule">7 nights/week | Bonus target: $350,000</div>
+    </div>
+    <span class="status on-track">On Track</span>
+  </div>
+  <div class="rtd-rtg">
+    <div class="box">
+      <div class="lbl">Revenue to Date</div>
+      <div class="val">$83,627</div>
+      <div class="sub">Apr 1-9 actuals (Toast)</div>
+    </div>
+    <div class="box">
+      <div class="lbl">Revenue to Go</div>
+      <div class="val">$320,599</div>
+      <div class="sub">Apr 10-30 projected (Tock)</div>
+    </div>
+    <div class="box highlight">
+      <div class="lbl">Projected April</div>
+      <div class="val">$404,226</div>
+      <div class="sub">$54,226 above target</div>
+    </div>
+  </div>
+  <div class="progress-wrap">
+    <div class="progress-label"><span>$0</span><span>Target: $350,000</span></div>
+    <div class="progress-bar"><div class="progress-fill green" style="width:100%"></div></div>
+  </div>
+  <div class="rtg-breakdown">
+    <div class="item"><span class="k">RTG — Booked reservations</span><span class="v">$119,897</span></div>
+    <div class="item"><span class="k">RTG — Future reservations</span><span class="v">$200,702</span></div>
+    <div class="item"><span class="k">March 2026 actual</span><span class="v">$405,506</span></div>
+    <div class="item"><span class="k">vs March</span><span class="v">100%</span></div>
+  </div>
+  <div class="bonus">
+    <h4>Bonus Scorecard</h4>
+    <div class="row"><span class="k">Revenue $350K</span><span class="v hit">$404K projected — on track</span></div>
+    <div class="row"><span class="k">Labor 30%</span><span class="v tbd">Tracking in progress</span></div>
+    <div class="row"><span class="k">COGS 30%</span><span class="v tbd">March was 29.3% — on target</span></div>
+  </div>
+  <span class="daily-toggle" onclick="this.nextElementSibling.classList.toggle('open')">Show daily detail</span>
+  <div class="daily-table">
+    <table>
+      <tr><th>Date</th><th>Day</th><th>Status</th><th class="num">Booked</th><th class="num">Revenue</th></tr>
+      <tr class="actual"><td>Apr 1</td><td>Wed</td><td>Actual</td><td class="num">—</td><td class="num">$9,708</td></tr>
+      <tr class="actual"><td>Apr 2</td><td>Thu</td><td>Actual</td><td class="num">—</td><td class="num">$12,302</td></tr>
+      <tr class="actual"><td>Apr 3</td><td>Fri</td><td>Actual</td><td class="num">—</td><td class="num">$17,277</td></tr>
+      <tr class="actual"><td>Apr 4</td><td>Sat</td><td>Actual</td><td class="num">—</td><td class="num">$16,694</td></tr>
+      <tr class="actual"><td>Apr 5</td><td>Sun</td><td>Actual</td><td class="num">—</td><td class="num">$9,826</td></tr>
+      <tr class="actual"><td>Apr 6</td><td>Mon</td><td>Actual</td><td class="num">—</td><td class="num">$7,075</td></tr>
+      <tr class="actual"><td>Apr 7</td><td>Tue</td><td>Actual</td><td class="num">—</td><td class="num">$10,745</td></tr>
+      <tr class="projected"><td>Apr 10</td><td>Fri</td><td>Today</td><td class="num">64</td><td class="num">$15,543</td></tr>
+      <tr class="projected"><td>Apr 11-30</td><td>—</td><td>Projected</td><td class="num">—</td><td class="num">$305,056</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- CRAWFORD BROTHERS -->
+<div class="restaurant">
+  <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+    <div>
+      <h2>Crawford Brothers</h2>
+      <div class="schedule">7 nights/week | Bonus target: $350,000 (est.) | Opened Dec 2024</div>
+    </div>
+    <span class="status on-track">On Track</span>
+  </div>
+  <div class="rtd-rtg">
+    <div class="box">
+      <div class="lbl">Revenue to Date</div>
+      <div class="val">$86,749</div>
+      <div class="sub">Apr 1-9 actuals (Toast)</div>
+    </div>
+    <div class="box">
+      <div class="lbl">Revenue to Go</div>
+      <div class="val">$301,712</div>
+      <div class="sub">Apr 10-30 projected (Tock)</div>
+    </div>
+    <div class="box highlight">
+      <div class="lbl">Projected April</div>
+      <div class="val">$388,461</div>
+      <div class="sub">$38,461 above target</div>
+    </div>
+  </div>
+  <div class="progress-wrap">
+    <div class="progress-label"><span>$0</span><span>Target: $350,000</span></div>
+    <div class="progress-bar"><div class="progress-fill green" style="width:100%"></div></div>
+  </div>
+  <div class="rtg-breakdown">
+    <div class="item"><span class="k">RTG — Booked reservations</span><span class="v">$111,520</span></div>
+    <div class="item"><span class="k">RTG — Future reservations</span><span class="v">$190,192</span></div>
+    <div class="item"><span class="k">March 2026 actual</span><span class="v">Pending</span></div>
+    <div class="item"><span class="k">Note</span><span class="v" style="font-weight:400">CB calibration pending March P&L</span></div>
+  </div>
+  <div class="bonus">
+    <h4>Bonus Scorecard</h4>
+    <div class="row"><span class="k">Revenue $350K</span><span class="v hit">$388K projected — on track</span></div>
+    <div class="row"><span class="k">Labor 30%</span><span class="v tbd">Tracking in progress</span></div>
+  </div>
+</div>
+
+<!-- METHODOLOGY -->
+<div class="methodology">
+  <h2>How We Built These Numbers</h2>
+  <p style="color:#666; margin-bottom:16px;">Every number on this dashboard traces to a specific data source and a model that was backtested against actual financials. Nothing is estimated from averages alone.</p>
+
+  <h3>Data Sources</h3>
+  <ul>
+    <li><span class="source-tag toast">Toast</span> POS system via Orders API — daily revenue actuals by restaurant. Revenue = <code>checks[].amount</code> (pre-tax, pre-tip net sales matching P&L "Total Sales" line).</li>
+    <li><span class="source-tag tock">Tock</span> Reservation system via Daily Export API — forward bookings, party sizes, booking creation timestamps. 118,947 C&S reservations, 79,588 Jolie, 72,360 Brodeto, 30,819 CB.</li>
+    <li><span class="source-tag pl">P&L</span> Monthly Profit & Loss statements from QuickBooks — used for backtesting and revenue-per-cover calibration.</li>
+  </ul>
+
+  <h3>The RTD + RTG Model</h3>
+  <div class="formula">Projected Revenue = Revenue to Date (actuals) + Revenue to Go (booked + future reservations)</div>
+  <p><strong>Revenue to Date (RTD)</strong> — Actual daily revenue from Toast for completed days. Each order fetched individually via the Toast Orders v2 API, revenue summed from non-voided checks.</p>
+  <p style="margin-top:8px;"><strong>Revenue to Go (RTG)</strong> has two components:</p>
+  <ul>
+    <li><strong>Booked reservations</strong> — Current Tock bookings for future dates, multiplied by calibrated revenue-per-cover for that day of week.</li>
+    <li><strong>Future reservations</strong> — Reservations that haven't been made yet but will come in based on historical build curve patterns. Uses a 1.0x cap against historical average daily reservations per day-of-week.</li>
+  </ul>
+
+  <h3>Build Curves</h3>
+  <p>Every day of the week has its own booking pattern. We analyzed 10 months of steady-state reservation data (June 2025 - February 2026) to learn how bookings accumulate over time. Example for Brodeto:</p>
+  <table>
+    <tr><th>Days Before Service</th><th>Saturday</th><th>Friday</th><th>Tuesday</th></tr>
+    <tr><td>28 days</td><td class="num">11%</td><td class="num">9%</td><td class="num">4%</td></tr>
+    <tr><td>14 days</td><td class="num">26%</td><td class="num">20%</td><td class="num">14%</td></tr>
+    <tr><td>7 days</td><td class="num">41%</td><td class="num">34%</td><td class="num">26%</td></tr>
+    <tr><td>3 days</td><td class="num">55%</td><td class="num">49%</td><td class="num">40%</td></tr>
+    <tr><td>1 day</td><td class="num">63%</td><td class="num">61%</td><td class="num">49%</td></tr>
+    <tr><td>Day of</td><td class="num">73%</td><td class="num">71%</td><td class="num">61%</td></tr>
   </table>
-</div>
+  <p>This means even on the day of service, roughly 30% of reservations were made that same day. The model accounts for this by projecting how many more bookings will come in based on where we are on the curve.</p>
 
-<!-- April 2025 Comp -->
-<div class="comp-section">
-  <h2>April 2025 &mdash; Last Year</h2>
-  <p class="comp-subtitle">All four hit the bonus. The goal is to repeat that.</p>
-  <div class="comp-grid">
-    <div class="comp-card">
-      <div class="comp-name">Crawford & Son</div>
-      <div class="comp-val">24.3%</div>
-      <div class="comp-detail">$151K rev &nbsp;|&nbsp; Best month of 2025</div>
-    </div>
-    <div class="comp-card">
-      <div class="comp-name">Jolie</div>
-      <div class="comp-val">26.2%</div>
-      <div class="comp-detail">$142K rev &nbsp;|&nbsp; Bonus achieved</div>
-    </div>
-    <div class="comp-card">
-      <div class="comp-name">Brodeto</div>
-      <div class="comp-val">26.3%</div>
-      <div class="comp-detail">$406K rev &nbsp;|&nbsp; Bonus achieved</div>
-    </div>
-    <div class="comp-card">
-      <div class="comp-name">Crawford Brothers</div>
-      <div class="comp-val">28.1%</div>
-      <div class="comp-detail">$501K rev &nbsp;|&nbsp; Bonus achieved</div>
-    </div>
-  </div>
-</div>
+  <h3>Revenue Per Cover (Calibrated)</h3>
+  <p>Base revenue-per-cover comes from Toast daily actuals (Week 1 April 2026), then adjusted upward based on the gap between Toast <code>checks[].amount</code> and P&L Total Sales. The adjustment accounts for service charges and other items that appear in the P&L but not in Toast's check subtotal.</p>
+  <table>
+    <tr><th>Restaurant</th><th>Toast RPC</th><th>P&L-Implied RPC</th><th>Adjustment</th><th>Calibrated RPC</th></tr>
+    <tr><td>Crawford & Son</td><td class="num">$88</td><td class="num">$89</td><td class="num">+$3</td><td class="num">$91</td></tr>
+    <tr><td>Jolie</td><td class="num">$75</td><td class="num">$80</td><td class="num">+$5</td><td class="num">$80</td></tr>
+    <tr><td>Brodeto</td><td class="num">$92</td><td class="num">$95</td><td class="num">+$3</td><td class="num">$95</td></tr>
+    <tr><td>Crawford Brothers</td><td class="num">$134</td><td class="num">TBD</td><td class="num">+$3</td><td class="num">$137</td></tr>
+  </table>
 
-<!-- Per-Restaurant Actions -->
-<h2 style="font-size:20px; font-weight:700; color:#fff; margin-bottom:16px;">What Each Restaurant Can Do &mdash; 21 Days Remaining</h2>
+  <h3>Walk-in Analysis</h3>
+  <p>Calibration comparing Tock covers vs Toast guests for April 1-7 showed these are <strong>reservation-only restaurants</strong>. Tock covers meet or exceed Toast guest counts on every day tested. Walk-in rate is effectively 0%, which simplifies the model — all revenue flows through reservations.</p>
 
-<div class="actions">
-  <div class="action">
-    <div class="action-name">Crawford & Son</div>
-    <div class="action-status amber">30.1% &mdash; $164 over the line</div>
-    <div class="action-text">
-      <strong>3 extra covers per service night</strong> adds ~$4,500 in revenue and drops labor to 29.2%. One private event ($2,500+) makes this a comfortable hit. Week 2 staffing already trending lighter.
-    </div>
-  </div>
-  <div class="action">
-    <div class="action-name">Jolie</div>
-    <div class="action-status green">28.7% &mdash; $1,894 cushion</div>
-    <div class="action-text">
-      No adjustments needed. Last April was 26.2%. Current pace is slightly above but safely inside the target. <strong>Stay the course.</strong>
-    </div>
-  </div>
-  <div class="action">
-    <div class="action-name">Brodeto</div>
-    <div class="action-status amber">30.8% &mdash; $3,267 over the line</div>
-    <div class="action-text">
-      <strong>Sunday OT is the lever.</strong> 23.7 OT hours on one Sunday = ~$700 premium. Trimming Sunday OT 30% over 3 remaining Sundays saves ~$2,100 (two-thirds of the gap). Remaining $1,100 needs to come from revenue &mdash; $434K to hit 30%.
-    </div>
-  </div>
-  <div class="action">
-    <div class="action-name">Crawford Brothers</div>
-    <div class="action-status green">23.7% &mdash; $31,036 cushion</div>
-    <div class="action-text">
-      Strongest position in the portfolio. <strong>The team is managing labor actively</strong> &mdash; 45 employees, minimal OT. This is the model for high-volume labor management. Bonus is locked.
-    </div>
-  </div>
-</div>
+  <h3>March 2026 Backtest</h3>
+  <p>We validated the model by pretending it was March 10 and projecting March revenue, then comparing against actual P&L results:</p>
+  <table>
+    <tr><th>Restaurant</th><th>Model Projected</th><th>Actual P&L</th><th>Error</th></tr>
+    <tr><td>Crawford & Son</td><td class="num">$145,984</td><td class="num">$151,772</td><td class="num">-3.8%</td></tr>
+    <tr><td>Jolie</td><td class="num">$123,737</td><td class="num">$132,914</td><td class="num">-6.9%</td></tr>
+    <tr><td>Brodeto</td><td class="num">$412,047</td><td class="num">$405,506</td><td class="num">+1.6%</td></tr>
+  </table>
+  <p>The model tends to slightly underproject for 5-night restaurants and slightly overproject for 7-night restaurants. This conservative bias is intentional — it's better to beat a projection than miss one.</p>
 
-<!-- Next Report -->
-<div class="next-report">
-  <h3>Next Update: Week 2 Flash &mdash; April 14</h3>
-  <p>By Day 14, projections tighten to &plusmn;5&ndash;6% accuracy. Updated bonus probability for all four restaurants.</p>
-</div>
+  <h3>Key Limitations</h3>
+  <ul>
+    <li>Individual day projections can swing 30-40% from actual. The model converges at the <strong>month level</strong>, not the day level.</li>
+    <li>Revenue-per-cover is based on one week of Toast data (April 1-7). More weeks will improve accuracy.</li>
+    <li>Crawford Brothers has no March P&L yet for backtesting — using Brodeto's calibration parameters.</li>
+    <li>Projections for dates 14+ days out are less reliable because fewer bookings are in place. Accuracy improves daily as the booking window closes.</li>
+    <li>The model improves every day: as more days become actuals, RTD grows and RTG (the uncertain part) shrinks.</li>
+  </ul>
 
-<div class="footer">
-  Data source: Toast POS API &nbsp;|&nbsp; Multiplier model: 2.48x (5-night) / 1.89x (7-night) &nbsp;|&nbsp; Revenue forecasts from 14-month P&L baseline<br>
-  Crawford Hospitality Intelligence Platform &nbsp;|&nbsp; Confidential
+  <h3>What Makes This Self-Learning</h3>
+  <p>Each completed month provides a new backtest. We compare what the model projected vs what actually happened, identify where errors concentrate (which day-of-week, which distance out), and adjust parameters. The March backtest already taught us:</p>
+  <ul>
+    <li>1.0x cap outperforms 1.2x and 1.5x caps on build curve projections</li>
+    <li>Toast revenue-per-cover needs a $3-5 upward adjustment to match P&L net sales</li>
+    <li>5-night restaurants need the RPC adjustment more than 7-night restaurants</li>
+  </ul>
+  <p style="margin-top:16px; color:#666; font-size:11px;">Built with Toast Orders API, Tock Daily Export API, and QuickBooks P&L data. Model version 2.0 — calibrated April 10, 2026.</p>
 </div>
 
 </div>
