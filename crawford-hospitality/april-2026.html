@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crawford Hospitality — April 2026 Labor Snapshot</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%230a0a0a' width='100' height='100' rx='20'/><text x='50' y='68' text-anchor='middle' fill='%23c8a55a' font-family='system-ui' font-size='52' font-weight='700'>C</text></svg>">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif; background: #0a0a0a; color: #e0e0e0; min-height: 100vh; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 40px 24px 60px; }
+.back-link { display: inline-flex; align-items: center; gap: 8px; color: #888; text-decoration: none; font-size: 13px; margin-bottom: 24px; transition: color 0.2s; }
+.back-link:hover { color: #c8a55a; }
+
+h1 { font-size: 28px; font-weight: 700; color: #fff; letter-spacing: -0.5px; margin-bottom: 4px; }
+.subtitle { font-size: 14px; color: #666; margin-bottom: 8px; }
+.live-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; color: #4ade80; background: rgba(74,222,128,0.1); padding: 3px 10px; border-radius: 4px; margin-bottom: 32px; }
+.live-badge::before { content: ''; width: 6px; height: 6px; background: #4ade80; border-radius: 50%; animation: pulse 2s infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+/* Portfolio KPI strip */
+.kpi-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 32px; }
+.kpi { background: #141414; border: 1px solid #222; border-radius: 10px; padding: 16px; text-align: center; }
+.kpi-val { font-size: 26px; font-weight: 700; color: #c8a55a; }
+.kpi-label { font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
+
+/* Restaurant cards */
+.restaurants { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 32px; }
+.card { background: #141414; border: 1px solid #222; border-radius: 12px; padding: 24px; position: relative; overflow: hidden; }
+.card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+.card.on-track::before { background: #4ade80; }
+.card.at-risk::before { background: #fb923c; }
+
+.card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
+.card-name { font-size: 18px; font-weight: 700; color: #fff; }
+.card-schedule { font-size: 11px; color: #666; margin-top: 2px; }
+.status-tag { padding: 3px 10px; border-radius: 4px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+.tag-on-track { background: rgba(74,222,128,0.1); color: #4ade80; }
+.tag-at-risk { background: rgba(251,146,60,0.1); color: #fb923c; }
+
+.card-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
+.metric { text-align: center; }
+.metric-val { font-size: 20px; font-weight: 700; }
+.metric-val.green { color: #4ade80; }
+.metric-val.amber { color: #fb923c; }
+.metric-val.gold { color: #c8a55a; }
+.metric-label { font-size: 10px; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+
+/* Progress bar */
+.progress-section { margin-bottom: 16px; }
+.progress-header { display: flex; justify-content: space-between; font-size: 11px; color: #666; margin-bottom: 6px; }
+.progress-bar { height: 6px; background: #222; border-radius: 3px; overflow: hidden; position: relative; }
+.progress-fill { height: 100%; border-radius: 3px; transition: width 0.5s; }
+.progress-fill.green { background: #4ade80; }
+.progress-fill.amber { background: #fb923c; }
+.progress-marker { position: absolute; top: -2px; width: 2px; height: 10px; background: #fff; opacity: 0.5; }
+
+/* Bonus math */
+.bonus-math { background: #1a1a1a; border-radius: 8px; padding: 12px 16px; font-size: 13px; color: #999; line-height: 1.6; }
+.bonus-math strong { color: #e0e0e0; font-weight: 600; }
+.bonus-math .amt-green { color: #4ade80; font-weight: 700; }
+.bonus-math .amt-amber { color: #fb923c; font-weight: 700; }
+
+/* OT section */
+.ot-section { background: #141414; border: 1px solid #222; border-radius: 12px; padding: 24px; margin-bottom: 32px; }
+.ot-section h2 { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 16px; }
+.ot-table { width: 100%; border-collapse: collapse; }
+.ot-table th { font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 0.5px; text-align: left; padding: 8px 12px; border-bottom: 1px solid #222; }
+.ot-table td { font-size: 13px; color: #ccc; padding: 10px 12px; border-bottom: 1px solid #1a1a1a; }
+.ot-table td:first-child { color: #fff; font-weight: 600; }
+.ot-table .highlight { color: #fb923c; font-weight: 600; }
+
+/* April 2025 comp */
+.comp-section { background: #141414; border: 1px solid #222; border-radius: 12px; padding: 24px; margin-bottom: 32px; }
+.comp-section h2 { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+.comp-subtitle { font-size: 13px; color: #666; margin-bottom: 16px; }
+.comp-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.comp-card { background: #1a1a1a; border-radius: 8px; padding: 14px; text-align: center; }
+.comp-name { font-size: 12px; color: #888; font-weight: 600; margin-bottom: 8px; }
+.comp-val { font-size: 18px; font-weight: 700; color: #4ade80; margin-bottom: 2px; }
+.comp-detail { font-size: 11px; color: #666; }
+
+/* Action items */
+.actions { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 32px; }
+.action { background: #141414; border: 1px solid #222; border-radius: 12px; padding: 20px; }
+.action-name { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+.action-status { font-size: 12px; font-weight: 600; margin-bottom: 10px; }
+.action-status.green { color: #4ade80; }
+.action-status.amber { color: #fb923c; }
+.action-text { font-size: 13px; color: #999; line-height: 1.6; }
+.action-text strong { color: #ccc; }
+
+/* Next report */
+.next-report { background: linear-gradient(135deg, #1a1a1a, #141414); border: 1px solid #c8a55a33; border-radius: 12px; padding: 24px; text-align: center; }
+.next-report h3 { font-size: 16px; color: #c8a55a; font-weight: 700; margin-bottom: 6px; }
+.next-report p { font-size: 13px; color: #888; }
+
+.footer { font-size: 11px; color: #333; text-align: center; margin-top: 40px; padding-top: 24px; border-top: 1px solid #1a1a1a; }
+
+@media (max-width: 768px) {
+  .kpi-strip { grid-template-columns: repeat(3, 1fr); }
+  .restaurants { grid-template-columns: 1fr; }
+  .comp-grid { grid-template-columns: repeat(2, 1fr); }
+  .actions { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .kpi-strip { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<a href="overview.html" class="back-link">&larr; Crawford Hospitality</a>
+
+<h1>April 2026 &mdash; Labor Snapshot</h1>
+<p class="subtitle">Through Day 9 of 30 &nbsp;|&nbsp; Live Toast API Data</p>
+<span class="live-badge">Live &mdash; April 9, 2026 11:42 PM</span>
+
+<!-- Portfolio KPIs -->
+<div class="kpi-strip">
+  <div class="kpi">
+    <div class="kpi-val">$101.9K</div>
+    <div class="kpi-label">Payroll MTD</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-val">$334K</div>
+    <div class="kpi-label">Projected Month</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-val">$1.21M</div>
+    <div class="kpi-label">Revenue Forecast</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-val" style="color:#4ade80">27.6%</div>
+    <div class="kpi-label">Portfolio Labor %</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-val">4,061</div>
+    <div class="kpi-label">Total Hours</div>
+  </div>
+</div>
+
+<!-- Restaurant Cards -->
+<div class="restaurants">
+
+  <!-- C&S -->
+  <div class="card at-risk">
+    <div class="card-header">
+      <div>
+        <div class="card-name">Crawford & Son</div>
+        <div class="card-schedule">Tue&ndash;Sat &nbsp;|&nbsp; 7 of 22 service days elapsed</div>
+      </div>
+      <span class="status-tag tag-at-risk">At Risk</span>
+    </div>
+    <div class="card-metrics">
+      <div class="metric">
+        <div class="metric-val amber">30.1%</div>
+        <div class="metric-label">Projected Labor</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val gold">$158K</div>
+        <div class="metric-label">Rev Forecast</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val amber">&ndash;$164</div>
+        <div class="metric-label">Bonus Cushion</div>
+      </div>
+    </div>
+    <div class="progress-section">
+      <div class="progress-header">
+        <span>Month progress</span>
+        <span>32% complete</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill amber" style="width:32%"></div>
+      </div>
+    </div>
+    <div class="bonus-math">
+      Bonus ceiling at 30%: <strong>$47,408</strong> &nbsp;|&nbsp; Projected payroll: <strong>$47,572</strong><br>
+      Gap: <span class="amt-amber">$164 over</span> &mdash; less than one cover separates this from a hit. Week 2 staffing is lighter (9 vs 12 Wed/Thu) &mdash; trajectory improving.
+    </div>
+  </div>
+
+  <!-- Jolie -->
+  <div class="card on-track">
+    <div class="card-header">
+      <div>
+        <div class="card-name">Jolie</div>
+        <div class="card-schedule">Tue&ndash;Sat &nbsp;|&nbsp; 7 of 22 service days elapsed</div>
+      </div>
+      <span class="status-tag tag-on-track">On Track</span>
+    </div>
+    <div class="card-metrics">
+      <div class="metric">
+        <div class="metric-val green">28.7%</div>
+        <div class="metric-label">Projected Labor</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val gold">$142K</div>
+        <div class="metric-label">Rev Forecast</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val green">+$1,894</div>
+        <div class="metric-label">Bonus Cushion</div>
+      </div>
+    </div>
+    <div class="progress-section">
+      <div class="progress-header">
+        <span>Month progress</span>
+        <span>32% complete</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill green" style="width:32%"></div>
+      </div>
+    </div>
+    <div class="bonus-math">
+      Bonus ceiling at 30%: <strong>$42,612</strong> &nbsp;|&nbsp; Projected payroll: <strong>$40,718</strong><br>
+      Cushion: <span class="amt-green">$1,894 under</span> &mdash; comfortable. Last April ran 26.2% labor. Stay the course.
+    </div>
+  </div>
+
+  <!-- Brodeto -->
+  <div class="card at-risk">
+    <div class="card-header">
+      <div>
+        <div class="card-name">Brodeto</div>
+        <div class="card-schedule">7 nights &nbsp;|&nbsp; 9 of 30 service days elapsed</div>
+      </div>
+      <span class="status-tag tag-at-risk">At Risk</span>
+    </div>
+    <div class="card-metrics">
+      <div class="metric">
+        <div class="metric-val amber">30.8%</div>
+        <div class="metric-label">Projected Labor</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val gold">$420K</div>
+        <div class="metric-label">Rev Forecast</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val amber">&ndash;$3,267</div>
+        <div class="metric-label">Bonus Cushion</div>
+      </div>
+    </div>
+    <div class="progress-section">
+      <div class="progress-header">
+        <span>Month progress</span>
+        <span>30% complete</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill amber" style="width:30%"></div>
+      </div>
+    </div>
+    <div class="bonus-math">
+      Bonus ceiling at 30%: <strong>$126,036</strong> &nbsp;|&nbsp; Projected payroll: <strong>$129,303</strong><br>
+      Gap: <span class="amt-amber">$3,267 over</span> &mdash; Sunday OT (23.7 hrs) is the primary lever. Trimming Sunday OT 30% over the remaining 3 Sundays saves ~$2,100.
+    </div>
+  </div>
+
+  <!-- CB -->
+  <div class="card on-track">
+    <div class="card-header">
+      <div>
+        <div class="card-name">Crawford Brothers</div>
+        <div class="card-schedule">7 nights &nbsp;|&nbsp; 9 of 30 service days elapsed</div>
+      </div>
+      <span class="status-tag tag-on-track">On Track</span>
+    </div>
+    <div class="card-metrics">
+      <div class="metric">
+        <div class="metric-val green">23.7%</div>
+        <div class="metric-label">Projected Labor</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val gold">$493K</div>
+        <div class="metric-label">Rev Forecast</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val green">+$31,036</div>
+        <div class="metric-label">Bonus Cushion</div>
+      </div>
+    </div>
+    <div class="progress-section">
+      <div class="progress-header">
+        <span>Month progress</span>
+        <span>30% complete</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill green" style="width:30%"></div>
+      </div>
+    </div>
+    <div class="bonus-math">
+      Bonus ceiling at 30%: <strong>$147,804</strong> &nbsp;|&nbsp; Projected payroll: <strong>$116,768</strong><br>
+      Cushion: <span class="amt-green">$31,036 under</span> &mdash; strongest labor position in the portfolio. 45 employees, 15.8 OT hours. Bonus is locked.
+    </div>
+  </div>
+
+</div>
+
+<!-- Overtime -->
+<div class="ot-section">
+  <h2>Overtime Through Day 9</h2>
+  <table class="ot-table">
+    <thead>
+      <tr>
+        <th>Restaurant</th>
+        <th>Total Hours</th>
+        <th>OT Hours</th>
+        <th>OT %</th>
+        <th>Pattern</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Crawford & Son</td>
+        <td>547</td>
+        <td>6.1</td>
+        <td>1.1%</td>
+        <td>Saturday only &mdash; controlled</td>
+      </tr>
+      <tr>
+        <td>Jolie</td>
+        <td>513</td>
+        <td>12.2</td>
+        <td>2.4%</td>
+        <td>Saturday only &mdash; controlled</td>
+      </tr>
+      <tr>
+        <td>Brodeto</td>
+        <td>1,555</td>
+        <td class="highlight">50.8</td>
+        <td class="highlight">3.3%</td>
+        <td class="highlight">Fri 13.7 &nbsp; Sat 13.4 &nbsp; Sun 23.7 &mdash; Sunday heavy</td>
+      </tr>
+      <tr>
+        <td>Crawford Brothers</td>
+        <td>1,446</td>
+        <td>15.8</td>
+        <td>1.1%</td>
+        <td>Sat 2.9 &nbsp; Sun 12.9 &mdash; well managed</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- April 2025 Comp -->
+<div class="comp-section">
+  <h2>April 2025 &mdash; Last Year</h2>
+  <p class="comp-subtitle">All four hit the bonus. The goal is to repeat that.</p>
+  <div class="comp-grid">
+    <div class="comp-card">
+      <div class="comp-name">Crawford & Son</div>
+      <div class="comp-val">24.3%</div>
+      <div class="comp-detail">$151K rev &nbsp;|&nbsp; Best month of 2025</div>
+    </div>
+    <div class="comp-card">
+      <div class="comp-name">Jolie</div>
+      <div class="comp-val">26.2%</div>
+      <div class="comp-detail">$142K rev &nbsp;|&nbsp; Bonus achieved</div>
+    </div>
+    <div class="comp-card">
+      <div class="comp-name">Brodeto</div>
+      <div class="comp-val">26.3%</div>
+      <div class="comp-detail">$406K rev &nbsp;|&nbsp; Bonus achieved</div>
+    </div>
+    <div class="comp-card">
+      <div class="comp-name">Crawford Brothers</div>
+      <div class="comp-val">28.1%</div>
+      <div class="comp-detail">$501K rev &nbsp;|&nbsp; Bonus achieved</div>
+    </div>
+  </div>
+</div>
+
+<!-- Per-Restaurant Actions -->
+<h2 style="font-size:20px; font-weight:700; color:#fff; margin-bottom:16px;">What Each Restaurant Can Do &mdash; 21 Days Remaining</h2>
+
+<div class="actions">
+  <div class="action">
+    <div class="action-name">Crawford & Son</div>
+    <div class="action-status amber">30.1% &mdash; $164 over the line</div>
+    <div class="action-text">
+      <strong>3 extra covers per service night</strong> adds ~$4,500 in revenue and drops labor to 29.2%. One private event ($2,500+) makes this a comfortable hit. Week 2 staffing already trending lighter.
+    </div>
+  </div>
+  <div class="action">
+    <div class="action-name">Jolie</div>
+    <div class="action-status green">28.7% &mdash; $1,894 cushion</div>
+    <div class="action-text">
+      No adjustments needed. Last April was 26.2%. Current pace is slightly above but safely inside the target. <strong>Stay the course.</strong>
+    </div>
+  </div>
+  <div class="action">
+    <div class="action-name">Brodeto</div>
+    <div class="action-status amber">30.8% &mdash; $3,267 over the line</div>
+    <div class="action-text">
+      <strong>Sunday OT is the lever.</strong> 23.7 OT hours on one Sunday = ~$700 premium. Trimming Sunday OT 30% over 3 remaining Sundays saves ~$2,100 (two-thirds of the gap). Remaining $1,100 needs to come from revenue &mdash; $434K to hit 30%.
+    </div>
+  </div>
+  <div class="action">
+    <div class="action-name">Crawford Brothers</div>
+    <div class="action-status green">23.7% &mdash; $31,036 cushion</div>
+    <div class="action-text">
+      Strongest position in the portfolio. <strong>The team is managing labor actively</strong> &mdash; 45 employees, minimal OT. This is the model for high-volume labor management. Bonus is locked.
+    </div>
+  </div>
+</div>
+
+<!-- Next Report -->
+<div class="next-report">
+  <h3>Next Update: Week 2 Flash &mdash; April 14</h3>
+  <p>By Day 14, projections tighten to &plusmn;5&ndash;6% accuracy. Updated bonus probability for all four restaurants.</p>
+</div>
+
+<div class="footer">
+  Data source: Toast POS API &nbsp;|&nbsp; Multiplier model: 2.48x (5-night) / 1.89x (7-night) &nbsp;|&nbsp; Revenue forecasts from 14-month P&L baseline<br>
+  Crawford Hospitality Intelligence Platform &nbsp;|&nbsp; Confidential
+</div>
+
+</div>
+</body>
+</html>
